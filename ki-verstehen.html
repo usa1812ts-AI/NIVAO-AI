@@ -1,0 +1,2344 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KI verstehen</title>
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAABmJLR0QA/wD/AP+gvaeTAAABzUlEQVRIie3WPUvDQBwG8MtLLzahpqnokq4VXN21hU4O1tGlKILiJ/ArODt1EXXp4qAgiDgULBXERRxcWwtScZAWuZjY5MydgxBjTNJa00Hx2XI5nl/7D3lhKKVgmGGH2v4PDA4ghKK6+D6Abdv12zohZFhAu92WR2WO44YFIA2llFQk7f6AbuiSJLlXNE2rnFWiATDGhBAIobu9vF+O8bFoANMyBSi4vfJ+eWpyKjuT/bTt4ebpokTxS0+A9xxjC0Ph4+frhm4YRm42597Tvbts7cwTE2k3h+rKEQslEJwvI3rF4dNw2gEAL83z+70FYunfACilDMP00/6enoYXIISwrP/tbRud1m7B3e4Yj8cb/QJhCf5nDC8EnfICLMsGPSS4uJJeO+XiimddzOTH5zYjAAAAI+q0unriNsRMXl06YGLxfgGe5zHGQbs9Rs92HwBCaGHLOZRESRTFaq3qMdLrlYnClrp8GN4OAAD0czDGV9dX7hWEUGm7VK1V6UDxGRHP8aZpOiuJRKK4WMSvYXMLCfP1zdVoNpJyciw1NlijJz73gTwqdzqdSNr9AUVRnvVn27YjAXxGBADodruCIIQ8lH4KRJi/+uH1m4A39KIahyuH3n4AAAAASUVORK5CYII=">
+<style>
+:root{
+  --orange:#D97706; --olive:#2D362E; --olive-soft:#3D4A3E; --transition:#8A9189;
+  --graphite:#4B5563; --gray:#9CA3AF; --light:#F3F4F6; --white:#fff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+[hidden]{display:none!important}
+body{font-family:Arial,'Liberation Sans',sans-serif;color:var(--graphite);background:var(--white);line-height:1.55;-webkit-font-smoothing:antialiased}
+header{position:sticky;top:0;background:#fff;border-bottom:2px solid var(--orange);padding:13px 20px;z-index:10}
+.brand{display:flex;align-items:center;gap:11px;max-width:880px;margin:0 auto}
+.brand .mark{height:38px;width:38px;flex:0 0 auto}
+.brand .wordmark{height:25px}
+.brand .sub{margin-left:auto;font-size:13px;color:var(--gray);font-weight:700;letter-spacing:.02em}
+main{max-width:880px;margin:0 auto;padding:24px 20px 64px}
+h1{font-size:26px;color:var(--olive);font-weight:700;margin:0 0 10px}
+h2{font-size:20px;color:var(--olive);font-weight:700;margin:0 0 8px}
+p{margin:0 0 12px}
+a{color:var(--orange)}
+.lead{color:var(--graphite);font-size:15px;margin-bottom:20px}
+.kernsatz{font-size:18px;font-weight:700;color:var(--olive);background:var(--light);border-radius:10px;padding:14px 16px;margin:0 0 16px}
+ul.punkte{margin:0 0 16px;padding-left:0;list-style:none}
+ul.punkte li{position:relative;padding:5px 0 5px 22px;margin:0}
+ul.punkte li::before{content:"";position:absolute;left:2px;top:13px;width:8px;height:8px;border-radius:50%;background:var(--orange)}
+.merkbild{border-left:4px solid var(--orange);background:#fff7ed;padding:12px 14px;border-radius:0 8px 8px 0;font-style:italic;color:var(--olive);margin:0 0 18px}
+.schaubild{background:var(--light);border-radius:12px;padding:18px 14px;margin:0 0 18px;display:flex;justify-content:center}
+.schaubild svg{max-width:100%;height:auto}
+.label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);margin:18px 0 6px}
+/* Buttons */
+.btn{display:inline-block;border:none;border-radius:8px;padding:11px 18px;font:inherit;font-weight:700;cursor:pointer;text-align:center}
+.btn-primary{background:var(--orange);color:#fff}
+.btn-primary:hover{background:#b45f05}
+.btn-secondary{background:var(--light);color:var(--olive)}
+.btn-secondary:hover{background:#e5e7eb}
+.btn-ghost{background:none;color:var(--graphite);text-decoration:underline;padding:6px 2px;border:none;cursor:pointer;font:inherit}
+.navrow{display:flex;justify-content:space-between;gap:10px;margin-top:26px;flex-wrap:wrap}
+.topnav{margin-bottom:14px}
+/* Pfad / Startseite */
+.resume{background:var(--olive);color:#fff;border-radius:10px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.resume span{font-weight:700}
+.fortschritt-wrap{margin:0 0 20px}
+.fortschritt-wrap .txt{font-size:13px;color:var(--gray);margin-bottom:6px}
+.fortschritt{height:9px;background:var(--light);border-radius:5px;overflow:hidden}
+.fortschritt > i{display:block;height:100%;background:var(--orange);transition:width .3s}
+.pfad{display:grid;gap:11px;margin-bottom:24px}
+.karte{display:flex;gap:14px;align-items:center;background:var(--light);border-left:4px solid var(--gray);border-radius:10px;padding:14px 16px;cursor:pointer;transition:transform .12s,box-shadow .12s}
+.karte:hover{transform:translateX(2px);box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.karte.erledigt{border-left-color:var(--orange)}
+.karte .nummer{flex:0 0 auto;width:38px;height:38px;border-radius:50%;background:#fff;border:2px solid var(--gray);color:var(--olive);font-weight:700;display:flex;align-items:center;justify-content:center}
+.karte.erledigt .nummer{background:var(--orange);border-color:var(--orange);color:#fff}
+.karte .ktxt{flex:1}
+.karte .ktitel{font-weight:700;color:var(--olive)}
+.karte .kkern{font-size:13px;color:var(--graphite)}
+.karte .status{flex:0 0 auto;font-size:12px;font-weight:700;color:var(--gray)}
+.karte.erledigt .status{color:var(--orange)}
+.abschluss-box{display:grid;gap:10px;grid-template-columns:1fr 1fr;margin-bottom:18px}
+@media(max-width:560px){.abschluss-box{grid-template-columns:1fr}}
+/* Fragen / Checks */
+.frage{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 16px;margin:0 0 12px}
+.frage .ftxt{font-weight:700;color:var(--olive);margin-bottom:10px}
+.optionen{display:grid;gap:8px}
+.opt{text-align:left;background:#fff;border:1.5px solid #e5e7eb;border-radius:8px;padding:10px 12px;cursor:pointer;font:inherit;color:var(--graphite)}
+.opt:hover:not(:disabled){border-color:var(--orange)}
+.opt:disabled{cursor:default}
+.opt-correct{border-color:#15803d!important;background:#f0fdf4;color:#14532d}
+.opt-wrong{border-color:#b91c1c!important;background:#fef2f2;color:#7f1d1d}
+.opt-sel{border-color:var(--orange)!important;background:#fff7ed}
+.feedback{background:var(--light);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:14px;color:var(--olive)}
+/* Roter Faden */
+.faden{display:grid;gap:0;justify-items:center;margin:6px 0 18px}
+.fchip{background:var(--olive);color:#fff;border-radius:10px;padding:12px 18px;font-weight:700;text-align:center;max-width:420px;width:100%}
+.fchip small{display:block;font-weight:400;font-size:12px;color:#d7dcd7;margin-top:3px}
+.fchip.eingabe,.fchip.antwort{background:var(--orange)}
+.farrow{color:var(--gray);font-size:22px;line-height:1;margin:7px 0}
+.callout{border-left:4px solid var(--orange);background:#fff7ed;padding:10px 14px;border-radius:0 8px 8px 0;margin:6px 0 0;font-size:14px;color:var(--olive);max-width:420px;width:100%}
+.fnote{background:var(--light);border-radius:10px;padding:12px 14px;font-size:14px;margin-top:18px}
+.fnote b{color:var(--olive)}
+/* Quiz Ergebnis */
+.ergebnis{background:var(--olive);color:#fff;border-radius:12px;padding:20px;text-align:center;margin-bottom:18px}
+.ergebnis .score{font-size:34px;font-weight:700;color:#fff}
+.ergebnis .score b{color:var(--orange)}
+.empfehlung{background:#fff7ed;border-left:4px solid var(--orange);padding:12px 14px;border-radius:0 8px 8px 0;margin-bottom:18px;font-size:14px;color:var(--olive)}
+/* Abkürzungs-Chips */
+.abk-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:9px 12px;margin:0 0 14px;font-size:12px;color:#14532d}
+.abk-box b{color:#15803d}
+.abk-chip{display:inline-block;background:#dcfce7;border-radius:5px;padding:1px 7px;margin:1px 3px 1px 0;font-size:11px;font-weight:700;color:#166534}
+/* Vertiefung (Baustein A) */
+.vertiefung{margin:0 0 18px;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden}
+.vt-toggle{width:100%;text-align:left;background:var(--light);border:none;padding:12px 14px;font:inherit;font-weight:700;color:var(--olive);cursor:pointer;display:flex;align-items:center;gap:8px}
+.vt-toggle:hover{background:#e9ebee}
+.vt-plus{color:var(--orange);font-weight:700;width:14px;display:inline-block;text-align:center}
+.vt-body{padding:4px 14px 12px}
+.vt-block{border-left:4px solid var(--gray);padding:4px 0 4px 12px;margin:12px 0 0}
+.vt-block .vt-h{font-weight:700;color:var(--olive);margin-bottom:4px}
+.vt-block ul{margin:0;padding-left:18px}
+.vt-block li{padding:2px 0}
+.vt-pro{border-left-color:#15803d}
+.vt-con{border-left-color:#b91c1c}
+.vt-note{border-left-color:var(--orange)}
+/* Karteikarten (Baustein B) */
+.kk-card{background:var(--olive);color:#fff;border-radius:14px;padding:34px 24px;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;margin:0 0 16px;user-select:none}
+.kk-card:hover{background:#384237}
+.kk-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin-bottom:10px}
+.kk-front{font-size:22px;font-weight:700;line-height:1.35}
+.kk-back{margin-top:18px;border-top:1px solid var(--graphite);padding-top:16px;font-size:16px;line-height:1.55;color:#f3f4f6}
+.kk-hint{margin-top:16px;font-size:12px;color:var(--gray)}
+footer{max-width:880px;margin:0 auto;padding:18px 20px 40px;color:var(--gray);font-size:12px;border-top:1px solid var(--light)}
+footer i{font-style:italic}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M245 195 C175 330,175 690,245 825" stroke="#2D362E" stroke-opacity="0.25" stroke-width="32" stroke-linecap="round" fill="none"/>
+      <path d="M430 315 L365 380 L365 644 L430 709" stroke="#2D362E" stroke-opacity="0.58" stroke-width="34" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <rect x="505.0" y="399.5" width="225" height="225" rx="36" transform="rotate(45 617.5 512.0)" fill="#D97706"/>
+    </svg>
+    <img class="wordmark" alt="NIVAO AI" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAADwCAIAAAB3xJeNAAAuWklEQVR4nO3deVzU9fY/8JkBBwZmEBAXEBSDUlaVUlQwUFaXNrP93t9tv623MistLc3cure+5ZK23JvXTG/W7ZY3dhAX3DdQUVDBDWSVdVhmgJnfH9yHDxtGYc77zCK8nn/VR97ncxzSDu/lvKV6vV4CAAAAAHxk1k4AAAAAoLdBgQUAAADADAUWAAAAADMUWAAAAADMUGABAAAAMEOBBQAAAMAMBRYAAAAAMxRYAAAAAMxQYAEAAAAwQ4EFAAAAwAwFFgAAAAAzFFgAAAAAzFBgAQAAADBDgQUAAADADAUWAAAAADMUWAAAAADMUGABAAAAMEOBBQAAAMAMBRYAAAAAMxRYAAAAAMxQYAEAAAAwQ4EFAAAAwAwFFgAAAAAzFFgAAAAAzFBgAQAAADBDgQUAAADADAUWAAAAADMUWAAAAADMUGABAAAAMEOBBQAAAMAMBRYAAAAAMxRYAAAAAMxQYAEAAAAwQ4EFAAAAwAwFFgAAAAAzFFgAAAAAzFBgAQAAADBDgQUAAADADAUWAAAAADMUWAAAAADMUGABAAAAMEOBBQAAAMAMBRYAAAAAMxRYAAAAAMxQYAEAAAAwQ4EFAAAAwAwFFgAAAAAzFFgAAAAAzFBgAQAAADBDgQUAAADADAUWAAAAADMUWAAAAADMUGABAAAAMEOBBQAAAMAMBRYAAAAAMxRYAAAAAMxQYAEAAAAwQ4EFAAAAwAwFFgAAAAAzFFgAAAAAzFBgAQAAADBDgQUAAADADAUWAAAAADMUWAAAAADMUGABAAAAMEOBBQAAAMAMBRYAAAAAMxRYAAAAAMxQYAEAAAAwQ4EFAAAAwAwFFgAAAAAzFFgAAAAAzFBgAQAAADBDgQUAAADADAUWAAAAADMUWAAAAADMUGABAAAAMEOBBQAAAMAMBRYAAAAAM3trJwAAYHNqamuKzxdfuHTh4qWLFZUVV69evVpT09DYoNFqtFptW1ubnZ2dvJ9c7iB3dnJ2d3Mf4D5goIfHMJ/hvsN9fYcP9xnqI5VKrf2bAABrkur1emvnwC80fDRtYL9+/TZ/+/3I20fy5kMWHj2hpaWFNvb4gTzBt5M/RoVCcWDH/p5/femV0m1J22jvmjltpo+3D22sZWzeuqW+vo4w0Huo9z3T72HMpKS0ZPqsGSIRfIf7btv6K1c+tuZyyeWcfTm5x/OOnzxeeqVUJJSLyiU4KHh0yOiJ4yeEBofKZFgrAOhzMIP1O21tbfPen/+vf25xkDtYO5c+xN3N/dtNG1pbWwljNVrt6y+/xp4Sl7LyspWfrqT9GPPqC6/wJpOUmiwY4cLFC/mn84MCgljysRFnzp35LSVpx+4dFy5e4IrZ0Niwd//evfv3rvt6nWt/18hJEdPip0VMiEClBdB34E+7oaLios/XrrJ2Fn2LQqGInhxFG5uanmLLs7CpGank9BLjEnmTSUpLYggiXKXZiJaWli0/bnn4jw/PfuKhDZs2MFZXBurq635LSXr5jVfi7on7vzWflZWXmelFAGBTUGAZ8f0P3x84dMDaWfQt5GLiSnlZ7nHRxVDzSclIpQ0MCgjiXfrMP53PUkOkZqTqdDrxOFZUW1u75su18fcmLP/bioIzhRZ7b1V19bfffTt91ox3F717ruicxd4LAFaBAssIvV7/3uIFDY0N1k6kD4mcGKlUKmljU9JTeJPhcuHihYLCAtrYafHTeJPhmnmqvlq9/5b98UOj0Xz97dfTZ8346h9f1TfUWyWHjo6O31KSZv/hoQUfLqyorLBKDgBgASiwjKusqvxo5UfWzqIPkcvlMdExtLHpWem2OadCrvykUmlCbDxjJjqdLpU6l9ZVUirDUqPlZWZnznhw5ur1a5qam6ydi0Sn021L2jZz9j1f/eOrjo4Oa6cDAPxQYN1QakbaLfo/klvUNOoqYU1tzf6DJhxatBjy+uDY0WMHDxrMmMn+Qweqr1ZzRdu+Y7tGo+GKZgE1tTVvzp87Z96blVWV1s7ldzQazZov1z725GPkmU4AsFkosG5m6V+XYUeqxYSPC3dzc6ONTba9VcLThafJe56m868Pcv6o0NTclL0rmzGgWe0/uP+Bx2ZlbM+wdiI3VHCm8PGnn/j+h83WTgQAOKHAuhm1Wv3e4gW2ufzU+9jZ2cVNjaON3b4jS6O1rTmVlHTi9JXI52CURqPZvmM7Y0DJLbJKqNfrv/z7Vy+89mJtba21c+lGe3v7yk9XvvXeW+S+dwBga1BgdePw0cMbN2+0dhZ9BXmVUN3UtHtPDm8yIvR6fVpmGm1s+F3jyTN5RmXvymbfdbRn/946UvdUi2lra5v/wbtrv1p7C/2AlJaZ/vSLz9TU1lg7EQBggAKre6vXryk8a7mz3H1Z2Jgw8t6j5DQb6s+UezyXvLicGM/d/soMs03t7e3pmensYbmom5pefP0lm/pPoofyT+f/4Zk/Xiq5ZO1EAEAUCqzudf4orNVqrZ1I7ydyem73nt3qJuufDutE3hMml8tjooinKY2qq6/bs38vY8BrfrPVVcLmluaXXn/p4OGD1k6EqKS05JkXnxW8qwcArA4FVo+cKzr3+Rdo724JiXHE/d0arSZ7J/NOIxqdTpeRRdxSHTEhQqVSMSaTlpHW3t7OGPCa3OO5NlgEtLa2vjLn1dzjudZOREhFZcUzLz1bXlFu7UQAgA4FVk9t+tcmtHe3gOBAegfzJNtYEtp/6AB5G8009vVBc34mtrYGp9Pp3lk47/DRw9ZOhMGVsisvvfGyLbTsAgAaFFg9pdfrF3y4EO3dLSAhNoE28MChA7ZwXozcX1ShUERFEu9kNKr0SqlZ53Js7V7Cz79YdQv1j+jWuaJz896ffwtt0geA66HAMkFFZQXau1sAuQtUR0dHepaVd15rtdqsHVm0sVGRUQqFgjEZc88wFV8oPl142qyv6LmU9JRvv/vW2lkw27l757pv1lk7CwCgsLd2AreY1Iy0qMioGYkzrJ1Ib+bv5+93m19RcRFhbHJ6yiOzH2FPqed2781Rq9W0sfzrg+afYUpKTQoYGWDut3SrpLRkyYol5oisdHYOCgwOCggKDgzy8vRyUbmoVCqls7K5ublR3djQ2FhRUZ5/Oj//9KmTp0+aYwL162+/mTh+YtiYMPbIAGBWKLBMtvSvy8LGhHkO8bR2Ir3ZtLjENV+uJQzs7I9gxe8OeX1QqVRGTIhgzOR04eniC8WMAY1KSU+Z8+ocmcyac+EdHR3vLJzHe4bU3t4+cmLkvTPuiYqM6tevX9cvUKlUKpXKy1My6o6RUZOjJBKJTqfbf+jAtqRt23dub21t5cpEp9PN/+Ddnzb9yHv6AQDMDUuEJlOr1QvQ3t3MplFXCfV6PeOtxqZqbmnetWcXbWxsdKxcLmdMxjLN1quqq63eEGHj5o0n8k9wRZPJZLPufSDt17RVf/s8dkqs0erqRgMnhU9c8eHyrN8yn3ziT4zfzbLyss/WfsYVDQAsAwUWxaGjhzdu+c7aWfRmPt4+QQFBtLHkOSRx2TuzyVMXvP1FdTod4a4eWk1g3cObV8qurPtmPVe08XeO+2nTj4veWzTQw4McRKVSzfnLnG1bf42dwtbS7Kdf/n385HGuaABgASiwiFavW33m3BlrZ9GbJVKvzSk4U3j+wnneZHqIXNu5ublNGBfOmMnBwwerqqtMHTUtfprvcF9TR2VlZ1rxIsjln6xgWY+TyWSvvfTa12u/9vfzF48mkUi8PL0+XfHpB/Pf7/kc2E3o9fqPPl6q1+vFQwGAZaDAImpra5v3/ny0dzefxLgEqVRKG5ucboU5lfqG+r0H9tHGxk2N493GRJtVSoiJj48xuZO+uqlp5+6dhNeJO3LsCMurHeQOn6745Jk/PU3+T+5GHrz/wXWfr1M6O4uHKigssOLsLACYCgUWHdq7m9XgQYPHjh5LG5uSZoVtWBnbM8g908mdKYzSaDVZ2ZmmjnJRuUwYPyE+Jo7wxt9SrHNtzmdrPxcPYm9v/8mKT6ZGTRUPZdT4O8et+XSNo6OjeKi1X31hpr78AMAOBZYQtHc3q2nUVcJLJZfyT+fzJtOtVNP3PHUSKSWN2rFrJ+FIXUz0VHt7+zv87xg+bLipY3P25dQ31Js6StCuPbvzTuSJx1nw9nt3R0wWj3MTYWPCli1aKj49drnk8rbk/7KkBADmhgJLCNq7m1V8TDx54czCiylV1dWHjx2hjU2IjeddmaKdH7y2OEhYJWxvb0+nXr9ItmHTBvEgs+6bNeu+WeJxuhU7JfZPT/xJPM53mzdiJxbALQEFlqiKyoqPVi61dha9k8jW79SMNEu20kjLTCW/jtyTwqj6hvo9+/eYOqq/S/8J4yd0/jN1lfA3wiiyUwWnxO8c9B7q/fYbb7Hk0xOv/Pll8R30ReeL9+wz+fsLAJaHAotBakaqrd1622uQmxdUVlUeyT3Km8xNJFMnzEQaUhiVlpne1tZm6qiY6Kl2dnad/zzy9pHDfIaZGiH3eO6V8jJTR5Ft+tcm8SDvzp3vpHASj9NDcrl8wdvvicfZ/OMW8SAAYG4osHgs/euy8opya2fRC4m030xJs9AqYUlpycn8k7Sx5G4UN0JcH/z9BdvxU02exNLr9Rb7MUPd1JSx3eRd/AYmT5ocOSmSJZ+eCxsTFmf6Z2tg7/691VerWfIBAPNBgcWjsbER7d3NQalUTgqfRBsrcqzPJCK948kb+Y26UnYl93iuqaNc+7uG3zX++ieEbVgSS/WOl0gk6ZlpGo1o562Xnn+RJRlTvfjsC4Jb7nQ6nQVumQQAQSiw2Bw8cgjt3c1hegJxi1J9Q/2e/Xt5kzGKvD7o7+fP1dbyf5mkJRN2QMdMibm2Pthp1MhRw7xNXiUsKi4qOFNo6iiC/wrv95oUPpF3Zbbn/P38oyKjBIMkpVp0xxsAEKDA4rRm/Rq0d2cXFRlF7iFkgbOE54rOnSs6RxvLO30loc4hJRibr4qLiSWESjb/JFZdXd2xvGOCQR576DGWZGgefehRwQgFZwqxJwHAxqHA+h2pVCoye6/VatHenZ1CoYieTPyJP3sX/XLAHiJPX0m4N2AVnCksOl9s6ihXV9fxv18f7ERbJUxOTzH3QvmuPbsEXzHQY+BkMze+urmJ4yd4DfEUDLIrh3itOABYBgqs33F0dHz8YaEfbc8VnVu1Du3dmZELkZaWlh27d3Cm0gV5A1ZQQJCPtw9jJrRlo9joWKPNxgJGBhDSq6yqJPcD66GdwoXFtPhE3ouJTCWVShOEa2vxzwEAzAoFlqHXX3ndb8RtIhG+27Lp4OGDXPmARCKJnBipVCppY5PNeZbwZP7JktIS2lje9lc6nS6F1Eo+IfaGM1W0825J5myIpdfrDx05JBgkdgpl9ZNXnHAOR3OP4lQNgC1DgWXIQe6wfPFye3t7cgS9Xv/e4gWNjY2MWfVxcrk8JjqGNnbP/j3ma7VPXh+USqU3qWwIDh89XFlVaeoodzf3cXeOu9Gv0jqOZmRnmm+VvPjC+br6OpEILiqX0OBQpnToAgMCXV1dRSI0NTcVnrXEkQIAoEGBZcSokaNefv5lkQgVlRUffYz27pzI+8Hb2toys7N4k+mk0+nSMtNoY8eOHjt40GDGZGjXLcdOibnJYlngqEDvod6mxlSr1bv2mGv16qhw89jxd4237vpgJ5lMFm5s65tJjuaKbvYHAPOx/l80tumpPz4ZNiZMJEJKegrauzMKHxfu5uZGG2umb8ThY0eqqqtoY6ezrg9qtJrMHZTGmwb9RbuirRLSqr2eOHHyhGCEsaPHcCTCYEzoGMEIJ08R29sCgAWgwDJOJpMtW7RU6ewsEgTt3RnZ2dmRW2AfPnq4qpq/8zW5B4TI78WoXTm71Gq1qaMGuA+4a+ydN/8a2irh7r27zbQsK94GxRbWBzuNDh4tGIHcHwQALAAF1g15eXrNe3OeSITO9u6Exo9gFHmVUKfTpWcR1/JupL29PYu68hh+13jybJxRxPXBqcbPD14vKCBoqNdQUyO3tbVlZGUQUro5nU5XdL5IJIJUKr3D/w6ufAT5+/kLLlYWXyju6OjgygcAeKHAupl7Z9wreODo4JFDGzejvTuPsDFh5H1L7GcJ9x7YR95tTb7B2qiGxoacfTmEgT3sdEU8S2iGZdnLJZcFb8jx8vRSKBRc+QhydHQkFK/Xa2tru3j5Ilc+AMALBVY33p+/cKCHh0iE1etXo707C5GTdyfyT5D7KRhFXh+Uy+UxUcQTkUalZ6W3tbWZOspjgMedPdtlSOs4euTYEfb18UsllwQjjPAdwZIJlxHDfQUjlJSWciQCAPxQYHXDtb/rkoVLBNu7z3//XbR3Z5EYR98bznhtjkajyd6ZTRsbMSFCpVJxZSKhnx/sfn2wU3BgkJenl6nx9Xo9+9mCsrIywQiCM0bsPE3/YA2UlV1hyQQA2KHA6t6kCZMenS10d9jZorNo784iOJDe/VzkThsDO3bvbG5ppo2dxro+WFZeRruYz6S5wHjaKmEqc4F1pVy4wBIuaHiJ51OGYzQAtgoFVo/MefUNwcUFtHfnktBdZ4EbKSouOlt0liWH1AxiraZQKKIiifcqGpWclkI4RTHQw2Ps6LE9/3raKuHZorNcH3inisoKwQgeAwayZMJlwACh7QcSiQTnlAFsFgqsHnFwcFjxoWh79wUfLkR7d3EiHaRYFq3UavXuvZRN5RKJJCoyineTdVIaZX0wbmqcSefXgoOCaZcT8zbEqq2rFYzg7u7OkgmXAW6i+Qj2tQcA80GB1VMBIwNeeu5FkQjlFeVo7y7O38/f7zY/2ljabX0GsnZkkXfU8a4PFp4tpHVCIswCxpEaYqWkUybYbqShoV4wgrsrZ3cMceLdOsQ/EwAwExRYJnj6/z0t2AY6JT2Fcat1n0VuiHWl7EreiTzBt5O/g0qlMmJChODbr0fb5DTQYyChhzhtlbC8ovzIsSOEgUbVN4g2L3UWax3MztlJNB/xzwQAzAQFlglkMtmyRcsE/0786OOl2DYhaJrAKqFggVtbW7v/0AHa2NjoWLlcLvL26+n1etrvJT4mjnAqNiQoxJO2SpjKtkqobjK5W70BJycnlky4KBSi+Yh/JgBgJiiwTDPUa+g7b74tEgHt3cX5ePsEBQTRxqZlput0OvKr07Pow3n7ix46epi26Ts+hnhKIG4qpeluxvYMrh4lbcJxbKfLaCcnJ9F8CC3QAMAyUGCZ7P6Z98dETxWJgPbu4hKpq4RXa64eOEycgpII9Hpwc3ObMC6c/F4jmZBmhgYPGjwmlHgFHm2VsLGxkXwmwEBbW7tgBHs7+jkVcxDPBwUWgM1CgUXxwfwPPMTOV69ev5r3BHtfkxiXQO7+mpJG3OpeXlGeezyXNtbUg3s3p9VqM7IzaWmQP7eQoJAhg4cQBiYxrRK2tYsWEyIHgc3Bzs5OMEJ7u2jRCQBmggKLwtXV9cMFi0UiaLXaeQvno7072eBBg03q5HS9zB2ZtE8+NSOVvLYr0l2iq117dtFafpDvGpJIJFKplHYv4a49u9Rqhq1C4gvrjDUuC/ECC5sNAGyWbf11cwuJnBT5yOxHRCKcLTq7ev1qrnz6IPJZQnIjK/L6oEg5aBRtTmjI4CGhwaEi740nNWvQarXp2zNE3ttJfP5JZPudOXR0dAhGsLU5OQC4Bn846eb+5c0Dhw5cuHiBHGHj5u8mR9w9/s5xfEn1IfEx8cs/WUH7X2ZKeoqpG+kuXrpYUFhAeJdEIkmIjRe5ztIAeVeTyPpgp9Dg0MGDBhM21yenJs269wGRV0skEnt7e8EtR+3t7YwHOcWJF1j97PuxZMKro6mqeKmvXme4fCkfHOj7BuVmJ6POzHMweKK47W6f5xlKeQAWmMGic3BwWL54mWh798UL0N6dRmTb+M6cnU3NTSYNEbnKUKSvRFfpWem0JU6R9cFO5FXCw8eOVFZVCr5dvJho77CtHUvi+fTrZ4sFVmPeT12rK4lEoq04pSk7bvl8AKwCBZaQoICgF575s0iE8orypX9dxpVPX0NufKDRaLbvzDZpSGoGcWu8SFMJo5JIF/54DvEMCQoRfzttlVCn04nfUyTeZKG5mXhFt5k0N7cIRnB0dGTJhFdD7pYb/tKxG/4SQC+DAkvUs08+OzqEeO69U3JaMtq704i07jTpMy8oLDh/4TztReSOEkZVVFbQeqPT+ot2NTpk9OBBgwkDaX3nr+eichGM0NxiawWWadOoXfV36c+SCaO2q8Wtl27YCaUx7weJ3rZ2wgGYCQosUTKZbNmipU5iHZk/+ngprWlkH6dUKieFT6KN3XdgX11dXQ+/WGh9kLXASkpNoh0cS6D2FzUglUpjp1A6jhaeLSwqLhJ5df/+osUEy2FGRuJ92Pu7iBad7Bpy/3WTX22vL20+z9MXDcDGocBi4OPt8/Yc0fbu76G9O8n0BOL2po6Ojh4ebdPr9WmZabS3+Pv5+/v508YaRZsH8vL0Cg4K5sqB1nFUItwQy1W4wKqpqRGMwKumVjQfF9ubwWq88frg/74Aq4TQN6DA4jHr3gem3D1FJMLBwwe/27KJK5++IyoyirwNpYe7gnKP55WVl9FewTt9dbboLK0/LbkkMmpM6OhBAwcRBianJYv8FDFArLuvhKOg4SVe8A30GMiSCZfW0qPaqjM3/xr1yf/oO9ACEHo/tGlgs+jdD46fPH615io5wqp1qyaGT7jd73bGrHo9hUIRPTkqNYMyw3Qs71h5RXm33clFdsjxbsAib2PasGnDhk0bGDOhuVJedizvWNiYMNrwoZ5eggmIn2TkVVVdJRjB05NyA7f5dJ2dUoU82HQuS9dSd+1JR0ttU0GqMuhei2YGYHGYwWLj5ub24ULR9u7z338X7d1NRS5i9Hp9andrfzqdLj0rnRY/KCDIx9uHNrYrvV7fCw5DiKwSeg4RLbBKrpQKRuAlno/XEFsqsPS6xrytBs9UYx9XBhrWUt0uIwL0AiiwOE2eNPnhWQ+JRDhz7sya9Wu48ukjIidGKpVK2tiUtG5Klv2HDpDXlXjbXx05doS8Umk70rMyyM1CxWewSkpLBCPwKhUvsDyHsmTCorloR3tj+fVPZA4uznfEqUJnG3yl+nSyTtNgwdQArAAFFrO5r80dPmy4SISNW747eOQQVz59gVwuj4mOoY09XXj65r34U9OJ7a+kUql4Y8/r0dpf2Zr6hvqcfcRDZCNGjBDsNCF4jJGdYD5SqXSEry9TLgy69rhSBt0jtXdw8p9q5+R+/XN9e6v6xH8smBqAFaDAYubo6Lh88XKRO1x1Oh3au5tKZC/5TdbdtFpt5o5MWtixo8fS+kUZ1dbWlpHVS+4AIe8kc3Zy9hRbEbtac7W2tlYkAqP6hvrqq9UiETyHeDo7OXPlI0jf3qo++YvBQ1XIbIlEIrXr13WV8ObdHAB6ARRY/IIDg/6M9u6WFT4u3M3NjTb2Jj2ucvblkDsnTWddH9y1Z3dDYy9ZUtm5e6e6idhg83Z/0SMg+afzBSNwOVVwSjCC+KfBSH06yWDVT+bY3+mO/7VMU3ZZJey6ngjQy6DAMovnn3ouNDhUJEJyWjL5bpY+yM7OjnZHnkQiuXjp4unC00Z/ibypXCQfowQ7SNkUjVaTmU2cjRO/dCj3RJ5gBC65ebmCEQJHBnAkwqPr+UFl0L1Su/9dtODkP8XOacDvftnYjniA3gQFllnIZLJli5cKXp22ZOVH5O3AfZDIKqHRhlgtLS07c3bRAobfNZ48o9aVWq3evWc3VzRbQF4lHBs6RvDVh48eFozA5UjuUcEIY0ePZclEXEdLbVOh4YHc6/e2S2X2yqD7DL4AHUehd0OBZS7DvIe9/fpbIhEaGxvb243cSA9GhY0JI+95Ss1I69oAM3tXdmtrKy0g+RZqo9K3Z2i0GsaAVnfoyCFaC6jQ4FCRDY4SiSTvRJ4tbHBsaWk5lndMJIJMJgsNEZomZ6Q+8W+D3qF2Cjcn/98dPel6lrAnXUkBbl0osMzowfsfjJocZe0s+gqRU3sVlRVHu0wnkNcH5XJ5TBTxVKNRyb1ofbCTTqdLIR3PVCgUgaMCRV7d0dFBPsbIaN/BfYLz04GjAgSvQGXUcMxwx7pz0L1Su37XP3Hyi7ZzNuzF34it7tB7ocAyr8XvLXJ3c+/+64BDYhx9X7nBKmF9Q/2e/XtpoSImRKhUKnImBiqrKg8fO8IVzXb8lvobbeDkiMmCr+7hFUlmldxdA7ZuTZ4k+jlwaa8vablgWLN2na+SyOyUQfcbPGtAx1HovVBgmZe7m/viBULt3aHnggPpndMztmdevyCb+ft/Nck01vXB5LRknU7HGNBGFBQWFF8oJgyMnhwt+OqcfXsE+yMIamxs3JmzUzDI3ZF3syQjriH3X5Lfr7DbObk7+Rm5m7Vr1dV2tbj18kEzJgdgPSiwzC4q8u7Z93f5YQ7MIyE2gTawrr5u38F91/6VvD6oUCiiIjnXhcn7wW0f7bc26o6R3V4feXMdHR1b/23N82s/b/uPRiO0qW6gh4fgUikjY+cH7zNYH+zkdNvddkrD26m7ticF6B1QYFnCW6/PHeYzzNpZ9Aki3aeuFVVV1dXkVbmoyCjB06PXKyouKjxbyBXN1iSnJXc9W9AT4ldo//Dz1paWFsEgNO3t7Vu2bhYMkhg3TbCpPRdN+UlN+UmDh0bWBzvJ7JRBDxg8azz+o0TXYY7cAKwLBZYlKBSK5YuXCZ5+gp7w9/P3u82PNnb7juzOeYX0rDTyqhzv+iB5o9ItofRKae5xSleq+2YaHvg3VW1t7fc/fC8YhOaX3365Inyn5D3T72FJRlzX6Ss7pwEKv+gbfX3X2qtDXdV0bjt7YgBWhwLLQkKCQp5/6jlrZ9EnkBtiNbc079i9UyKwAVmpVEZMiKCN7Uqv13d7F/WtLimNckDSb8Rt4h1H/7HxH1XVlt6J1dTctO7rdYJBbve7fdQdI1nyEaXXN+T9YPBMGXy/VGZ/oxFOt022Uw4yeNiIre7QG6HAspznn34+OCjY2ln0ftPEVglLr5SeyD9BGx4bHSuXy8lvN3As75j4VIeNS89Mpx0meHT2I4KvVjc1ffx/KwWDmGrN+rXiVd0jwr93Li0XctrrLhs8vOH6YCepTBUyy+CZ+uSv+rZm3twArA4FluXY2dmtWLyccYMOGOXj7UOe3sjZl7P15x/Jr+btL/pbSm9rf9VVXX3dnn17CAOnJ0wf6GHYVMlUaZnplvyQDx45tFl495Vrf9f7ZhhenGwtXdtf2TkPdLqtm0MeqpAHDZ7otGr1qd68Gg590w0ncsEchvkMm/va3CUrllg7kV4uMS6RdqevVqv95/f/pL3Uzc1twrhw2tiu2traMrYTL+yTSCSPzH7kvbfe5UqmW0tWLPnxPz/RxialJRH68fbr1++xhx9f9cUq2kuvWbJyib+fvwVW3CoqK+YtnEfb1H+9h2Y95ODgwJKSIH2HVn3yZ4OHyuD7JbJuNpsqRkTaq4YY3PTckLtFNfph5hQBrAozWJb20AOzo2ymgU1vlRiXQD5jRd7eHjc1TiZj+wOVsy+nvqGePHxGwnSuTHpiusDrsnftaGpuIgx87KFHXV1dye/t1NLS8uqbr5ZeKRWMc3MNjQ2vzHlVvPmW0tn5j4/9gSUlcU2FaR3NNQYPu1kf7CSVKUMMzxI2n8noaL7KlRuALUCBZQWLFyxmvAkYuho8aLDl78EV6RDRlcjS1VCvoWOEL0U2SdiYMHJvKo1Gs30H5RCZs5Pzc08+S3vp9SoqK5558ZmLly6KhzKqtrb2+Vf+zNJu4/898SfX/q7icVgYOT+oHOg0okf95VUhhnWYvqNNfeLfPJkB2AYUWFbg7ua++L1F1s6ilyOfJaThLenUTU27cnaRh89InMGVSQ9JpVKR3lTkavKRBx/xGuJJfu81V8rLnnj6D7TdYDdXcKbw8aefOFVwSjyUm5ub7Uxf6TQN6tOG3zVV8Kxu1wc7KXwj7F0Mv3Fdd3QB3NKwB8s6oidHz7pv1s+/Gu5gAC7xMfHLP1lhsUtmEmLjGRs/ZmZnaLT0Tt8zLV5gSSSS6QnTN2zaQBt74PCB6qvVHgNM3rQul8vnzZ33l7mv0d57vYbGhpfeePmhWQ+98vzL4iuPEolEo9Fs3Lxx/d+/FLzU+Zo3X53j7OTMEkqc+uQv+vZWg4d1+7+s2/8lOWbLxb1ttZf6uaEnM/QSmMGymrffeIt8cR50i3fLebdEekN0JbI+GDgq0He4L18uPTXqjpF+I26jjdXpdKkZqbSx0ZOjY6Kn0sYa0Ov1W/+9dfqs6ev//mVzC71rQEdHx0+//DR91ozV69dwVVd3jr3zXps5PCgx0/02en1jLiaxoPdAgWU1Tgqn5YuXMW6LBgO8TRNuQqQxRFdV1VWHjx4mD585zQrTV51EqkyRmnL+3PkuKhfycAPqpqYvvvoidmbcBx99cODQAZMmQU8VnPpk1ScJ9yV+uHxJVXUVV0oODg4L5y3giiauvbG8uVj0smqjGtBxFHoRLBFaU2hw6HNPPfvl37+ydiK9U2x07Ecrl2q1WnO/SPxqvOslp6WQVzZlMhlvMiaZnjB9zZdraWNPFZy6cPECbe5t0MBBi95bNGfeHNqrjVKr1f/57y//+e8vbm5uoUEhASMDAkYFeHl6qVQuKmels7Nzc0uLWt3YqG6sqqo6XVhwuvD0yVMnr5RdYczhmrl/efM2X+LsoDk05m010+2B2opTmrITDp4h5ggOYGEosKzshWde2LNvz8lTlKZNcHNKpXJS+KQdu3eY+0W8G+qTBO4fnDAunLCTiYv3UO/goOCT+YZX//ZQUlrSy8+/TBsbOyXmoQdmk3tx3URtbe3OnF07Bc4cCIqaHGU7rds7dT0/yBk8dwsKLOgdsD5lZXZ2dssXL3d0dLR2Ir3T9ATOrVFG+fv5+/v5c0UrvlBccIZ+nn/GtJlcmRATEGiIlZSaLPLqd+a8M3b0GJEINmiE74jli5ZZO4vf0VadaS09ar74Dbk/SITbsQLYAsxgWd/wYcPn/uXNjz5eau1EeqGoyChHR8fWVsPjTox4p69EtiI5OjpybfcmS4xL/Otnf6MtcZaUluSdyBsdMpr2arlc/tnKzx576nEzrdNZXn+X/qs/WaVUKq2dyO8YvZjZbfLrA2dQLna8/GVMy/mc65+015e0nN+tuA3dmOGWhxksm/Dwgw9PntSjBn1gEoVCEW36NSwmYdzzpNfrk9PoszhT7p7ipHDiSoZmgPuA8XeNJw8XnMRyc3Nb99kX7m7uIkFshEKhWPW3VcO8ba5nQYOxg34uYU/QormMfbyHrwC45aDAshUfLlzM0n0HDJh103dQQBBjr43c47kisy+W7y9qlMiybGpmakeH0O7pEb4jvln7te20O6dxkDus/tsqG1zxbL10oO1qscFDB88QB89QWkBVyINSe8OrFdUnftZ3mP1sCoC5ocCyFQPcByx69wNrZ9ELRU6MNN8iC2/7q6RU+vqgm5tbxIRJjMmQxUbHOsiJtxHX1dXtPbBXMAF/P/+v13410MNqm/0FOSmcVn3yuchEoPkYbaPgEkbvLy9TuCoDDH8w6GipbSpMI8cEsBEosGzI1KipD9xzv7Wz6G3kcnlMdIw5Ikul0oTYeK5o7e3t6VkZ5OGJsYl2dj26pcTclErl5IhI8nCRXWjXjLx95Hd/32RTrQ16aID7gG+//MfE8ROtnYgRel174/Eu5zRldqoxj4qEVY01srxo1oOKAJaBAsu2vPPmO95Dva2dRW9jpnsJx44eO3jQYK5oOfty6urryMNnJNKP77GbLnCWMHtXtkgX9Wu8hnhu/OafkZPopZ7ljRo56vt/bAoYGWDtRIxrPpvVoTbsnursP9VeRbzn+38RRibYORtON6pPJ+k0DSJhAawOBZZtcVI4LVu0FO3deYWPC3dzc2MPO91m1gd9vH1Cg4mbYMxhcsRkpTPx1rzW1tbtO7JZ0nBRuaz9dM2rL7xyS/yBmn3/7E3ffOfl6WXtRG7I6PlBkfXBTlK7fqrQ2QYP9e2t6pO/CEYGsK5b4O+dvmZM6Jhn/vSMtbPoVezs7OKmxtlyzKbmph276XePiHSfMgcHucNUgWXZ3wRarRqQSqXPPfXcP7/aYMvLhQPcB3y64tP35y+Uy+XWzuWG9G3N6vxtBg9lDiplEMMNiUYPIeIsIdzqUGDZoheffSFwVKC1s+hV2FcJw+8azzgrlrk9U6PRkIfPtHZ/0a5EVgn3H9x/teYqYzKjQ0Zv/e6H5556rl+/foxhxUml0vtm3vfr1l9ip5hlmyAjdf42nbbJ4KEy+AFpP4bOII4+4+Uetxs8bC7a0d5YIR4cwFpQYNkie3v75YuXOTgQj2JBV2Fjwhj3S0m4b5JOEmh/FRwYNMzH5rolTRgXPsB9AG2sTqdLzWA+RCaXy1994ZVtW3+dFj9NKpXyBqcZf+e4LRs2L1n4IeNN1ebTYGzXufj64DWqrg2xdB2NeVu54gNYHgosGzXCd8Sbf+G8vLaP4z3xJ5fLY6LYphyqqqsPHj5IHj4j0eamryQSiUwmE/nAk9IYzhJ2NdRr6MolK37Y+ENinDUPXY6/a/z6Veu/+eKbW2WiuqOpuvlspsFD+/7eTnz91l3GPi7pUvga3fUFcKtAgWW7Hp39aMTECGtn0XskxrHtSY+YEKFSqbiipaSn0O6WkUgkMplsGutcGiORVcKT+ScvXb7EmMz1Rt0x8uOPVib9nPTkH560ZLssZyfn+2fe/8PGf32z9utJ4bbYiOFGGo//pNe1Gzx0CTNSEpH1c/dVDDds5NZackRbfZbrFQAWhrsIbdqHCz588PEHRU7vwzXBgUE+3j6XSy6Lh+KtaUTOD04Mn2izN8OEBod6D/UuKS2hDU9KTXrxuRd5U7qe1xDPOa++8frLr+07sC8lIzVnb05NbY05XqRQKMLvCo+PiY+dEnOLXuvuOvEF14kvmPstPi9sN+nr71hB37YIYAEosGzaQA+P9+e/P2ce1gp5JMYlfv3t14JBHB0doyLZ7jfUaDXRd0eTL0ycZBvd22/knTfePlVwijZ2yBBP3mSMkslkERMjIiZG6PX6/FP5+w/tzzuRdzz/RG1trUhYhUIROCpwdMjo8XeOuyvsLls+HggAZiLV6/XWzgEAwLaUlZedv3D+wqWLly5frKyqvFpTU1Nb09jYqNVqtG1tbW1tdnZ28n5yuVzu5OTk7ubm7ubu4THQZ6iP73Bf3+G+I4b73hLNtwDAfFBgAQAAADDDz1gAAAAAzFBgAQAAADBDgQUAAADADAUWAAAAADMUWAAAAADMUGABAAAAMEOBBQAAAMAMBRYAAAAAMxRYAAAAAMxQYAEAAAAwQ4EFAAAAwAwFFgAAAAAzFFgAAAAAzFBgAQAAADBDgQUAAADADAUWAAAAADMUWAAAAADMUGABAAAAMEOBBQAAAMAMBRYAAAAAMxRYAAAAAMxQYAEAAAAwQ4EFAAAAwAwFFgAAAAAzFFgAAAAAzFBgAQAAADBDgQUAAADADAUWAAAAADMUWAAAAADMUGABAAAAMEOBBQAAAMAMBRYAAAAAMxRYAAAAAMxQYAEAAAAwQ4EFAAAAwAwFFgAAAAAzFFgAAAAAzFBgAQAAADBDgQUAAADADAUWAAAAADMUWAAAAADMUGABAAAAMEOBBQAAAMAMBRYAAAAAMxRYAAAAAMxQYAEAAAAwQ4EFAAAAwAwFFgAAAAAzFFgAAAAAzFBgAQAAADBDgQUAAADADAUWAAAAADMUWAAAAADMUGABAAAAMEOBBQAAAMDs/wPdaYnDclZO8wAAAABJRU5ErkJggg==">
+    <span class="sub">KI verstehen</span>
+  </div>
+</header>
+<main id="app">
+  <noscript><p style="padding:24px 20px;color:#4B5563">Diese Lern-App benötigt JavaScript. Bitte öffne die Datei in einem Browser (z. B. Safari) mit aktivem JavaScript.</p></noscript>
+  <div id="bootmsg" style="padding:40px 20px;color:#4B5563;line-height:1.6">
+    <b>App wird geladen …</b><br>
+    Erscheint dauerhaft nur dieser Hinweis, läuft das JavaScript nicht.
+    Auf dem iPad bitte nicht die Datei-Vorschau verwenden, sondern <b>„In Safari öffnen"</b>.
+  </div>
+</main>
+<footer>
+  <i>Solid AI Solutions</i> · NIVAO AI · Lern-App KI-Grundwissen (Teile 1–5, inkl. Vertiefung) ·
+  Inhalt: eigene Wissensbasis, Stand Mai 2026 — Konzepte stabil, Versionsnummern Momentaufnahmen.
+</footer>
+
+<script>
+"use strict";
+/* ===================== Zustand / Persistenz ===================== */
+const STORE_KEY = "ki-verstehen-v2";
+function leererState(){ return { view:"start", aktuellesModul:0, aktuelleEtappe:0, erledigt:{}, letzteStelle:null, quizErgebnis:{}, karten:{}, kRunde:0 }; }
+function loadState(){
+  try{ const s = JSON.parse(localStorage.getItem(STORE_KEY)); return s && typeof s==="object" ? Object.assign(leererState(), s) : leererState(); }
+  catch(e){ return leererState(); }
+}
+function saveState(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
+let state = loadState();
+function istErledigt(m,e){ return !!(state.erledigt[m] && state.erledigt[m][e]); }
+function setErledigt(m,e){ if(!state.erledigt[m]) state.erledigt[m]={}; state.erledigt[m][e]=true; }
+function modulFortschritt(m){ const et=module[m].etappen; let n=0; for(let i=0;i<et.length;i++){ if(istErledigt(m,i)) n++; } return {erledigt:n, gesamt:et.length}; }
+
+/* ===================== Inhalte (Teil 1, Kap. 1–6) ===================== */
+const etappen = [
+  {
+    titel: "Die Begriffspyramide",
+    kurz: "KI, ML, Deep Learning, Generative KI",
+    kernsatz: "KI, Machine Learning, Deep Learning und Generative KI stecken ineinander — von weit zu eng.",
+    punkte: [
+      "Künstliche Intelligenz (KI) = Oberbegriff: jedes System, das Aufgaben löst, die sonst Intelligenz brauchen.",
+      "Machine Learning = Teilmenge der KI: lernt Muster aus Daten statt aus festen Regeln.",
+      "Deep Learning = Teilmenge von ML: nutzt tiefe (vielschichtige) neuronale Netze.",
+      "Generative KI = erzeugt neue Inhalte (Text, Bild, Code, Audio). Große Sprachmodelle gehören hierher."
+    ],
+    merkbild: "Jedes Sprachmodell ist Generative KI, ist Deep Learning, ist ML, ist KI — aber nicht jede KI ist ein Sprachmodell.",
+    check: [
+      { ftxt:"Welcher Begriff ist der weiteste (Oberbegriff)?",
+        opt:[{t:"Künstliche Intelligenz",c:true},{t:"Deep Learning",c:false},{t:"Generative KI",c:false}],
+        erkl:"KI ist der Oberbegriff. ML, Deep Learning und Generative KI sind jeweils Teilmengen davon." },
+      { ftxt:"Wozu gehört ein großes Sprachmodell?",
+        opt:[{t:"Zur klassischen Regel-KI",c:false},{t:"Zur Generativen KI",c:true},{t:"Nur zu Machine Learning",c:false}],
+        erkl:"Ein Sprachmodell erzeugt neue Inhalte — das ist Generative KI (und damit auch Deep Learning, ML und KI)." }
+    ]
+  },
+  {
+    titel: "Tokens & Tokenisierung",
+    kurz: "Die Bausteine der Sprache",
+    kernsatz: "Ein Modell liest keine Wörter, sondern Tokens — kleine Textbausteine.",
+    punkte: [
+      "Token = Textbaustein, meist ein Wortteil. \"Maschinenbau\" → \"Maschinen\" + \"bau\".",
+      "Tokenisierung = der Vorgang, Text in Tokens zu zerlegen.",
+      "Faustregel Englisch: 1 Token ≈ 0,75 Wörter ≈ 4 Zeichen.",
+      "Deutsch ist \"teurer\": lange zusammengesetzte Wörter zerfallen in mehr Tokens.",
+      "Wichtig: Kontextfenster und Kosten zählen in Tokens — nicht in Wörtern."
+    ],
+    merkbild: "Denke in Tokens, nicht in Wörtern. Das bestimmt Kosten und Kontext.",
+    check: [
+      { ftxt:"Was ist ein Token?",
+        opt:[{t:"Immer ein ganzes Wort",c:false},{t:"Ein Textbaustein, oft ein Wortteil",c:true},{t:"Ein ganzer Satz",c:false}],
+        erkl:"Ein Token ist ein kleiner Textbaustein — meist ein Wortteil, manchmal ein kurzes Wort oder Satzzeichen." },
+      { ftxt:"Warum ist Deutsch token-teurer als Englisch?",
+        opt:[{t:"Lange Komposita zerfallen in mehr Tokens",c:true},{t:"Deutsch hat mehr Buchstaben im Alphabet",c:false},{t:"Modelle mögen Deutsch nicht",c:false}],
+        erkl:"Zusammengesetzte Wörter wie \"Komponentenvertrieb\" werden in mehrere Tokens zerlegt — das kostet mehr." }
+    ]
+  },
+  {
+    titel: "Next-Token-Prediction",
+    kurz: "Der eine Kernmechanismus",
+    kernsatz: "Im Kern sagt ein Sprachmodell immer nur das wahrscheinlich nächste Token voraus — Schritt für Schritt.",
+    punkte: [
+      "Das Modell sagt das nächste Token voraus, hängt es an und sagt erneut voraus. Das nennt man \"autoregressiv\".",
+      "Es \"versteht\" nicht wie ein Mensch und schlägt keine Faktendatenbank nach.",
+      "Es berechnet Wahrscheinlichkeiten aus den Mustern, die es im Training gesehen hat.",
+      "Folge: Halluzination. Ein flüssiger Satz kann falsch sein — das Modell optimiert auf Plausibilität, nicht auf Wahrheit."
+    ],
+    merkbild: "Im Grunde eine sehr ausgefeilte Vervollständigungsmaschine.",
+    check: [
+      { ftxt:"Was tut ein Sprachmodell im Kern?",
+        opt:[{t:"Es schlägt Fakten in einer Datenbank nach",c:false},{t:"Es sagt das wahrscheinlich nächste Token voraus",c:true},{t:"Es befolgt fest programmierte Regeln",c:false}],
+        erkl:"Token für Token wird das wahrscheinlich nächste vorhergesagt und angehängt — autoregressiv." },
+      { ftxt:"Warum sind Halluzinationen kein einfacher Programmfehler?",
+        opt:[{t:"Weil die Daten fehlen",c:false},{t:"Weil das Modell auf Plausibilität statt Wahrheit optimiert",c:true},{t:"Weil der Server überlastet ist",c:false}],
+        erkl:"Ein plausibel klingender Satz kann statistisch wahrscheinlich, aber faktisch falsch sein. Das ist systembedingt." }
+    ]
+  },
+  {
+    titel: "Parameter & Modellgröße",
+    kurz: "Geronnenes Wissen & Mixture of Experts",
+    kernsatz: "Parameter sind die trainierten Stellschrauben — das \"geronnene Wissen\" des Modells.",
+    punkte: [
+      "Parameter (Gewichte) werden im Training millionen- bis milliardenfach justiert.",
+      "\"70B\" bedeutet 70 Milliarden Parameter.",
+      "Lange galt: mehr Parameter = besser. 2026 stimmt das nur noch eingeschränkt.",
+      "Mixture of Experts (MoE): viele spezialisierte Teilnetze, aber pro Anfrage sind nur wenige aktiv → spart Rechenleistung."
+    ],
+    merkbild: "Viele Experten im Haus — aber pro Frage arbeiten nur wenige.",
+    check: [
+      { ftxt:"Was bedeutet die Angabe \"70B\"?",
+        opt:[{t:"70 Milliarden Parameter",c:true},{t:"70 Milliarden Wörter Training",c:false},{t:"70 Milliarden Tokens Kontext",c:false}],
+        erkl:"\"B\" steht für Billion (Milliarde). 70B = 70 Milliarden interne Parameter (Gewichte)." },
+      { ftxt:"Was ist der Vorteil einer Mixture-of-Experts-Architektur?",
+        opt:[{t:"Alle Parameter sind immer aktiv",c:false},{t:"Pro Anfrage sind nur wenige Experten aktiv → effizient",c:true},{t:"Sie braucht keine Parameter",c:false}],
+        erkl:"Das Modell hat viele Gesamtparameter, aktiviert aber nur einen kleinen Teil pro Token — das spart Rechenleistung." }
+    ]
+  },
+  {
+    titel: "Embeddings & Vektorräume",
+    kurz: "Wie Bedeutung berechenbar wird",
+    kernsatz: "Bedeutung wird zu Geometrie: Ähnliche Inhalte liegen als Zahlenvektoren nah beieinander.",
+    punkte: [
+      "Embedding = Übersetzung von Text in eine Zahlenliste (Vektor) in einem hochdimensionalen Raum.",
+      "Jedes Token wird in seinen Embedding-Vektor übersetzt — so gelangt es überhaupt ins Modell.",
+      "Ähnliche Bedeutung → ähnliche Vektoren, die nah beieinander liegen.",
+      "Berühmtes Beispiel: \"König\" − \"Mann\" + \"Frau\" ≈ \"Königin\".",
+      "Ähnlichkeit misst man oft per Kosinus-Ähnlichkeit (dem Winkel zwischen Vektoren).",
+      "Grundlage für semantische Suche (Suche nach Bedeutung) und für RAG."
+    ],
+    merkbild: "König − Mann + Frau ≈ Königin. Bedeutung wird rechenbar.",
+    check: [
+      { ftxt:"Was ist ein Embedding?",
+        opt:[{t:"Ein Zahlenvektor, der Bedeutung abbildet",c:true},{t:"Ein einzelnes Token",c:false},{t:"Ein Parameter des Modells",c:false}],
+        erkl:"Ein Embedding übersetzt Text in einen Vektor, sodass ähnliche Bedeutung nah beieinander liegt." },
+      { ftxt:"Was gilt für ähnliche Bedeutungen im Vektorraum?",
+        opt:[{t:"Sie liegen weit auseinander",c:false},{t:"Sie liegen nah beieinander",c:true},{t:"Sie haben immer dieselbe Länge",c:false}],
+        erkl:"Genau das macht Bedeutung berechenbar: ähnliche Inhalte = kleiner Abstand / kleiner Winkel." }
+    ]
+  },
+  {
+    titel: "Transformer & Attention",
+    kurz: "Die Architektur moderner Modelle",
+    kernsatz: "Attention gewichtet, welche Wörter im Satz gerade füreinander wichtig sind.",
+    punkte: [
+      "Fast alle modernen Modelle nutzen die Transformer-Architektur (2017, \"Attention Is All You Need\").",
+      "Attention (Aufmerksamkeit) gewichtet die relevanten Bezüge im Text.",
+      "Beispiel: \"Der Ingenieur prüfte die Komponente, weil sie defekt war\" — \"sie\" bezieht sich auf \"Komponente\".",
+      "Die Verarbeitung läuft parallel über den ganzen Text → gut auf großen Rechenclustern.",
+      "Das \"T\" in GPT steht für Transformer (Generative Pre-trained Transformer)."
+    ],
+    merkbild: "\"sie\" findet sein Bezugswort — Attention richtet den Scheinwerfer auf das Relevante.",
+    check: [
+      { ftxt:"Was leistet der Attention-Mechanismus?",
+        opt:[{t:"Er speichert Fakten dauerhaft",c:false},{t:"Er gewichtet relevante Bezüge im Text",c:true},{t:"Er zerlegt Wörter in Tokens",c:false}],
+        erkl:"Attention erkennt, welche anderen Tokens für das aktuelle Token gerade besonders relevant sind." },
+      { ftxt:"Wofür steht das \"T\" in GPT?",
+        opt:[{t:"Transformer",c:true},{t:"Token",c:false},{t:"Training",c:false}],
+        erkl:"GPT = Generative Pre-trained Transformer. Der Transformer ist die zugrundeliegende Architektur." }
+    ]
+  }
+];
+
+/* ===================== Abschlussquiz ===================== */
+const quizFragen = [
+  { etappe:0, f:"Ordne richtig: Welcher Begriff umfasst alle anderen?", opt:["Generative KI","Künstliche Intelligenz","Deep Learning","Machine Learning"], korrekt:1 },
+  { etappe:1, f:"Worin verarbeitet ein Sprachmodell Text?", opt:["In ganzen Wörtern","In Tokens (Bausteinen)","In Buchstaben einzeln","In Sätzen"], korrekt:1 },
+  { etappe:1, f:"Warum kostet \"Komponentenvertrieb\" mehr Tokens als \"Haus\"?", opt:["Es ist ein seltenes Kompositum und zerfällt in mehrere Tokens","Es enthält Umlaute","Es ist ein Verb","Reiner Zufall"], korrekt:0 },
+  { etappe:2, f:"Was macht ein Sprachmodell im Kern?", opt:["Es schlägt in einer Faktendatenbank nach","Es sagt das nächste Token voraus","Es übersetzt immer ins Englische","Es speichert deine Eingaben"], korrekt:1 },
+  { etappe:2, f:"Eine Halluzination ist...", opt:["ein zufälliger Absturz","systembedingt: Plausibilität statt Wahrheit","ein fehlendes Update","ein Tippfehler"], korrekt:1 },
+  { etappe:3, f:"\"70B\" bei einem Modell bedeutet...", opt:["70 Milliarden Parameter","70 Milliarden Nutzer","70 Byte Speicher","70 Milliarden Sätze"], korrekt:0 },
+  { etappe:3, f:"Der Vorteil von Mixture of Experts (MoE) ist...", opt:["alle Experten arbeiten immer","nur wenige Experten sind pro Anfrage aktiv","es braucht keine Parameter","es ist immer langsamer"], korrekt:1 },
+  { etappe:4, f:"Ein Embedding ist...", opt:["ein bedeutungstragender Zahlenvektor","ein einzelner Buchstabe","eine Regel","ein Bildschirm"], korrekt:0 },
+  { etappe:4, f:"\"König − Mann + Frau\" ergibt ungefähr...", opt:["Haus","Königin","Auto","König"], korrekt:1 },
+  { etappe:5, f:"Was tut der Attention-Mechanismus?", opt:["er gewichtet relevante Bezüge im Text","er löscht alte Tokens","er rechnet Steuern aus","er speichert Passwörter"], korrekt:0 },
+  { etappe:5, f:"Das \"T\" in GPT steht für...", opt:["Token","Transformer","Training","Text"], korrekt:1 }
+];
+
+/* ===================== Modul 2 — Wie Modelle arbeiten (Teil 2) ===================== */
+const etappenMod2 = [
+  {
+    titel:"Trainingsphasen",
+    kurz:"Pretraining → Fine-tuning → RLHF → Constitutional AI",
+    kernsatz:"Ein Modell entsteht in Stufen: erst breites Wissen, dann Feinschliff, dann Werte.",
+    punkte:[
+      "Pretraining: lernt aus riesigen Textmengen das nächste Token vorherzusagen — die teuerste Stufe, baut das Weltwissen auf.",
+      "Fine-tuning: Nachschärfen mit kleineren, gezielten Datensätzen (z. B. Anweisungen folgen, \"Instruction Tuning\").",
+      "RLHF: Menschen bewerten Antworten; das Modell lernt, hilfreichere, ehrlichere, harmlosere Antworten zu bevorzugen.",
+      "Constitutional AI (Anthropic): Das Modell prüft sich gegen schriftliche Prinzipien (eine \"Verfassung\") statt nur gegen Einzelurteile."
+    ],
+    merkbild:"Erst lesen lernen (Pretraining), dann höflich und hilfreich werden (RLHF).",
+    check:[
+      { ftxt:"Welche Stufe ist die teuerste und baut das breite Wissen auf?",
+        opt:[{t:"Pretraining",c:true},{t:"Fine-tuning",c:false},{t:"RLHF",c:false}],
+        erkl:"Pretraining auf riesigen Textmengen ist die rechenintensivste Stufe und liefert das Grundwissen." },
+      { ftxt:"Was macht RLHF?",
+        opt:[{t:"Es zerlegt Text in Tokens",c:false},{t:"Menschen bewerten Antworten, das Modell lernt daraus",c:true},{t:"Es vergrößert das Kontextfenster",c:false}],
+        erkl:"RLHF = Reinforcement Learning from Human Feedback: Lernen aus menschlichen Bewertungen." }
+    ]
+  },
+  {
+    titel:"Das Kontextfenster",
+    kurz:"Das Arbeitsgedächtnis des Modells",
+    kernsatz:"Das Kontextfenster ist das Arbeitsgedächtnis — alles darin sieht das Modell, der Rest nicht.",
+    punkte:[
+      "Gemessen in Tokens (Eingabe + Ausgabe zusammen).",
+      "2026 reichen Spitzenmodelle an ~1 Million Tokens — genug für ganze Dokumentensammlungen.",
+      "Großes Fenster heißt nicht, dass alles gleich gut genutzt wird: die Mitte wird oft schlechter beachtet (\"lost in the middle\").",
+      "Kein dauerhaftes Gedächtnis: standardmäßig vergisst das Modell nach der Anfrage alles wieder."
+    ],
+    merkbild:"Großer Schreibtisch — aber die Mitte gerät leicht aus dem Blick.",
+    check:[
+      { ftxt:"Worin wird das Kontextfenster gemessen?",
+        opt:[{t:"In Tokens",c:true},{t:"In Megabyte",c:false},{t:"In Sekunden",c:false}],
+        erkl:"Das Kontextfenster wird in Tokens gemessen — Eingabe und Ausgabe zusammen." },
+      { ftxt:"Was bedeutet \"lost in the middle\"?",
+        opt:[{t:"Das Modell stürzt in der Mitte ab",c:false},{t:"Inhalte in der Mitte langer Eingaben werden schlechter beachtet",c:true},{t:"Die Antwort wird abgeschnitten",c:false}],
+        erkl:"Bei sehr langen Eingaben lässt die Aufmerksamkeit in der Mitte nach." }
+    ]
+  },
+  {
+    titel:"Inferenz & Temperature",
+    kurz:"Wie das Modell das nächste Token wählt",
+    kernsatz:"Temperature regelt, wie konservativ oder kreativ das Modell beim Wählen des nächsten Tokens ist.",
+    punkte:[
+      "Inferenz = die Nutzung des fertig trainierten Modells (Gegenteil von Training).",
+      "Bei jedem Schritt entsteht eine Wahrscheinlichkeitsverteilung über mögliche nächste Tokens.",
+      "Niedrige Temperature (nahe 0): deterministisch, faktentreu — wählt fast immer das wahrscheinlichste Token.",
+      "Höhere Temperature: vielfältiger und kreativer, aber riskanter (mehr Abwegiges).",
+      "Top-p / Top-k grenzen die Auswahl zusätzlich auf die wahrscheinlichsten Kandidaten ein."
+    ],
+    merkbild:"Niedrige Temperatur für Fakten, höhere fürs kreative Schreiben.",
+    check:[
+      { ftxt:"Was bewirkt eine niedrige Temperature?",
+        opt:[{t:"Mehr Zufall und Kreativität",c:false},{t:"Konservativere, faktentreuere Antworten",c:true},{t:"Ein größeres Kontextfenster",c:false}],
+        erkl:"Niedrige Temperature macht das Modell deterministischer — gut für faktische Aufgaben." },
+      { ftxt:"Was ist \"Inferenz\"?",
+        opt:[{t:"Die Nutzung des fertigen Modells zur Antwort",c:true},{t:"Das Training des Modells",c:false},{t:"Das Zerlegen in Tokens",c:false}],
+        erkl:"Inferenz ist die Anwendung des trainierten Modells — im Gegensatz zum Training." }
+    ]
+  },
+  {
+    titel:"Halluzinationen & Grenzen",
+    kurz:"Plausibel ist nicht wahr",
+    kernsatz:"Eine Halluzination ist ein plausibel klingender, aber falscher Output — systembedingt, kein Zufallsfehler.",
+    punkte:[
+      "Ursache: Das Modell erzeugt die plausibelste Fortsetzung, nicht die nachweislich wahre (siehe Modul 1).",
+      "Gegenmaßnahmen: mit Quellen erden (RAG), Werkzeuge zum Nachschlagen (Tool Use), niedrige Temperature, schrittweises Denken.",
+      "Weitere Grenzen: Wissensstichtag (kennt nichts nach dem Training), gelegentliche Fehler bei einfacher Logik/Arithmetik.",
+      "Die Qualität der Antwort hängt stark von der Qualität der Eingabe ab."
+    ],
+    merkbild:"Selbstbewusst vorgetragen heißt nicht wahr — wichtige Fakten gegenprüfen.",
+    check:[
+      { ftxt:"Warum entstehen Halluzinationen?",
+        opt:[{t:"Das Modell optimiert auf Plausibilität, nicht auf Wahrheit",c:true},{t:"Der Speicher ist voll",c:false},{t:"Die Temperature ist immer zu niedrig",c:false}],
+        erkl:"Ein flüssiger Satz kann statistisch plausibel, aber faktisch falsch sein — systembedingt." },
+      { ftxt:"Welche Maßnahme senkt Halluzinationen?",
+        opt:[{t:"Das Modell mit Quellen erden (RAG)",c:true},{t:"Die Eingabe verkürzen, egal wie",c:false},{t:"Die Temperature stark erhöhen",c:false}],
+        erkl:"RAG, Tool Use, niedrige Temperature und schrittweises Denken reduzieren Halluzinationen." }
+    ]
+  }
+];
+const quizMod2 = [
+  { etappe:0, f:"Welche Trainingsstufe baut das breite Weltwissen auf?", opt:["Fine-tuning","Pretraining","RLHF","Constitutional AI"], korrekt:1 },
+  { etappe:0, f:"Wofür steht RLHF?", opt:["Reinforcement Learning from Human Feedback","Rapid Language Hyper-Fitting","Random Loss Function","Recurrent Layer Hidden Flow"], korrekt:0 },
+  { etappe:1, f:"Worin wird das Kontextfenster gemessen?", opt:["In Tokens","In Pixeln","In Megabyte","In Wörtern"], korrekt:0 },
+  { etappe:1, f:"\"Lost in the middle\" beschreibt...", opt:["einen Absturz","dass die Mitte langer Eingaben schlechter beachtet wird","fehlende Tokens","ein volles Kontextfenster"], korrekt:1 },
+  { etappe:2, f:"Für faktische Aufgaben wählt man die Temperature eher...", opt:["niedrig","hoch","egal","maximal"], korrekt:0 },
+  { etappe:3, f:"Eine Halluzination ist...", opt:["ein zufälliger Bug","plausibel klingend, aber faktisch falsch","ein Netzwerkfehler","eine fehlende Antwort"], korrekt:1 }
+];
+
+/* ===================== Modul 3 — Mit Modellen arbeiten (Teil 3) ===================== */
+const etappenMod3 = [
+  {
+    titel:"Prompt Engineering",
+    kurz:"Gute Eingaben formulieren",
+    kernsatz:"Prompt Engineering ist die Kunst, Eingaben so zu formulieren, dass nützliche Antworten herauskommen.",
+    punkte:[
+      "Zero-Shot: Aufgabe direkt stellen, ohne Beispiele — gut für einfache, klare Aufgaben.",
+      "Few-Shot: ein paar Beispiele mitgeben — das Modell überträgt das Muster, steuert Format und Stil.",
+      "Rolle & Kontext vorgeben (\"Du bist ein erfahrener Vertriebsingenieur …\") verschiebt die Antwort in die richtige Richtung.",
+      "Struktur vorgeben: Format, Länge, Ton — und ruhig auch Negativbeispiele (\"vermeide Fachjargon\")."
+    ],
+    merkbild:"Few-Shot schlägt oft Zero-Shot — Beispiele wirken Wunder.",
+    check:[
+      { ftxt:"Was ist Few-Shot-Prompting?",
+        opt:[{t:"Die Aufgabe ohne jedes Beispiel stellen",c:false},{t:"Einige Beispiele mitgeben, damit das Modell das Muster überträgt",c:true},{t:"Das Modell neu trainieren",c:false}],
+        erkl:"Few-Shot liefert Beispiele für das gewünschte Eingabe-Ausgabe-Muster." },
+      { ftxt:"Wozu dient eine Rollen-Vorgabe im Prompt?",
+        opt:[{t:"Sie verschiebt die Antwort in die passende Richtung",c:true},{t:"Sie spart Tokens",c:false},{t:"Sie schaltet die Temperature ab",c:false}],
+        erkl:"Eine Rolle plus Kontext lenkt die Wahrscheinlichkeiten zu passenderen Antworten." }
+    ]
+  },
+  {
+    titel:"Chain of Thought & Reasoning",
+    kurz:"Schritt-für-Schritt denken",
+    kernsatz:"Schritt-für-Schritt-Denken verbessert die Trefferquote bei kniffligen, mehrstufigen Aufgaben.",
+    punkte:[
+      "Chain of Thought (CoT): das Modell denkt in nachvollziehbaren Zwischenschritten, statt sofort zu antworten (\"Lass uns Schritt für Schritt denken\").",
+      "Reasoning-Modelle sind gezielt darauf trainiert, vor der Antwort ausführlich intern zu \"denken\".",
+      "2026 bieten Anbieter abgestufte Denktiefen an — von niedrig bis sehr hoch.",
+      "Achtung: Mehr Denken kostet mehr Tokens, Zeit und Geld. Für Einfaches reicht ein schnelles Standardmodell."
+    ],
+    merkbild:"Schmierzettel im Kopf — erst rechnen, dann antworten.",
+    check:[
+      { ftxt:"Was bewirkt Chain-of-Thought-Prompting?",
+        opt:[{t:"Das Modell denkt in Zwischenschritten und trifft öfter richtig",c:true},{t:"Es macht Antworten immer kürzer",c:false},{t:"Es schaltet Werkzeuge frei",c:false}],
+        erkl:"Zwischenschritte als eigener Kontext erhöhen die Trefferquote bei mehrstufigen Aufgaben." },
+      { ftxt:"Was ist der Nachteil von mehr \"Nachdenken\"?",
+        opt:[{t:"Es kostet mehr Tokens, Zeit und Geld",c:true},{t:"Es ist immer schlechter",c:false},{t:"Es braucht kein Modell",c:false}],
+        erkl:"Für einfache Aufgaben ist ein schnelles Modell oft besser als ein langsames Reasoning-Modell." }
+    ]
+  },
+  {
+    titel:"RAG — Retrieval Augmented Generation",
+    kurz:"Antworten an eigenem Wissen erden",
+    kernsatz:"RAG verbindet das Modell mit einer externen Wissensquelle — und senkt Halluzinationen, ohne neu zu trainieren.",
+    punkte:[
+      "Vorbereitung: Dokumente in Stücke zerlegen (\"Chunking\"), je Stück ein Embedding, ablegen in einer Vektordatenbank.",
+      "Retrieve: Die Frage wird zum Vektor; die Datenbank sucht per Ähnlichkeit die passendsten Textstücke (oft hybride Suche + Re-Ranker).",
+      "Augment & Generate: Die Treffer kommen mit der Frage als Kontext ins Modell, das daraus die Antwort formuliert.",
+      "Vorteil: Neues Wissen = einfach die Datenbank aktualisieren, kein Neutraining. Liefert zudem nachvollziehbare Quellen."
+    ],
+    merkbild:"Erst nachschlagen, dann antworten.",
+    check:[
+      { ftxt:"Was ist der Hauptvorteil von RAG?",
+        opt:[{t:"Neues Wissen ohne Neutraining, plus nachvollziehbare Quellen",c:true},{t:"Es macht das Modell kleiner",c:false},{t:"Es ersetzt die Tokenisierung",c:false}],
+        erkl:"Man aktualisiert die Datenbank statt das Modell — und kann Quellen belegen." },
+      { ftxt:"Womit beginnt die RAG-Vorbereitung?",
+        opt:[{t:"Dokumente in Stücke zerlegen und als Embeddings ablegen",c:true},{t:"Das Modell neu trainieren",c:false},{t:"Die Temperature erhöhen",c:false}],
+        erkl:"Chunking → Embeddings → Vektordatenbank ist der einmalige Vorbereitungsschritt." }
+    ]
+  },
+  {
+    titel:"Tool Use, Function Calling & MCP",
+    kurz:"Werkzeuge für das Modell",
+    kernsatz:"Tool Use gibt dem Modell Werkzeuge — MCP ist der einheitliche \"Stecker\" dafür.",
+    punkte:[
+      "Ein Modell allein erzeugt nur Text: es kann nicht von sich aus suchen, rechnen oder Aktionen auslösen.",
+      "Tool Use / Function Calling: Man stellt Werkzeuge bereit; das Modell entscheidet, wann es welches mit welchen Parametern aufruft.",
+      "MCP (Model Context Protocol, Anthropic 2024): ein offener Standard für die Anbindung — \"USB-C für KI\".",
+      "MCP kennt drei Bausteine: Tools (Funktionen), Resources (Datenquellen), Prompts (Vorlagen). 2026 faktischer Standard."
+    ],
+    merkbild:"MCP = USB-C für KI-Werkzeuge: einmal bauen, überall nutzen.",
+    check:[
+      { ftxt:"Was ermöglicht Tool Use / Function Calling?",
+        opt:[{t:"Das Modell ruft externe Werkzeuge auf (suchen, rechnen, Aktionen)",c:true},{t:"Das Modell trainiert sich selbst",c:false},{t:"Das Modell vergrößert sein Kontextfenster",c:false}],
+        erkl:"Das Modell entscheidet selbst, wann es ein bereitgestelltes Werkzeug aufruft." },
+      { ftxt:"Wofür steht MCP am besten als Bild?",
+        opt:[{t:"\"USB-C für KI\" — ein einheitlicher Standard für Werkzeuge",c:true},{t:"Ein neues Sprachmodell",c:false},{t:"Eine Vektordatenbank",c:false}],
+        erkl:"MCP standardisiert, wie KI-Anwendungen mit Werkzeugen und Daten sprechen." }
+    ]
+  },
+  {
+    titel:"Agents & Agentic Coding",
+    kurz:"Ziel statt Einzelfrage",
+    kernsatz:"Ein Agent bekommt ein Ziel und arbeitet selbstständig in Schleifen — mehr als ein einzelner Prompt.",
+    punkte:[
+      "Prompt Engineering = eine einzelne Frage gut formulieren. Ein Agent verfolgt ein Ziel über viele Schritte.",
+      "Agenten-Schleife: planen → Werkzeug aufrufen → Ergebnis lesen → korrigieren → weiter, bis das Ziel erreicht ist.",
+      "Agentic Coding: Der Agent übernimmt die Schleife aus Code schreiben, ausführen, Fehler lesen, beheben.",
+      "Abgrenzung: \"Vibe Coding\" (frei, riskant) vs. strukturiertes Agentic Engineering (Spezifikation, Tests, Prüfschleifen).",
+      "Die Rolle des Menschen verschiebt sich: vom Ausführen zum Ziel setzen, Spezifizieren und Prüfen."
+    ],
+    merkbild:"Vom Ausführen zum Spezifizieren und Prüfen.",
+    check:[
+      { ftxt:"Was unterscheidet einen Agenten vom Prompt Engineering?",
+        opt:[{t:"Er verfolgt ein Ziel selbstständig über mehrere Schritte",c:true},{t:"Er formuliert nur eine einzelne Frage",c:false},{t:"Er braucht keine Werkzeuge",c:false}],
+        erkl:"Kennzeichen eines Agenten ist die anhaltende, eigenständige Ausführung in einer Schleife." },
+      { ftxt:"Wie verschiebt sich die Rolle des Menschen?",
+        opt:[{t:"Vom Ausführen zum Spezifizieren und Prüfen",c:true},{t:"Sie verschwindet komplett",c:false},{t:"Nur noch Code tippen",c:false}],
+        erkl:"Der Engpass wandert zum klaren Spezifizieren und Prüfen der Ergebnisse." }
+    ]
+  }
+];
+const quizMod3 = [
+  { etappe:0, f:"Few-Shot-Prompting bedeutet...", opt:["die Aufgabe ohne Beispiele stellen","einige Beispiele mitgeben","das Modell neu trainieren","die Temperature senken"], korrekt:1 },
+  { etappe:0, f:"Wozu dient eine Rollen-Vorgabe?", opt:["Sie verschiebt die Antwort in die passende Richtung","Sie spart Speicher","Sie ersetzt Tokens","Sie vergrößert das Fenster"], korrekt:0 },
+  { etappe:1, f:"Chain of Thought heißt...", opt:["sofort antworten","in Zwischenschritten denken","Tokens löschen","Werkzeuge aufrufen"], korrekt:1 },
+  { etappe:1, f:"Ein Nachteil von viel \"Nachdenken\" ist...", opt:["mehr Tokens, Zeit und Geld","schlechtere Grammatik","weniger Kontext","kein Modell nötig"], korrekt:0 },
+  { etappe:2, f:"RAG senkt Halluzinationen, weil es...", opt:["das Modell neu trainiert","Antworten an externe Quellen erdet","die Temperature erhöht","Tokens spart"], korrekt:1 },
+  { etappe:2, f:"Was passiert beim \"Retrieve\" in RAG?", opt:["die Frage wird zum Vektor und passende Textstücke werden gesucht","das Modell wird trainiert","Text wird übersetzt","nichts"], korrekt:0 },
+  { etappe:3, f:"MCP ist am besten beschrieben als...", opt:["\"USB-C für KI\" — offener Standard für Werkzeuge","ein Sprachmodell","ein Embedding","eine Temperature-Stufe"], korrekt:0 },
+  { etappe:4, f:"Was kennzeichnet einen KI-Agenten?", opt:["eine einzelne gute Frage","selbstständige Schleife zur Ziel-Erreichung","ein größeres Vokabular","ein kleineres Modell"], korrekt:1 }
+];
+
+/* ===================== Modul 4 — Anbieter & Praxis (Teil 4 + 5) ===================== */
+const etappenMod4 = [
+  {
+    titel:"Anbieter-Überblick",
+    kurz:"Claude, GPT, Gemini & offene Modelle",
+    kernsatz:"2026 gibt es kein pauschal \"bestes\" Modell — das Feld ist dicht und wettbewerbsintensiv.",
+    punkte:[
+      "Anthropic (Claude): sicherheits-fokussiert, Constitutional AI. Drei Stufen: Haiku (schnell/günstig), Sonnet (ausgewogen), Opus (am stärksten).",
+      "OpenAI (GPT / ChatGPT): bekanntestes Consumer-Produkt; GPT-5-Familie mit einstellbaren Denktiefen.",
+      "Google (Gemini): nativ multimodal, sehr großes Kontextfenster; treibt u. a. NotebookLM an.",
+      "Offene & günstige Modelle (z. B. DeepSeek, Qwen, Kimi): zunehmend Spitzen-nahe Leistung zu niedrigen Kosten."
+    ],
+    merkbild:"Drei große Anbieter plus starke offene Modelle — die Wahl richtet sich nach der Aufgabe.",
+    check:[
+      { ftxt:"Welche drei Modellstufen bietet Anthropic?",
+        opt:[{t:"Haiku, Sonnet, Opus",c:true},{t:"GPT, Gemini, Claude",c:false},{t:"Klein, Mittel, Groß",c:false}],
+        erkl:"Haiku (schnell/günstig), Sonnet (ausgewogen), Opus (am leistungsfähigsten)." },
+      { ftxt:"Welches Modell treibt u. a. NotebookLM an?",
+        opt:[{t:"Google Gemini",c:true},{t:"OpenAI GPT",c:false},{t:"Ein offenes Modell",c:false}],
+        erkl:"Gemini ist nativ multimodal und treibt u. a. NotebookLM an." }
+    ]
+  },
+  {
+    titel:"Das richtige Modell wählen",
+    kurz:"Welches Modell für welche Aufgabe",
+    kernsatz:"Die richtige Wahl hängt von der Aufgabe ab — nicht vom Ranking.",
+    punkte:[
+      "Aufgabentyp: Chat, langes Dokument, agentisches Programmieren, multimodale Analyse.",
+      "Geschwindigkeit vs. Tiefe: schnelle, günstige Modelle für Häufiges; teure Reasoning-Modelle nur für harte Probleme.",
+      "Kosten: Preis pro Million Tokens (Eingabe und Ausgabe getrennt).",
+      "Außerdem wichtig: Kontextfenster, Datenschutz/Hosting, Ökosystem (Tools, MCP)."
+    ],
+    merkbild:"Nicht das teuerste Modell für jede Kleinigkeit — Modellklasse zur Aufgabe wählen.",
+    check:[
+      { ftxt:"Wonach richtet sich die Modellwahl 2026 vor allem?",
+        opt:[{t:"Nach der Aufgabe",c:true},{t:"Nach dem Preis allein",c:false},{t:"Nach dem bekanntesten Namen",c:false}],
+        erkl:"Es gibt kein pauschal bestes Modell — die Aufgabe entscheidet." },
+      { ftxt:"Wofür nimmt man ein schnelles, günstiges Modell?",
+        opt:[{t:"Für einfache, häufige Aufgaben",c:true},{t:"Nur für die härtesten Logikrätsel",c:false},{t:"Niemals",c:false}],
+        erkl:"Schnelle Modelle (Haiku-/Flash-/Instant-Klasse) eignen sich für einfache, häufige Aufgaben." }
+    ]
+  },
+  {
+    titel:"Benchmarks & ihre Grenzen",
+    kurz:"Warum Ranglisten täuschen können",
+    kernsatz:"Benchmarks vergleichen Modelle — sind aber mit Vorsicht zu lesen.",
+    punkte:[
+      "Benchmarks = standardisierte Testsätze (z. B. SWE-bench für Code, MMLU für breites Wissen).",
+      "Sättigung: Spitzenmodelle erreichen nahezu perfekte Werte → der Test verliert Unterscheidungskraft.",
+      "Daten-Kontamination: Testaufgaben gerieten ins Training → Glanz durch Erinnerung statt Können.",
+      "Beste Praxis: der eigene, realitätsnahe Test auf den eigenen Aufgaben."
+    ],
+    merkbild:"Der beste Benchmark ist dein eigener, echter Anwendungsfall.",
+    check:[
+      { ftxt:"Was ist Daten-Kontamination?",
+        opt:[{t:"Testaufgaben sind ins Trainingsmaterial geraten",c:true},{t:"Ein Computervirus",c:false},{t:"Zu wenig Trainingsdaten",c:false}],
+        erkl:"Dann glänzt das Modell durch Erinnerung statt durch Können — der Benchmark wird verfälscht." },
+      { ftxt:"Was sagt am meisten über die Eignung eines Modells aus?",
+        opt:[{t:"Der eigene, realitätsnahe Test",c:true},{t:"Die öffentliche Rangliste",c:false},{t:"Der Modellname",c:false}],
+        erkl:"Der eigene Test auf den echten Aufgaben zählt mehr als jedes Ranking." }
+    ]
+  },
+  {
+    titel:"Multimodalität",
+    kurz:"Mehr als nur Text",
+    kernsatz:"Multimodal heißt: ein Modell verarbeitet Text, Bild, Audio, Video und Code.",
+    punkte:[
+      "Multimodal = mehr als Text (Bilder, Audio, Video, Code).",
+      "Nativ multimodal = von Grund auf dafür gebaut (z. B. Gemini), statt nachträglich angekoppelt.",
+      "Praktisch: ein Diagramm interpretieren, ein Foto zusammenfassen, gesprochene Sprache verarbeiten, ein Video analysieren — im selben Modell."
+    ],
+    merkbild:"Ein Modell, viele Sinne — Text, Bild, Ton, Video.",
+    check:[
+      { ftxt:"Was bedeutet \"nativ multimodal\"?",
+        opt:[{t:"Von Grund auf für mehrere Modalitäten gebaut",c:true},{t:"Nur Text",c:false},{t:"Nur Bilder",c:false}],
+        erkl:"Statt nachträglich Spezialmodule anzukoppeln, ist das Modell von Anfang an multimodal." },
+      { ftxt:"Welche Aufgabe passt zu Multimodalität?",
+        opt:[{t:"Ein Foto oder Diagramm interpretieren",c:true},{t:"Nur reinen Text tokenisieren",c:false},{t:"Keine davon",c:false}],
+        erkl:"Multimodale Modelle verarbeiten Bilder, Audio und Video zusätzlich zu Text." }
+    ]
+  },
+  {
+    titel:"Sicherheit, Datenschutz & Ethik",
+    kurz:"Risiken im Blick behalten",
+    kernsatz:"Mit wachsender Leistung steigen die Risiken — Schutz ist Pflicht.",
+    punkte:[
+      "Prompt Injection: versteckte schädliche Anweisungen in verarbeiteten Inhalten (Webseite, E-Mail). Grundregel: externe Inhalte sind Daten, keine Befehle.",
+      "Datenschutz: keine Passwörter, Konto-/Ausweisnummern oder Gesundheitsdaten ungeschützt in Prompts oder Vektordatenbanken.",
+      "Bias & Fairness: Modelle übernehmen Verzerrungen aus ihren Trainingsdaten.",
+      "Schutzmaßnahmen der Anbieter: Constitutional AI, System Cards, abgestufte Freigaben."
+    ],
+    merkbild:"Externe Inhalte sind Daten, keine Befehle.",
+    check:[
+      { ftxt:"Was ist die Grundregel gegen Prompt Injection?",
+        opt:[{t:"Externe Inhalte sind Daten, keine Befehle",c:true},{t:"Immer alles ausführen",c:false},{t:"Die Temperature hoch setzen",c:false}],
+        erkl:"Inhalte aus externen Quellen dürfen nicht als Anweisungen behandelt werden." },
+      { ftxt:"Was gehört NICHT ungeschützt in einen Prompt?",
+        opt:[{t:"Passwörter und sensible Daten",c:true},{t:"Eine höfliche Frage",c:false},{t:"Eine Rollenangabe",c:false}],
+        erkl:"Geheimnisse und sensible Daten gehören nicht ungeschützt in Prompts oder Datenbanken." }
+    ]
+  },
+  {
+    titel:"Praxis-Prinzipien",
+    kurz:"Die wichtigsten Merksätze",
+    kernsatz:"Die Essenz fürs tägliche Arbeiten mit KI — verstehen, erden, prüfen.",
+    punkte:[
+      "Denke in Tokens, nicht in Wörtern — Kontext und Kosten richten sich danach.",
+      "Plausibel ist nicht wahr — wichtige Fakten gegenprüfen oder das Modell erden (RAG, Tool Use).",
+      "Wähle die Modellklasse zur Aufgabe — nicht für jede Kleinigkeit das teuerste Modell.",
+      "Prompt-Qualität entscheidet — präzise Aufgabe, Kontext, Beispiele, Format; bei harten Aufgaben schrittweises Denken.",
+      "Externe Inhalte sind Daten, keine Befehle — Schutz vor Prompt Injection; sensible Daten schützen.",
+      "Versionsnummern altern schnell, Konzepte bleiben stabil. Die Rolle des Menschen: vom Ausführen zum Spezifizieren, Steuern und Prüfen."
+    ],
+    merkbild:"Verstehen → erden → prüfen. Der Mensch bleibt am Steuer.",
+    check:[
+      { ftxt:"Wie reagierst du am besten auf eine wichtige Faktenbehauptung der KI?",
+        opt:[{t:"Gegenprüfen oder das Modell erden",c:true},{t:"Blind vertrauen",c:false},{t:"Komplett ignorieren",c:false}],
+        erkl:"Plausibel ist nicht wahr — wichtige Fakten gegenprüfen oder mit Quellen erden." },
+      { ftxt:"Wie verschiebt sich die Rolle des Menschen?",
+        opt:[{t:"Vom Ausführen zum Spezifizieren und Prüfen",c:true},{t:"Sie verschwindet ganz",c:false},{t:"Nur noch Code tippen",c:false}],
+        erkl:"Der Engpass wandert zum klaren Spezifizieren, Steuern und Prüfen." }
+    ]
+  }
+];
+const quizMod4 = [
+  { etappe:0, f:"Welche drei Modellstufen bietet Anthropic?", opt:["Ultra, Pro, Flash","Haiku, Sonnet, Opus","Klein, Mittel, Groß","GPT, Gemini, Claude"], korrekt:1 },
+  { etappe:0, f:"Welches Modell treibt u. a. NotebookLM an?", opt:["ein offenes Modell","GPT-3","Google Gemini","keines"], korrekt:2 },
+  { etappe:1, f:"Wonach wählt man 2026 ein Modell aus?", opt:["nach dem Namen","nach der Aufgabe","nach dem Alter","nach der Farbe"], korrekt:1 },
+  { etappe:2, f:"Gesättigte Benchmarks sind ein Problem, weil...", opt:["sie zu schwer sind","alle Top-Werte erreichen, kaum Unterscheidung","sie zu kurz sind","sie Geld kosten"], korrekt:1 },
+  { etappe:2, f:"Daten-Kontamination bedeutet...", opt:["ein Virus","zu wenig Daten","Testaufgaben gerieten ins Training","falsche Sprache"], korrekt:2 },
+  { etappe:3, f:"Nativ multimodal heißt...", opt:["nur Audio","nachträglich angekoppelt","nur Text","von Grund auf für mehrere Modalitäten gebaut"], korrekt:3 },
+  { etappe:4, f:"Die Grundregel gegen Prompt Injection lautet...", opt:["alles ausführen","Temperature hoch","Quellen ignorieren","externe Inhalte sind Daten, keine Befehle"], korrekt:3 },
+  { etappe:5, f:"Wie verschiebt sich die Rolle des Menschen?", opt:["sie verschwindet","nur Code tippen","vom Ausführen zum Spezifizieren und Prüfen","gar nicht"], korrekt:2 }
+];
+
+/* ===================== Modul 5 — Vertiefung: Mechanik (Datei 2, A–F) ===================== */
+const etappenMod5 = [
+  {
+    titel:"Tokenisierung im Detail",
+    kurz:"Byte-Pair Encoding (BPE)",
+    kernsatz:"BPE baut das Token-Vokabular auf, indem es die häufigsten benachbarten Zeichenpaare schrittweise zusammenfasst.",
+    punkte:[
+      "Start mit kleinsten Einheiten (Zeichen/Bytes); das häufigste Nachbarpaar wird zu einem neuen Token verschmolzen — tausendfach wiederholt.",
+      "Häufige Wörter werden zu einem Token, seltene Fachbegriffe zerfallen in mehrere Stücke.",
+      "Das gelernte Token-Inventar heißt Vokabular (oft 100.000–200.000 Tokens).",
+      "Größeres Vokabular = kürzere Sequenzen, aber mehr Parameter in den Randschichten — ein Abwägungsspiel."
+    ],
+    merkbild:"Aus „n“+„e“ wird „ne“, dann „neu“ … häufige Muster werden zu einem Baustein.",
+    check:[
+      { ftxt:"Wie geht Byte-Pair Encoding im Kern vor?",
+        opt:[{t:"Es fasst die häufigsten Zeichenpaare schrittweise zusammen",c:true},{t:"Es sortiert Wörter alphabetisch",c:false},{t:"Es zerlegt Text zufällig",c:false}],
+        erkl:"BPE verschmilzt iterativ das jeweils häufigste benachbarte Paar zu einem neuen Token." },
+      { ftxt:"Was ist das „Vokabular“ eines Modells?",
+        opt:[{t:"Der Gesamtbestand aller gelernten Tokens",c:true},{t:"Die Trainingsdaten",c:false},{t:"Die Parameter",c:false}],
+        erkl:"Das Vokabular umfasst alle Tokens, die das Modell kennt (oft 100k–200k)." }
+    ]
+  },
+  {
+    titel:"Attention-Mechanik",
+    kurz:"Query, Key, Value",
+    kernsatz:"Attention vergleicht die Query jedes Tokens mit allen Keys und mischt daraus die passenden Values.",
+    punkte:[
+      "Query = „Wonach suche ich?“, Key = „Wofür bin ich relevant?“, Value = „Mein eigentlicher Inhalt“.",
+      "Passt eine Query gut zu einem Key, fließt dessen Value stärker ins Ergebnis ein.",
+      "Multi-Head Attention: mehrere parallele „Köpfe“ achten auf verschiedene Beziehungsarten.",
+      "Der Aufwand wächst quadratisch mit der Textlänge — der Grund, warum lange Kontexte teuer sind."
+    ],
+    merkbild:"Wie in einer Bibliothek: Anfrage (Query) trifft Schlagwort (Key), du bekommst den Inhalt (Value).",
+    check:[
+      { ftxt:"Wofür steht die „Query“ in der Attention?",
+        opt:[{t:"Die Suchanfrage des aktuellen Tokens",c:true},{t:"Der eigentliche Inhalt",c:false},{t:"Die Position im Satz",c:false}],
+        erkl:"Die Query formuliert, wonach das aktuelle Token sucht; sie wird mit allen Keys verglichen." },
+      { ftxt:"Warum sind lange Kontexte teuer?",
+        opt:[{t:"Der Attention-Aufwand wächst quadratisch mit der Länge",c:true},{t:"Es fehlen Parameter",c:false},{t:"Tokens gehen verloren",c:false}],
+        erkl:"Jedes Token vergleicht sich mit jedem anderen — der Aufwand steigt quadratisch." }
+    ]
+  },
+  {
+    titel:"Embeddings tiefer",
+    kurz:"Dimensionen, Position, Kontext",
+    kernsatz:"Moderne Embeddings sind kontextuell — der Vektor eines Wortes hängt vom umgebenden Satz ab.",
+    punkte:[
+      "Ein Embedding-Vektor hat eine feste Länge (z. B. 768 oder 1.536); jede Dimension ist eine gelernte „Bedeutungsachse“.",
+      "Positionskodierung (z. B. rotierende Positionskodierung, kurz RoPE = Rotary Position Embedding) gibt dem Modell die Wortstellung — Attention allein ist reihenfolgeblind.",
+      "Statische Embeddings gaben „Bank“ immer denselben Punkt; kontextuelle unterscheiden Geldinstitut und Sitzbank je nach Satz."
+    ],
+    merkbild:"„Bank“ liegt je nach Satz woanders im Raum — Bedeutung hängt vom Kontext ab.",
+    check:[
+      { ftxt:"Was leisten kontextuelle Embeddings?",
+        opt:[{t:"Der Vektor hängt vom Satz ab und löst Mehrdeutigkeit",c:true},{t:"Jedes Wort hat immer denselben Vektor",c:false},{t:"Sie funktionieren nur für Zahlen",c:false}],
+        erkl:"Dieselbe „Bank“ liegt je nach Kontext woanders im Raum." },
+      { ftxt:"Wozu dient die Positionskodierung?",
+        opt:[{t:"Sie gibt dem Modell die Wortstellung",c:true},{t:"Sie spart Tokens",c:false},{t:"Sie misst Ähnlichkeit",c:false}],
+        erkl:"Ohne Positionskodierung wäre Attention reihenfolgeblind („Hund beißt Mann“ = „Mann beißt Hund“)." }
+    ]
+  },
+  {
+    titel:"Wie Training wirklich abläuft",
+    kurz:"Loss, Gradient, Backpropagation",
+    kernsatz:"Lernen heißt: Fehler messen, den Gradienten berechnen und die Parameter ein Stück Richtung kleinerer Fehler verschieben — millionenfach.",
+    punkte:[
+      "Die Verlustfunktion (Loss, oft Cross-Entropy) misst, wie falsch eine Vorhersage war.",
+      "Backpropagation berechnet, wie stark jeder Parameter zum Fehler beiträgt → ergibt den Gradienten.",
+      "Gradientenabstieg verschiebt die Parameter ein kleines Stück; die Lernrate ist die Schrittgröße.",
+      "Begleiterscheinungen: Overfitting (memorieren statt verallgemeinern), Catastrophic Forgetting, Scaling Laws."
+    ],
+    merkbild:"Das Modell tastet sich in einer Fehlerlandschaft bergab ins Tal.",
+    check:[
+      { ftxt:"Was misst die Verlustfunktion (Loss)?",
+        opt:[{t:"Wie falsch die Vorhersage war",c:true},{t:"Die Geschwindigkeit",c:false},{t:"Die Tokenzahl",c:false}],
+        erkl:"Der Loss quantifiziert den Fehler — beim Sprachmodell meist über die Cross-Entropy." },
+      { ftxt:"Was ist Overfitting?",
+        opt:[{t:"Das Modell memoriert Trainingsdaten statt zu verallgemeinern",c:true},{t:"Zu wenig Training",c:false},{t:"Ein Hardwarefehler",c:false}],
+        erkl:"Es glänzt im Training, versagt aber bei Neuem." }
+    ]
+  },
+  {
+    titel:"Fine-tuning-Verfahren",
+    kurz:"Supervised Fine-Tuning, Low-Rank Adaptation, Direct Preference Optimization",
+    kernsatz:"Fine-tuning formt Stil und Verhalten — neue Fakten liefert man besser per RAG.",
+    punkte:[
+      "Supervised Fine-Tuning (SFT): Training auf (Eingabe, idealer Ausgabe)-Paaren — die Grundform.",
+      "Low-Rank Adaptation (LoRA): friert die Gewichte ein und fügt nur kleine, trainierbare Adapter ein → ein Bruchteil der Parameter bei vergleichbarer Qualität (QLoRA = LoRA + Quantisierung).",
+      "Direct Preference Optimization (DPO): vereinfachtes Alignment ohne separates Belohnungsmodell — 2026 Praxisstandard (statt klassischem Reinforcement Learning from Human Feedback / Proximal Policy Optimization).",
+      "Faustregel: wenige hundert sehr saubere Beispiele schlagen Zehntausende schlampige."
+    ],
+    merkbild:"Stil/Format/Verhalten → Fine-tuning. Neue Fakten → RAG.",
+    check:[
+      { ftxt:"Wofür ist Fine-tuning gut, wofür eher nicht?",
+        opt:[{t:"Gut für Stil/Verhalten, schlecht für neue Fakten",c:true},{t:"Gut, um neue Fakten einzuspeisen",c:false},{t:"Nur für Bilder",c:false}],
+        erkl:"Für aktuelles oder firmenspezifisches Faktenwissen ist RAG fast immer die bessere Wahl." },
+      { ftxt:"Was macht LoRA so sparsam?",
+        opt:[{t:"Es friert die Gewichte ein und trainiert nur kleine Adapter",c:true},{t:"Es löscht Parameter",c:false},{t:"Es braucht kein Training",c:false}],
+        erkl:"Die nötige Anpassung hat niedrigen Rang und lässt sich kompakt als Adapter darstellen." }
+    ]
+  },
+  {
+    titel:"Reasoning-Mechanik",
+    kurz:"Test-Time Compute",
+    kernsatz:"Mehr „Nachdenken“ heißt mehr Rechenzeit zur Antwortzeit — das Modell nutzt Zwischenschritte als Arbeitsspeicher.",
+    punkte:[
+      "Test-Time Compute: durch viele Zwischen-Tokens verschafft sich das Modell mehr Rechenschritte — wie ein Schmierzettel.",
+      "Reasoning-Modelle werden mit bestärkendem Lernen an überprüfbaren Aufgaben (Mathe, Code) trainiert.",
+      "Ein großer Teil des Fortschritts ist erlernte Chain-of-Thought-Arbeitsweise, weniger „echtes Verstehen“.",
+      "Grenzen: mehr Tokens/Zeit/Geld; „Overthinking“ kann Antworten sogar verschlechtern."
+    ],
+    merkbild:"Schmierzettel im Kopf: Zwischenschritte sind zusätzlicher Arbeitsspeicher.",
+    check:[
+      { ftxt:"Was bedeutet „Test-Time Compute“?",
+        opt:[{t:"Mehr Rechenleistung zur Antwortzeit durch Zwischenschritte",c:true},{t:"Mehr Trainingsdaten",c:false},{t:"Ein größeres Vokabular",c:false}],
+        erkl:"Zwischen-Tokens verschaffen dem Modell faktisch mehr Rechenzeit und Arbeitsspeicher." },
+      { ftxt:"An welchen Aufgaben werden Reasoning-Modelle bevorzugt trainiert?",
+        opt:[{t:"An überprüfbaren wie Mathematik und Code",c:true},{t:"An Gedichten",c:false},{t:"An Bildern",c:false}],
+        erkl:"Bei überprüfbaren Lösungen kann man automatisch belohnen, ob das Ergebnis stimmt." }
+    ]
+  }
+];
+const quizMod5 = [
+  { etappe:0, f:"BPE fasst beim Tokenisieren was zusammen?", opt:["zufällige Wörter","die häufigsten Zeichenpaare","ganze Sätze","Zahlen"], korrekt:1 },
+  { etappe:0, f:"Wie groß ist ein typisches Vokabular?", opt:["ca. 100 Tokens","unbegrenzt","100.000–200.000 Tokens","10 Tokens"], korrekt:2 },
+  { etappe:1, f:"Was bezeichnet die Query in der Attention?", opt:["den eigentlichen Inhalt","die Position im Satz","das Gewicht","die Suchanfrage des Tokens"], korrekt:3 },
+  { etappe:1, f:"Der Attention-Aufwand wächst...", opt:["linear mit der Parameterzahl","gar nicht","quadratisch mit der Textlänge","logarithmisch"], korrekt:2 },
+  { etappe:2, f:"Kontextuelle Embeddings bedeuten...", opt:["jedes Wort hat denselben Vektor","nur für Zahlen","keine Bedeutung","der Vektor hängt vom Satz ab"], korrekt:3 },
+  { etappe:3, f:"Backpropagation (Fehlerrückführung) liefert...", opt:["die Tokenzahl","den Gradienten (Beitrag jedes Parameters zum Fehler)","das Vokabular","die Temperature"], korrekt:1 },
+  { etappe:4, f:"SFT, LoRA und DPO sind ... Verfahren.", opt:["Tokenisierungs-","Fine-tuning-","Retrieval-","Embedding-"], korrekt:1 },
+  { etappe:5, f:"Test-Time Compute heißt...", opt:["mehr Trainingsdaten","schnelleres Tokenisieren","kleineres Modell","mehr Rechenzeit zur Antwortzeit"], korrekt:3 }
+];
+
+/* ===================== Modul 6 — Vertiefung: Systeme & Praxis (Datei 2, G–K) ===================== */
+const etappenMod6 = [
+  {
+    titel:"RAG als Pipeline",
+    kurz:"Chunking, Re-Ranker, Graph-RAG",
+    kernsatz:"Jeder Schritt der RAG-Pipeline ist eine eigene Qualitätsstellschraube.",
+    punkte:[
+      "Chunking: zu kleine Stücke verlieren Zusammenhang, zu große verwässern die Relevanz; Überlappung und semantisches Chunking helfen.",
+      "Retrieval: hybride Suche (Bedeutung + exakte Stichwörter) plus ein Re-Ranker, der nach echter Relevanz sortiert.",
+      "Augmentation: zu viel Kontext löst „lost in the middle“ aus, zu wenig lässt Lücken.",
+      "Fortgeschritten: Graph-RAG (Wissensgraphen) und Agentic RAG (ein Agent steuert die Suche)."
+    ],
+    merkbild:"Gute RAG-Qualität entsteht an jeder Stufe — vor allem beim Chunking und Re-Ranking.",
+    check:[
+      { ftxt:"Was ist hybride Suche?",
+        opt:[{t:"Semantische plus lexikalische Stichwortsuche kombiniert",c:true},{t:"Nur Stichwortsuche",c:false},{t:"Zwei Modelle gleichzeitig",c:false}],
+        erkl:"Bedeutungssuche fängt Sinn, Stichwortsuche fängt exakte Begriffe (Artikelnummern, Eigennamen)." },
+      { ftxt:"Warum ist die Chunking-Strategie so wichtig?",
+        opt:[{t:"Sie entscheidet maßgeblich über die Trefferqualität",c:true},{t:"Sie spart Strom",c:false},{t:"Sie trainiert das Modell",c:false}],
+        erkl:"Wie man Dokumente zerteilt, bestimmt, wie gut relevante Stücke gefunden werden." }
+    ]
+  },
+  {
+    titel:"Agenten-Architekturmuster",
+    kurz:"ReAct, Reflexion, Plan-Execute, Multi-Agent",
+    kernsatz:"Produktions-Agenten kombinieren Muster wie ReAct, Reflexion, Planung und Multi-Agent — je nach Engpass.",
+    punkte:[
+      "ReAct (Reasoning + Acting): Schleife aus Thought → Action (Werkzeug) → Observation; Schwäche: Kohärenzverlust bei sehr langen Läufen.",
+      "Reflection: expliziter Selbstkritik-Schritt; auf 2–3 Versuche begrenzen, sonst „oszilliert“ der Agent.",
+      "Plan-and-Execute: erst kompletter Plan, dann Ausführung (braucht Checkpoints). Multi-Agent: ein Orchestrator verteilt an spezialisierte Worker.",
+      "Viele Produktionsfehler 2024–2026 waren Architektur-, keine Modellfehler. Human-in-the-Loop bei realen Folgen."
+    ],
+    merkbild:"Mit dem Muster beginnen, das den größten Engpass löst — nicht alle auf einmal.",
+    check:[
+      { ftxt:"Aus welchen drei Phasen besteht die ReAct-Schleife?",
+        opt:[{t:"Thought, Action, Observation",c:true},{t:"Plan, Code, Test",c:false},{t:"Frage, Antwort, Ende",c:false}],
+        erkl:"Gedanke → Werkzeug-Aktion → Beobachtung, fortlaufend an echtem Feedback geerdet." },
+      { ftxt:"Was war die häufigste Fehlerquelle bei Produktions-Agenten?",
+        opt:[{t:"Architekturfehler, nicht das Modell",c:true},{t:"Zu kleine Modelle",c:false},{t:"Fehlender Strom",c:false}],
+        erkl:"Das Modell funktionierte oft — das Design drumherum nicht." }
+    ]
+  },
+  {
+    titel:"Context Engineering",
+    kurz:"Den ganzen Kontext gestalten",
+    kernsatz:"Context Engineering gestaltet den gesamten Kontextinhalt — bei Agenten oft wichtiger als der einzelne Prompt.",
+    punkte:[
+      "Kontext-Budget: das Fenster ist endlich und token-teuer — was kommt rein (Systemanweisung, RAG-Treffer, Verlauf, Werkzeuge)?",
+      "Kontext-Kompression: lange Verläufe zusammenfassen statt vollständig mitschleppen.",
+      "Reihenfolge gegen „lost in the middle“: Wichtiges an Anfang oder Ende.",
+      "Kontext-Hygiene: Irrelevantes/Veraltetes raushalten; externe Inhalte sind Daten, keine Befehle."
+    ],
+    merkbild:"Nicht nur die Frage zählt, sondern was insgesamt im Fenster steht.",
+    check:[
+      { ftxt:"Was ist Context Engineering?",
+        opt:[{t:"Das Gestalten des gesamten Kontextinhalts (was, wie viel, Reihenfolge)",c:true},{t:"Das Formulieren einer Einzelfrage",c:false},{t:"Das Training des Modells",c:false}],
+        erkl:"Es geht um den gesamten Fensterinhalt, nicht nur um die Formulierung des Prompts." },
+      { ftxt:"Wie wirkt man „lost in the middle“ entgegen?",
+        opt:[{t:"Wichtiges an Anfang oder Ende platzieren",c:true},{t:"Alles in die Mitte",c:false},{t:"Mehr Tokens hinzufügen",c:false}],
+        erkl:"Die Mitte langer Eingaben wird schlechter beachtet." }
+    ]
+  },
+  {
+    titel:"Inferenz-Optimierung",
+    kurz:"Quantisierung, KV-Caching, Destillation",
+    kernsatz:"Quantisierung, KV-Caching und Destillation machen große Modelle im Betrieb schnell und billig.",
+    punkte:[
+      "Quantisierung: Parameter mit weniger Bit speichern (z. B. 4 statt 16) → kleiner und schneller, meist nur geringer Qualitätsverlust; ermöglicht Modelle auf Laptops.",
+      "KV-Caching: bereits berechnete Keys/Values zwischenspeichern → macht die Token-für-Token-Erzeugung praktikabel; Context Caching senkt Kosten wiederholter Anfragen.",
+      "Destillation: ein großes Lehrer-Modell bringt einem kleinen Schüler-Modell sein Verhalten bei.",
+      "Mixture-of-Experts (MoE)-Routing aktiviert nur die nötigen Experten pro Token."
+    ],
+    merkbild:"Kleiner rechnen (Quantisierung), nicht doppelt rechnen (Caching), schlanker nachbauen (Destillation).",
+    check:[
+      { ftxt:"Was bewirkt Quantisierung?",
+        opt:[{t:"Parameter mit weniger Bit → kleiner und schneller",c:true},{t:"Mehr Parameter",c:false},{t:"Ein größeres Kontextfenster",c:false}],
+        erkl:"Geringere Zahlengenauigkeit spart Speicher und beschleunigt — bei meist nur geringem Qualitätsverlust." },
+      { ftxt:"Wozu dient KV-Caching?",
+        opt:[{t:"Berechnete Keys/Values wiederverwenden statt neu rechnen",c:true},{t:"Daten löschen",c:false},{t:"Das Modell trainieren",c:false}],
+        erkl:"Ohne Cache müsste je neues Token die Attention über den ganzen Text neu berechnet werden." }
+    ]
+  },
+  {
+    titel:"Evaluation",
+    kurz:"LLM-as-a-Judge & eigene Evals",
+    kernsatz:"Sinnvoll evaluieren heißt vor allem: ein eigener, realitätsnaher Testsatz auf den echten Aufgaben.",
+    punkte:[
+      "LLM-as-a-Judge: ein starkes Modell bewertet die Ausgaben eines anderen — skaliert gut, hat aber Verzerrungen (Längen-Vorliebe, erstgenannte Option, eigener Stil).",
+      "Gegen Daten-Kontamination: frische, nachweislich neue Testaufgaben verwenden.",
+      "Eigene Evals sind am aussagekräftigsten — vor und nach jeder Änderung gegen denselben Satz messen.",
+      "Bei Agenten: den ganzen Pfad bewerten (richtige Werkzeuge? unnötige Schleifen?), Observability."
+    ],
+    merkbild:"Der eigene, realitätsnahe Eval-Satz schlägt jedes öffentliche Ranking.",
+    check:[
+      { ftxt:"Was ist „LLM-as-a-Judge“?",
+        opt:[{t:"Ein Modell bewertet automatisiert die Ausgaben eines anderen",c:true},{t:"Ein Gericht für KI",c:false},{t:"Ein Benchmark-Anbieter",c:false}],
+        erkl:"Skaliert gut, hat aber bekannte Verzerrungen (Judge-Biases), die man gegensteuern muss." },
+      { ftxt:"Was ist am aussagekräftigsten für die Eignung eines Modells?",
+        opt:[{t:"Der eigene, realitätsnahe Eval-Satz",c:true},{t:"Die öffentliche Rangliste",c:false},{t:"Die Parameterzahl",c:false}],
+        erkl:"Vor und nach jeder Änderung gegen denselben realistischen Satz messen." }
+    ]
+  }
+];
+const quizMod6 = [
+  { etappe:0, f:"Hybride Suche kombiniert...", opt:["zwei Sprachen","Bedeutung und exakte Stichwörter","zwei Modelle","Bild und Ton"], korrekt:1 },
+  { etappe:0, f:"Die Chunking-Strategie entscheidet über...", opt:["die Temperature","den Stromverbrauch","die Parameterzahl","die Trefferqualität"], korrekt:3 },
+  { etappe:1, f:"Die ReAct-Schleife besteht aus...", opt:["Plan, Code, Test","Frage, Antwort, Ende","Thought, Action, Observation","Suchen, Finden, Löschen"], korrekt:2 },
+  { etappe:1, f:"Häufigste Fehlerquelle bei Produktions-Agenten?", opt:["zu kleine Modelle","zu wenig Strom","falsche Sprache","Architekturfehler, nicht das Modell"], korrekt:3 },
+  { etappe:2, f:"Context Engineering bedeutet...", opt:["eine Einzelfrage formulieren","das Modell trainieren","den gesamten Kontextinhalt gestalten","Tokens zählen"], korrekt:2 },
+  { etappe:3, f:"Quantisierung bewirkt...", opt:["mehr Parameter","größeres Kontextfenster","mehr Halluzinationen","weniger Bit pro Parameter → kleiner/schneller"], korrekt:3 },
+  { etappe:4, f:"LLM-as-a-Judge ist...", opt:["öffentliches Ranking","Vektordatenbank","ein Modell bewertet Ausgaben eines anderen","ein Trainingsschritt"], korrekt:2 },
+  { etappe:4, f:"Was ist am aussagekräftigsten für die Modell-Eignung?", opt:["die Parameterzahl","der eigene, realitätsnahe Eval-Satz","der Modellname","die öffentliche Rangliste"], korrekt:1 }
+];
+
+/* ===================== Modul 7 — KI-Tools im Alltag ===================== */
+const etappenMod7 = [
+  {
+    titel:"Claude Code & das CLI",
+    kurz:"Terminal-Interface, Agentic Loop",
+    kernsatz:"Claude Code ist ein agentic coding tool im Terminal — es liest Code, schreibt ihn, führt ihn aus und arbeitet selbstständig in Schleifen.",
+    punkte:[
+      "CLI (Command-Line Interface, dt. Kommandozeilen-Interface): das Terminal ist das Eingabefenster — keine grafische Oberfläche, dafür direkte Systemzugriffe.",
+      "Unterschied zu Chat-Interfaces: Claude Code hat Zugriff auf dein Dateisystem, kann Shell-Befehle ausführen, liest und schreibt Dateien — weit mehr als ein Gespräch.",
+      "Agentic Loop: Aufgabe erhalten → Kontext lesen → planen → Dateien lesen/schreiben → ausführen → Ergebnis prüfen → korrigieren — in Schleifen, bis das Ziel erreicht ist.",
+      "Sessions: Jede Konversation ist eine eigene Session; Claude Code merkt sich Kontext innerhalb der Session, nicht dauerhaft.",
+      "Ideal für: Code refaktorieren, Bugs finden, neue Features umsetzen, Dokumentation schreiben — alles direkt in deiner eigenen Codebase."
+    ],
+    merkbild:"Nicht 'Frag die KI' — sondern 'Gib der KI Zugriff auf dein Werkzeug'.",
+    check:[
+      { ftxt:"Was unterscheidet Claude Code von einem Chat-Interface wie ChatGPT?",
+        opt:[{t:"Schnellere Antworten",c:false},{t:"Direkter Zugriff auf Dateisystem und Shell",c:true},{t:"Kein Internetzugang nötig",c:false}],
+        erkl:"Claude Code agiert direkt in deiner Umgebung: lesen, schreiben, ausführen — nicht nur reden." },
+      { ftxt:"Was beschreibt die Agentic Loop am besten?",
+        opt:[{t:"Selbstständige Schleife aus Planen, Ausführen, Prüfen, Korrigieren",c:true},{t:"Einmal fragen, eine Antwort bekommen",c:false},{t:"Einmaliges Datei-Lesen",c:false}],
+        erkl:"Claude Code arbeitet in Schleifen, bis das Ziel erreicht ist — kein einzelner Prompt." }
+    ]
+  },
+  {
+    titel:"Skills & Anpassung",
+    kurz:"Eigene Verhaltensbausteine definieren",
+    kernsatz:"Skills sind wiederverwendbare Verhaltensanweisungen — einmal als Markdown-Datei definiert, per Slash-Befehl abrufbar.",
+    punkte:[
+      "Ein Skill ist eine Markdown-Datei mit Anweisungen, die Claude Code bei Bedarf lädt und ausführt.",
+      "Slash-Befehle (/skill-name): statt jeden Prompt neu zu schreiben, rufst du den fertigen Skill auf — z. B. /commit, /code-review, /debug.",
+      "Globale Skills (~/.claude/skills/): gelten für alle Projekte. Projekt-Skills (.claude/skills/ im Projektordner): nur für das aktuelle Projekt.",
+      "CLAUDE.md: eine spezielle Datei, die Claude die Spielregeln des Projekts erklärt (Coding-Konventionen, Verhaltensregeln, Grenzen).",
+      "Skills sollten klar erklären, warum eine Regel gilt, nicht nur was zu tun ist — das hilft Claude bei unklaren Randfällen."
+    ],
+    merkbild:"Einmal definiert, immer abrufbar — dein persönlicher KI-Assistent nach Maß.",
+    check:[
+      { ftxt:"Was ist ein Skill in Claude Code?",
+        opt:[{t:"Ein Python-Paket",c:false},{t:"Eine Markdown-Datei mit wiederverwendbaren Verhaltensanweisungen",c:true},{t:"Ein Chat-Plugin",c:false}],
+        erkl:"Skills sind Anweisungs-Dateien, die per Slash-Befehl geladen und ausgeführt werden." },
+      { ftxt:"Was ist CLAUDE.md?",
+        opt:[{t:"Eine Datei, die Claude die Spielregeln des Projekts erklärt",c:true},{t:"Nur ein optionaler Anhang",c:false},{t:"Ein automatisches Backup",c:false}],
+        erkl:"CLAUDE.md erklärt Konventionen, Verhaltensregeln und Grenzen — Claude richtet sich danach." }
+    ]
+  },
+  {
+    titel:"Hooks & Automatisierung",
+    kurz:"Automatische Aktionen bei Ereignissen",
+    kernsatz:"Hooks sind Shell-Befehle, die der Harness (das Claude-Code-Framework) automatisch bei bestimmten Ereignissen ausführt.",
+    punkte:[
+      "Ein Hook ist an ein Ereignis gebunden: z. B. PreToolUse (vor einem Werkzeug-Aufruf), PostToolUse (danach) oder Stop (wenn Claude fertig ist).",
+      "Konfiguriert in der settings.json-Datei: welcher Hook, auf welches Ereignis, für welche Tools.",
+      "Beispiele: nach jeder Datei-Bearbeitung automatisch Prettier ausführen, Benachrichtigung auslösen wenn Claude fertig ist, Sicherheitsprüfung vor Shell-Befehlen.",
+      "Wichtig: Den Harness führt Hooks aus — nicht Claude selbst. Claude sieht das Ergebnis und kann darauf reagieren.",
+      "Hooks sind auditierbar: die Befehle stehen klar in der Konfiguration und sind transparent nachvollziehbar."
+    ],
+    merkbild:"Hooks = automatische Bewachter — der Harness handelt, ohne dass du eingreifen musst.",
+    check:[
+      { ftxt:"Was ist ein Hook in Claude Code?",
+        opt:[{t:"Eine MCP-Verbindung",c:false},{t:"Ein Skill",c:false},{t:"Ein Shell-Befehl, der automatisch bei Ereignissen ausgeführt wird",c:true}],
+        erkl:"Hooks sind an Ereignisse gebundene Shell-Befehle — automatisch, ohne manuellen Eingriff." },
+      { ftxt:"Wer führt Hooks tatsächlich aus?",
+        opt:[{t:"Der Harness (Claude Code Framework)",c:true},{t:"Claude selbst",c:false},{t:"Der Nutzer manuell",c:false}],
+        erkl:"Der Harness führt Hooks aus; Claude sieht nur das Ergebnis und kann darauf reagieren." }
+    ]
+  },
+  {
+    titel:"Subagents & parallele Arbeit",
+    kurz:"Aufgaben delegieren und gleichzeitig ausführen",
+    kernsatz:"Subagents sind separate Claude-Instanzen für Teilaufgaben — parallel arbeitend, unabhängig vom Hauptagenten.",
+    punkte:[
+      "Dispatching: der Hauptagent (Orchestrator) teilt eine große Aufgabe auf und delegiert Teile an Subagents.",
+      "Parallelisierung: mehrere Subagents arbeiten gleichzeitig — z. B. sechs Dateien gleichzeitig refaktorieren statt nacheinander.",
+      "Jeder Subagent startet 'kalt' ohne Gedächtnis der Hauptkonversation → der Prompt muss vollständig eigenständig und selbsterklärend sein.",
+      "Worktrees: für isolierte Arbeit kann jeder Subagent auf einem eigenen Git-Branch in einem eigenen Verzeichnis arbeiten.",
+      "Vorteil: drastisch schnellere Ergebnisse bei unabhängigen Teilaufgaben; klare Verantwortungstrennung."
+    ],
+    merkbild:"Ein Orchestrator delegiert — jeder Subagent bekommt eine klare, eigenständige Aufgabe.",
+    check:[
+      { ftxt:"Was ist ein Subagent?",
+        opt:[{t:"Ein Skill",c:false},{t:"Eine separate Claude-Instanz für Teilaufgaben",c:true},{t:"Ein MCP-Server",c:false}],
+        erkl:"Subagents sind unabhängige Claude-Instanzen, die Teilaufgaben des Hauptagenten übernehmen." },
+      { ftxt:"Warum muss ein Subagent-Prompt selbsterklärend sein?",
+        opt:[{t:"Weil sie langsamer sind",c:false},{t:"Weil Subagents den Kontext der Hauptkonversation nicht kennen",c:true},{t:"Weil sie kein Deutsch können",c:false}],
+        erkl:"Jeder Subagent startet 'kalt' — ohne Gedächtnis an die bisherige Konversation." }
+    ]
+  },
+  {
+    titel:"MCP in der Praxis",
+    kurz:"E-Mail, Kalender, Drive und mehr",
+    kernsatz:"MCP-Server (Model Context Protocol-Server) sind die Brücken zwischen Claude und der Außenwelt — jede Verbindung bringt neue Fähigkeiten.",
+    punkte:[
+      "Ein MCP-Server stellt Tools (Funktionen), Resources (Datenquellen) und Prompts (Vorlagen) für Claude bereit.",
+      "Beispiel Gmail-MCP-Server: Claude kann E-Mails lesen, Labels setzen, Entwürfe erstellen — ohne manuellen Zwischenschritt.",
+      "Beispiel Google Drive: Dateien suchen, lesen und organisieren — direkt aus Claude Code heraus.",
+      "Konfiguration: den Server in claude_desktop_config.json oder der Claude-Code-Einstellung eintragen — dann ist er sofort verfügbar.",
+      "Sicherheit: MCP-Server haben Zugriff auf echte Systeme — nur vertrauenswürdige Server einbinden; Berechtigungen auf das Nötigste begrenzen."
+    ],
+    merkbild:"Jeder MCP-Server gibt Claude neue Fähigkeiten — aber mit Zugriff kommt Verantwortung.",
+    check:[
+      { ftxt:"Was stellt ein MCP-Server für Claude bereit?",
+        opt:[{t:"Tools, Resources und Prompts für externe Systeme",c:true},{t:"Mehr Modell-Parameter",c:false},{t:"Ein größeres Kontextfenster",c:false}],
+        erkl:"MCP-Server sind Brücken zu externen Diensten: sie bringen Tools (Funktionen), Resources (Daten) und Prompts (Vorlagen)." },
+      { ftxt:"Was ist bei MCP-Servern sicherheitsrelevant?",
+        opt:[{t:"Sie brauchen keine Konfiguration",c:false},{t:"Sie sind immer sicher, keine Gefahr",c:false},{t:"Sie haben Zugriff auf echte Systeme — nur vertrauenswürdige einbinden",c:true}],
+        erkl:"Ein kompromittierter MCP-Server kann auf deine echten Daten zugreifen — Berechtigungen prüfen." }
+    ]
+  },
+  {
+    titel:"Sicherheit & Best Practices",
+    kurz:"Verantwortungsvoll mit mächtigen Werkzeugen",
+    kernsatz:"Je mehr ein Agent tun kann, desto wichtiger ist klare Kontrolle — Human-in-the-Loop, reversible Aktionen und minimale Berechtigungen.",
+    punkte:[
+      "Reversible vs. irreversible Aktionen: Dateien editieren ist reversibel (git revert möglich); git push --force, Datei löschen oder E-Mail senden sind es nicht.",
+      "Human-in-the-Loop (HITL): kritische, irreversible Aktionen immer zuerst bestätigen lassen — nicht alles autonom ausführen.",
+      "Minimales Berechtigungsprinzip (Principle of Least Privilege): Claude nur den Zugriff geben, den es wirklich braucht.",
+      "Prompt Injection in agentic Systemen: wenn Claude Webseiten oder E-Mails liest, können versteckte Anweisungen darin stecken — externe Inhalte immer als Daten, nicht als Befehle behandeln.",
+      "CLAUDE.md als Sicherheitsnetz: Verhaltensregeln und Grenzen schriftlich festlegen — Claude hält sich daran."
+    ],
+    merkbild:"Prüfe vor dem Ausführen: Ist diese Aktion umkehrbar? Wenn nicht — erst fragen.",
+    check:[
+      { ftxt:"Was ist eine irreversible Aktion?",
+        opt:[{t:"Kommentar lesen",c:false},{t:"Variable umbenennen",c:false},{t:"E-Mail senden oder Datei löschen",c:true}],
+        erkl:"Irreversible Aktionen können nicht einfach rückgängig gemacht werden — sie brauchen Bestätigung." },
+      { ftxt:"Was bedeutet 'Human-in-the-Loop'?",
+        opt:[{t:"Vollautomatischer Betrieb ohne Pause",c:false},{t:"Menschen bestätigen kritische Aktionen vor der Ausführung",c:true},{t:"KI überwacht Menschen",c:false}],
+        erkl:"Bei realen Folgen — Geld, Löschungen, Versand — muss ein Mensch zustimmen." }
+    ]
+  }
+];
+const quizMod7 = [
+  { etappe:0, f:"Was unterscheidet Claude Code von ChatGPT?", opt:["Schnellere Antworten","Zugriff auf Dateisystem und Shell des Nutzers","Kein Internetzugang nötig","Kein Unterschied"], korrekt:1 },
+  { etappe:1, f:"Was ist ein Skill in Claude Code?", opt:["Ein Python-Paket","Ein Chat-Plugin","Wiederverwendbare Verhaltensanweisung (Markdown-Datei)","Ein MCP-Server"], korrekt:2 },
+  { etappe:1, f:"Was ist CLAUDE.md?", opt:["Eine Binärdatei","Datei, die Claude die Spielregeln des Projekts erklärt","Ein automatisches Backup","Ein Subagent"], korrekt:1 },
+  { etappe:2, f:"Ein Hook wird ausgeführt von...", opt:["Claude selbst","dem Nutzer manuell","einem MCP-Server","dem Harness (Claude Code Framework)"], korrekt:3 },
+  { etappe:3, f:"Warum muss ein Subagent-Prompt eigenständig sein?", opt:["Er ist dann schneller","Er kennt den Hauptkonversations-Kontext nicht","Er ist günstiger","Er braucht kein Modell"], korrekt:1 },
+  { etappe:4, f:"Was liefert ein MCP-Server für Claude?", opt:["Tools, Resources und Prompts","Mehr Parameter","Größeres Kontextfenster","Neue Trainingsdaten"], korrekt:0 },
+  { etappe:5, f:"Welche Aktion ist irreversibel?", opt:["Datei editieren","Variable umbenennen","Kommentar lesen","E-Mail senden oder Datei löschen"], korrekt:3 },
+  { etappe:5, f:"'Human-in-the-Loop' bedeutet...", opt:["Vollautomatischer Betrieb","KI überwacht Menschen","Menschen bestätigen kritische Aktionen","Kein KI-Einsatz"], korrekt:2 }
+];
+
+/* ===================== Modul-Register ===================== */
+const module = [
+  { id:0, titel:"Grundlagen", kurz:"KI, Tokens, Embeddings, Attention", etappen:etappen, quiz:quizFragen, synthese:true },
+  { id:1, titel:"Wie Modelle arbeiten", kurz:"Training, Kontextfenster, Temperature, Halluzinationen", etappen:etappenMod2, quiz:quizMod2, synthese:false },
+  { id:2, titel:"Mit Modellen arbeiten", kurz:"Prompts, Reasoning, RAG, MCP, Agents", etappen:etappenMod3, quiz:quizMod3, synthese:false },
+  { id:3, titel:"Anbieter & Praxis", kurz:"Anbieter, Modellwahl, Benchmarks, Multimodalität, Sicherheit, Praxis", etappen:etappenMod4, quiz:quizMod4, synthese:false },
+  { id:4, titel:"Vertiefung: Mechanik", kurz:"BPE, Query/Key/Value, Backpropagation, LoRA/DPO, Reasoning", etappen:etappenMod5, quiz:quizMod5, synthese:false },
+  { id:5, titel:"Vertiefung: Systeme & Praxis", kurz:"RAG-Pipeline, Agenten-Muster, Context Engineering, Inferenz, Evaluation", etappen:etappenMod6, quiz:quizMod6, synthese:false },
+  { id:6, titel:"KI-Tools im Alltag", kurz:"Claude Code, Skills, Hooks, Subagents, MCP, Sicherheit", etappen:etappenMod7, quiz:quizMod7, synthese:false }
+];
+
+/* ===================== Vertiefung pro Etappe (Baustein A) ===================== */
+const vertiefungen = {
+  "0-0": {
+    achten:["Begriffe nicht synonym verwenden — KI ist viel weiter als „Sprachmodell“.","Marketing nennt vieles „KI“ — prüfe, ob wirklich aus Daten gelernt wird oder nur Regeln ablaufen."]
+  },
+  "0-1": {
+    achten:["Deutsch und Komposita kosten mehr Tokens — Prompts und Kosten im Blick behalten.","Zahlen und Tippfehler werden teils seltsam zerlegt — bei Rechenaufgaben vorsichtig sein."]
+  },
+  "0-2": {
+    vorteile:["Ein einziger Mechanismus deckt Übersetzen, Schreiben, Code und Zusammenfassen ab.","Sehr flexibel ohne aufgabenspezifische Programmierung."],
+    grenzen:["Kein echtes Verständnis, keine Faktendatenbank — Halluzinationen sind systembedingt."],
+    achten:["Plausibel klingende Antworten immer prüfen, besonders bei Fakten und Zahlen."]
+  },
+  "0-3": {
+    vorteile:["MoE: große Gesamtkapazität bei geringeren Kosten pro Anfrage.","Kleine, effiziente Modelle erreichen 2026 oft fast Spitzenleistung."],
+    grenzen:["Mehr Parameter heißt nicht automatisch besser.","Die Parameterzahl allein ist kein Qualitätsmaß."],
+    achten:["Nicht von „Milliarden Parametern“ blenden lassen — auf die Eignung für die Aufgabe schauen."]
+  },
+  "0-4": {
+    vorteile:["Ermöglichen semantische Suche (nach Bedeutung statt Stichwort) und RAG."],
+    grenzen:["Aus Embeddings lassen sich teils Originaldaten rekonstruieren — Datenschutz beachten."],
+    achten:["Für Fachdomänen liefern speziell angepasste Embedding-Modelle deutlich bessere Treffer."]
+  },
+  "0-5": {
+    vorteile:["Parallele Verarbeitung — sehr gut auf großen Rechenclustern trainierbar.","Erfasst weitreichende Bezüge im Text, nicht nur Nachbarwörter."],
+    grenzen:["Rechenaufwand wächst quadratisch mit der Textlänge — lange Kontexte sind teuer."],
+    achten:["Bei sehr langen Eingaben das „lost in the middle“-Problem im Hinterkopf behalten."]
+  },
+  "1-0": {
+    vorteile:["RLHF und Constitutional AI machten Modelle erst zu brauchbaren, „höflichen“ Assistenten."],
+    grenzen:["Pretraining ist extrem teuer und energieintensiv.","Nachtraining kann zuvor Gelerntes überschreiben (Catastrophic Forgetting)."],
+    achten:["Verhalten und Werte stammen aus dem Training — sie sind gestaltet, nicht „neutral“."]
+  },
+  "1-1": {
+    vorteile:["Große Fenster: ganze Dokumente oder Code-Repos in einem Rutsch verarbeitbar."],
+    grenzen:["Die Mitte wird schlechter beachtet („lost in the middle“).","Ein großes Fenster kostet mehr Tokens und Geld."],
+    achten:["Wichtiges an Anfang oder Ende platzieren, nicht in der Mitte vergraben."]
+  },
+  "1-2": {
+    vorteile:["Ein Regler steuert den Charakter der Antwort — von faktisch bis kreativ."],
+    grenzen:["Hohe Temperature erhöht das Risiko abwegiger oder falscher Antworten."],
+    achten:["Fakten und Code: niedrig. Brainstorming und Texte: höher. Bewusst wählen."]
+  },
+  "1-3": {
+    grenzen:["Treten auch bei Spitzenmodellen auf und sind nie zu 100 % vermeidbar."],
+    achten:["Wichtige Fakten gegenprüfen; mit Quellen erden (RAG) oder Werkzeuge geben.","Ein selbstbewusster Ton ist kein Beweis für Wahrheit."]
+  },
+  "2-0": {
+    vorteile:["Schnell, kostenlos, ohne Training — der größte Hebel für bessere Ergebnisse."],
+    grenzen:["Bei langen, mehrstufigen Aufgaben reicht ein guter Prompt allein oft nicht."],
+    achten:["Präzise sein, Beispiele geben (Few-Shot), Format und Länge vorgeben."]
+  },
+  "2-1": {
+    vorteile:["Deutlich bessere Trefferquote bei Logik, Mathematik und Planung."],
+    grenzen:["Kostet mehr Tokens, Zeit und Geld; „Overthinking“ kann Antworten verschlechtern."],
+    achten:["Denktiefe zur Aufgabe wählen — für Einfaches ein schnelles Standardmodell."]
+  },
+  "2-2": {
+    vorteile:["Aktuelles oder firmenspezifisches Wissen ohne Neutraining; nachvollziehbare Quellen.","Senkt Halluzinationen deutlich."],
+    grenzen:["Qualität hängt stark von Chunking, Embedding und Suche ab.","Eine unverschlüsselte Vektordatenbank ist ein Sicherheitsrisiko."],
+    achten:["Hybride Suche und einen Re-Ranker nutzen; nicht zu viel Kontext hineinkippen."]
+  },
+  "2-3": {
+    vorteile:["Macht das Modell handlungsfähig: rechnen, suchen, Aktionen auslösen.","MCP: einmal anbinden, von vielen Clients nutzbar."],
+    grenzen:["Werkzeugzugriff erhöht das Risiko — z. B. Prompt Injection mit realen Folgen."],
+    achten:["Kritische oder unumkehrbare Aktionen vom Menschen bestätigen lassen (Human-in-the-Loop)."]
+  },
+  "2-4": {
+    vorteile:["Erledigen mehrstufige Aufgaben weitgehend selbstständig."],
+    grenzen:["Können „im Kreis laufen“ und Kosten verbrennen; Fehler liegen oft im Design, nicht im Modell."],
+    achten:["Klares Ziel und Spezifikation, Prüfschleifen und Stopp-Kriterien; Ergebnisse prüfen."]
+  },
+  "3-0": {
+    vorteile:["Starker Wettbewerb — schnelle Fortschritte und sinkende Preise."],
+    grenzen:["Unübersichtlich; Versionsnummern altern im Wochentakt."],
+    achten:["Nicht auf den Namen fixieren — Anbieter und Modell zur Aufgabe wählen."]
+  },
+  "3-1": {
+    vorteile:["Die richtige Wahl spart Geld und verbessert Ergebnisse spürbar."],
+    grenzen:["Ein pauschal „bestes“ Modell gibt es nicht — immer aufgabenabhängig."],
+    achten:["Kriterien abwägen: Aufgabe, Kosten, Kontextfenster, Datenschutz, Ökosystem."]
+  },
+  "3-2": {
+    vorteile:["Geben eine grobe Orientierung zum Leistungsstand."],
+    grenzen:["Sättigung und Daten-Kontamination verzerren die Aussagekraft."],
+    achten:["Einen eigenen, realitätsnahen Test auf den echten Aufgaben fahren."]
+  },
+  "3-3": {
+    vorteile:["Ein Modell für Text, Bild, Audio und Video — flexibel und mächtig."],
+    grenzen:["Mehr Modalitäten bedeuten mehr Rechen- und Kostenaufwand."],
+    achten:["Auch hier gegenprüfen — Bilder und Diagramme können falsch gelesen werden."]
+  },
+  "3-4": {
+    grenzen:["Kein Schutz ist perfekt; mit Werkzeugzugriff steigen die Risiken."],
+    achten:["Externe Inhalte sind Daten, keine Befehle. Keine Geheimnisse in Prompts oder Datenbanken.","Auf Bias achten und kritische Aktionen absichern."]
+  },
+  /* Modul 5 — Vertiefung Mechanik */
+  "4-0": {
+    vorteile:["Kompakter Speicher: häufige Muster werden zu einem Token.","Universell: funktioniert sprachübergreifend ohne manuell vordefinierte Wörter."],
+    grenzen:["Seltene Fachbegriffe und Fremdwörter zerfallen in viele Tokens — kostet Kontext und Geld.","Zahlen werden teils seltsam zerlegt, was Rechenaufgaben erschwert."],
+    achten:["Fachdomänen und Nicht-Englisch sind token-teurer — Prompt-Länge im Blick behalten."]
+  },
+  "4-1": {
+    vorteile:["Multi-Head Attention: mehrere Blickwinkel gleichzeitig (Grammatik, Thema, Position).","Erfasst weitreichende Bezüge, nicht nur Nachbarwörter."],
+    grenzen:["Quadratischer Aufwand: lange Kontexte werden exponentiell teurer.","2026 wird an subquadratischen Alternativen geforscht, um diesen Engpass zu umgehen."],
+    achten:["Kontextfenstergröße bewusst wählen — nicht unnötig mit langem Text befüllen."]
+  },
+  "4-2": {
+    vorteile:["Löst Mehrdeutigkeit (‚Bank' je nach Satz): viel besser als statische Embeddings.","Fundament für semantische Suche und RAG."],
+    grenzen:["Kontextuelle Embeddings sind rechenaufwändiger als statische.","Für Fachdomänen sind spezialisierte Embedding-Modelle oft besser."],
+    achten:["Positionskodierung prüfen, wenn das Modell auf sehr lange Sequenzen skaliert werden soll."]
+  },
+  "4-3": {
+    vorteile:["Universell: derselbe Mechanismus lernt Sprache, Code, Logik — ohne Aufgabenspezifik."],
+    grenzen:["Catastrophic Forgetting: Nachtraining kann Gelerntes überschreiben.","Overfitting droht bei kleinen oder lauten Datensätzen."],
+    achten:["Lernrate sorgfältig wählen; Validation-Set nutzen; bei Catastrophic Forgetting Techniken wie LoRA einsetzen."]
+  },
+  "4-4": {
+    vorteile:["LoRA: Modell anpassen ohne die Basis zu berühren — flexibel und reversibel.","QLoRA: Fine-tuning sogar auf Consumer-Hardware möglich.","DPO: stabiler und einfacher als RLHF/PPO."],
+    grenzen:["Fine-tuning für Fakten ist nicht die richtige Methode (→ RAG statt Fine-tuning).","Qualität der Beispiele entscheidend: wenige gute schlagen viele schlechte."],
+    achten:["Daten sorgfältig kuratieren — schlechte Daten degradieren das Modell, auch bei LoRA."]
+  },
+  "4-5": {
+    vorteile:["Deutlich besser bei mehrstufiger Logik, Mathematik und Planung als direkte Antwort."],
+    grenzen:["Mehr Tokens, Zeit und Geld; ‚Overthinking' kann Antworten sogar verschlechtern.","Kein echtes Verstehen: gelernte Strategien, keine Kognition."],
+    achten:["Denktiefe zur Aufgabe wählen — für Einfaches reicht ein schnelles Standardmodell ohne Reasoning."]
+  },
+  /* Modul 6 — Vertiefung Systeme & Praxis */
+  "5-0": {
+    vorteile:["Hybride Suche + Re-Ranker: klar bessere Trefferqualität als reine Vektorsuche.","Graph-RAG erschließt Beziehungen zwischen Fakten — gut bei vernetztem Wissen."],
+    grenzen:["Jede Stufe ist eine mögliche Fehlerquelle; schlechtes Chunking kann selbst gute Embeddings ruinieren.","Aufwand: Vektordatenbank muss gepflegt und abgesichert werden."],
+    achten:["Chunking-Strategie zuerst optimieren — das hat oft den größten Hebel.","Datenbank verschlüsseln; aus Embeddings lassen sich teils Originaldaten rekonstruieren."]
+  },
+  "5-1": {
+    vorteile:["ReAct erdet den Agenten fortlaufend an echtem Feedback.","Plan-and-Execute effizienter bei klar strukturierbaren Aufgaben.","Multi-Agent: ermöglicht Aufgaben jenseits eines einzelnen Kontextfensters."],
+    grenzen:["Komplexere Architektur = mehr Koordinationsaufwand, Latenz und Fehlerquellen.","Kohärenzverlust bei langen ReAct-Läufen (>50 Schritte)."],
+    achten:["Human-in-the-Loop bei kritischen oder unumkehrbaren Aktionen. Nur das Muster wählen, das den größten Engpass löst."]
+  },
+  "5-2": {
+    vorteile:["Oft wichtiger als die Prompt-Formulierung selbst — besonders bei Agenten.","Gezielte Kontext-Kompression spart Kosten und verbessert Qualität."],
+    grenzen:["Falsches Kontext-Budget (zu viel/wenig) verschlechtert Antworten."],
+    achten:["Wichtiges an Anfang oder Ende platzieren. Externe Inhalte als Daten behandeln, nicht als Befehle."]
+  },
+  "5-3": {
+    vorteile:["Quantisierung ermöglicht Modelle auf Laptops und Edge-Geräten.","KV-Caching macht Token-für-Token-Erzeugung erst praktikabel.","Destillation: kleine Modelle mit großer Leistung — kostengünstig im Betrieb."],
+    grenzen:["Quantisierung kann Qualität bei sehr kleinen Bitbreiten spürbar senken.","Destillation braucht ein starkes Lehrer-Modell und Trainingsaufwand."],
+    achten:["Quantisierungsgrad ausprobieren (4/8 Bit) und auf der eigenen Aufgabe evaluieren."]
+  },
+  "5-4": {
+    vorteile:["LLM-as-a-Judge skaliert — kein Mensch muss jede Antwort prüfen."],
+    grenzen:["Judge-Biases: Länge, Reihenfolge, eigener Stil — muss man kennen und gegensteuern.","Öffentliche Benchmarks oft gesättigt oder kontaminiert — schlechte Entscheidungsgrundlage."],
+    achten:["Eigene, realitätsnahe Evals bauen und vor/nach jeder Änderung messen. Bei Agenten den ganzen Pfad beobachten (Observability)."]
+  },
+  "6-0": {
+    vorteile:["Direkter Systemzugriff: liest/schreibt Dateien, führt Shell aus — weit mehr als ein Chat.","Agentic Loop: Claude arbeitet selbstständig in Schleifen, bis das Ziel erreicht ist."],
+    grenzen:["Mehr Zugriffsrechte bedeuten mehr Risiko; Shell-Befehle können das System dauerhaft verändern."],
+    achten:["Berechtigungen verstehen, bevor man Claude Code auf sensible Verzeichnisse loslässt. Shell-Operationen vor Ausführung kurz prüfen."]
+  },
+  "6-1": {
+    vorteile:["Skills sparen Zeit: einmal definiert, immer wieder abrufbar — kein Prompt-Tippen bei Routineaufgaben.","CLAUDE.md gibt dem Projekt eine stabile 'Persönlichkeit' und verhindert Missverständnisse."],
+    achten:["Skills sollten klar das WARUM erklären, nicht nur das WAS — das hilft Claude bei Randfällen.","Skills regelmäßig überprüfen, ob sie noch aktuell sind und zum Projekt passen."]
+  },
+  "6-2": {
+    vorteile:["Automatisierung ohne manuellen Eingriff: z. B. immer formatieren nach dem Speichern.","Hooks sind auditierbar — die Befehle stehen klar in der Konfiguration."],
+    grenzen:["Falsch konfigurierte Hooks können unerwünschte Seiteneffekte haben und schwer zu debuggen sein."],
+    achten:["Hooks sind Shell-Befehle — nur vertrauenswürdige Befehle eintragen. Ausgaben im Blick behalten; zu viele Hooks können die Arbeit bremsen."]
+  },
+  "6-3": {
+    vorteile:["Parallelisierung spart drastisch Zeit bei unabhängigen Aufgaben.","Trennung der Verantwortung: jeder Subagent hat eine klar definierte, eigenständige Aufgabe."],
+    grenzen:["Koordinationsaufwand steigt. Subagents kennen den Hauptkontext nicht — das muss im Prompt stehen."],
+    achten:["Subagent-Prompts müssen vollständig selbsterklärend sein — kein impliziter Kontext aus der Hauptkonversation. Kosten im Blick: jeder Subagent verbraucht Tokens."]
+  },
+  "6-4": {
+    vorteile:["MCP-Server erweitern Claude's Fähigkeiten ohne Code schreiben zu müssen.","Einheitlicher Standard: ein Server, viele MCP-fähige Clients."],
+    grenzen:["Jede Verbindung ist ein potenzielles Sicherheitsrisiko — der Server hat Zugriff auf echte Systeme."],
+    achten:["Nur vertrauenswürdige MCP-Server einbinden. Berechtigungen auf das Nötigste beschränken. Regelmäßig prüfen, welche Server aktiv sind."]
+  },
+  "6-5": {
+    vorteile:["Klare Grenzen und Human-in-the-Loop machen agentic KI verlässlicher und sicherer.","CLAUDE.md als schriftliches Sicherheitsnetz: Regeln gelten konsistent über Sessions hinweg."],
+    grenzen:["Zu viele Bestätigungsaufforderungen bremsen den Workflow und machen das Tool mühsam."],
+    achten:["Unterscheiden: Routine-Aktionen automatisieren; kritische/irreversible Aktionen immer bestätigen lassen. Prompt Injection beachten: externe Inhalte sind Daten, keine Befehle."]
+  }
+};
+/* ===================== Abkürzungs-Glossar (Baustein A+) ===================== */
+const abkGlossar = {
+  "BPE":   "Byte-Pair Encoding (Tokenisierungsverfahren)",
+  "MoE":   "Mixture of Experts (Experten-Mischarchitektur)",
+  "RLHF":  "Reinforcement Learning from Human Feedback",
+  "SFT":   "Supervised Fine-Tuning (Überwachtes Feinabstimmen)",
+  "LoRA":  "Low-Rank Adaptation (Parametereffizienter Adapter)",
+  "QLoRA": "LoRA + Quantisierung (Hardware-sparendes Fine-tuning)",
+  "DPO":   "Direct Preference Optimization",
+  "PPO":   "Proximal Policy Optimization (RL-Algorithmus)",
+  "CAI":   "Constitutional AI (Anthropics Prinzipien-basiertes Alignment)",
+  "CoT":   "Chain of Thought (Gedankenkette)",
+  "RL":    "Reinforcement Learning (Bestärkendes Lernen)",
+  "ML":    "Machine Learning (Maschinelles Lernen)",
+  "RAG":   "Retrieval Augmented Generation",
+  "MCP":   "Model Context Protocol",
+  "ReAct": "Reasoning + Acting (Agenten-Muster)",
+  "HITL":  "Human-in-the-Loop (Mensch im Regelkreis)",
+  "CLI":   "Command-Line Interface (Kommandozeilen-Interface)",
+  "KV":    "Key-Value (Schlüssel-Wert-Cache)",
+  "LLM":   "Large Language Model (Großes Sprachmodell)",
+  "GPT":   "Generative Pre-trained Transformer",
+  "RoPE":  "Rotary Position Embedding (Positionskodierung)"
+};
+const etappeAbk = {
+  "0-3":  ["MoE"],
+  "1-0":  ["RLHF","SFT","CAI"],
+  "2-2":  ["RAG"],
+  "2-3":  ["MCP"],
+  "2-4":  ["HITL"],
+  "3-0":  ["CAI"],
+  "4-0":  ["BPE"],
+  "4-2":  ["RoPE"],
+  "4-3":  ["ML","CoT","LoRA"],
+  "4-4":  ["SFT","LoRA","QLoRA","DPO","RLHF","PPO","CAI"],
+  "4-5":  ["CoT","RL"],
+  "5-0":  ["RAG"],
+  "5-1":  ["ReAct","HITL"],
+  "5-2":  ["RAG"],
+  "5-3":  ["KV"],
+  "5-4":  ["LLM"],
+  "6-0":  ["CLI"],
+  "6-4":  ["MCP"],
+  "6-5":  ["HITL"]
+};
+function abkHTML(m,i){
+  const key = m+"-"+i;
+  const liste = etappeAbk[key];
+  if(!liste || liste.length===0) return "";
+  const chips = liste.map(k=>`<span class="abk-chip">${k}</span> <b>${abkGlossar[k]||k}</b>`).join(" &nbsp;·&nbsp; ");
+  return `<div class="abk-box">📖 <b>Abkürzungen:</b> ${chips}</div>`;
+}
+function vertiefungHTML(m,i){
+  const vt = vertiefungen[m+"-"+i];
+  if(!vt) return "";
+  let inner = "";
+  if(vt.vorteile) inner += `<div class="vt-block vt-pro"><div class="vt-h">✅ Vorteile</div><ul>${vt.vorteile.map(x=>`<li>${x}</li>`).join("")}</ul></div>`;
+  if(vt.grenzen) inner += `<div class="vt-block vt-con"><div class="vt-h">⚠️ Grenzen / Nachteile</div><ul>${vt.grenzen.map(x=>`<li>${x}</li>`).join("")}</ul></div>`;
+  if(vt.achten) inner += `<div class="vt-block vt-note"><div class="vt-h">👉 Worauf achten</div><ul>${vt.achten.map(x=>`<li>${x}</li>`).join("")}</ul></div>`;
+  return `<div class="vertiefung">
+    <button class="vt-toggle" onclick="toggleVertiefung(this)" aria-expanded="false"><span class="vt-plus">＋</span> Vertiefung: Vorteile · Grenzen · Worauf achten</button>
+    <div class="vt-body" hidden>${inner}</div>
+  </div>`;
+}
+function toggleVertiefung(btn){
+  const body = btn.parentElement.querySelector(".vt-body");
+  const open = !body.hidden;
+  body.hidden = open;
+  btn.setAttribute("aria-expanded", String(!open));
+  btn.querySelector(".vt-plus").textContent = open ? "＋" : "－";
+}
+
+/* ===================== Schaubilder (Inline-SVG) ===================== */
+function schaubildMod1(e){
+  switch(e){
+    case 0: return `
+<svg viewBox="0 0 360 232" width="360" height="232" role="img" aria-label="Verschachtelte Begriffspyramide">
+  <rect x="8" y="8" width="344" height="216" rx="13" fill="#2D362E"/>
+  <text x="20" y="30" fill="#fff" font-size="13" font-weight="bold">Künstliche Intelligenz</text>
+  <rect x="38" y="44" width="284" height="164" rx="11" fill="#3D4A3E"/>
+  <text x="50" y="65" fill="#fff" font-size="13" font-weight="bold">Machine Learning</text>
+  <rect x="68" y="78" width="224" height="116" rx="10" fill="#8A9189"/>
+  <text x="80" y="98" fill="#fff" font-size="13" font-weight="bold">Deep Learning</text>
+  <rect x="98" y="110" width="164" height="70" rx="9" fill="#D97706"/>
+  <text x="180" y="140" fill="#fff" font-size="13" font-weight="bold" text-anchor="middle">Generative KI</text>
+  <text x="180" y="160" fill="#fff" font-size="11" text-anchor="middle">(Sprachmodelle)</text>
+</svg>`;
+    case 1: return `
+<svg viewBox="0 0 380 172" width="380" height="172" role="img" aria-label="Wort zerfällt in Tokens">
+  <text x="190" y="30" text-anchor="middle" font-size="15" font-weight="bold" fill="#2D362E">&quot;Komponentenvertrieb&quot;</text>
+  <line x1="190" y1="40" x2="190" y2="60" stroke="#9CA3AF" stroke-width="2"/>
+  <g font-size="13" font-weight="bold" text-anchor="middle">
+    <rect x="36" y="68" width="96" height="40" rx="9" fill="#D97706"/><text x="84" y="93" fill="#fff">Komponen</text>
+    <rect x="142" y="68" width="58" height="40" rx="9" fill="#D97706"/><text x="171" y="93" fill="#fff">ten</text>
+    <rect x="210" y="68" width="118" height="40" rx="9" fill="#D97706"/><text x="269" y="93" fill="#fff">vertrieb</text>
+  </g>
+  <text x="190" y="142" text-anchor="middle" font-size="12" fill="#4B5563">3 Tokens statt 1 Wort — Deutsch ist token-teuer</text>
+</svg>`;
+    case 2: return `
+<svg viewBox="0 0 430 168" width="430" height="168" role="img" aria-label="Autoregressive Token-Kette">
+  <g font-size="13" text-anchor="middle">
+    <rect x="6" y="52" width="50" height="34" rx="7" fill="#3D4A3E"/><text x="31" y="74" fill="#fff">Der</text>
+    <text x="64" y="74" font-size="16" fill="#9CA3AF">&#8594;</text>
+    <rect x="74" y="52" width="84" height="34" rx="7" fill="#3D4A3E"/><text x="116" y="74" fill="#fff">Ingenieur</text>
+    <text x="166" y="74" font-size="16" fill="#9CA3AF">&#8594;</text>
+    <rect x="176" y="52" width="56" height="34" rx="7" fill="#3D4A3E"/><text x="204" y="74" fill="#fff">prüfte</text>
+    <text x="240" y="74" font-size="16" fill="#9CA3AF">&#8594;</text>
+    <rect x="250" y="52" width="44" height="34" rx="7" fill="#3D4A3E"/><text x="272" y="74" fill="#fff">die</text>
+    <text x="302" y="74" font-size="16" fill="#9CA3AF">&#8594;</text>
+    <rect x="312" y="50" width="56" height="38" rx="7" fill="#fff" stroke="#D97706" stroke-width="2" stroke-dasharray="5 4"/><text x="340" y="76" fill="#D97706" font-weight="bold" font-size="17">?</text>
+  </g>
+  <text x="215" y="124" text-anchor="middle" font-size="12" fill="#4B5563">autoregressiv: nächstes Token vorhersagen,</text>
+  <text x="215" y="142" text-anchor="middle" font-size="12" fill="#4B5563">anhängen — und wieder von vorn</text>
+</svg>`;
+    case 3: return `
+<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Mixture of Experts">
+  <text x="180" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#2D362E">Mixture of Experts</text>
+  <text x="180" y="40" text-anchor="middle" font-size="11" fill="#4B5563">viele Experten — nur wenige aktiv pro Token</text>
+  <g font-size="12" font-weight="bold" text-anchor="middle">
+    <circle cx="60" cy="92" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/><text x="60" y="97" fill="#9CA3AF">E</text>
+    <circle cx="140" cy="92" r="22" fill="#D97706"/><text x="140" y="97" fill="#fff">E</text>
+    <circle cx="220" cy="92" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/><text x="220" y="97" fill="#9CA3AF">E</text>
+    <circle cx="300" cy="92" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/><text x="300" y="97" fill="#9CA3AF">E</text>
+    <circle cx="60" cy="150" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/><text x="60" y="155" fill="#9CA3AF">E</text>
+    <circle cx="140" cy="150" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/><text x="140" y="155" fill="#9CA3AF">E</text>
+    <circle cx="220" cy="150" r="22" fill="#D97706"/><text x="220" y="155" fill="#fff">E</text>
+    <circle cx="300" cy="150" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/><text x="300" y="155" fill="#9CA3AF">E</text>
+  </g>
+  <text x="180" y="190" text-anchor="middle" font-size="11" fill="#D97706" font-weight="bold">orange = aktiv für dieses Token</text>
+</svg>`;
+    case 4: return `
+<svg viewBox="0 0 360 220" width="360" height="220" role="img" aria-label="Vektorraum mit Analogie">
+  <line x1="40" y1="195" x2="330" y2="195" stroke="#e5e7eb" stroke-width="1.5"/>
+  <line x1="50" y1="20" x2="50" y2="195" stroke="#e5e7eb" stroke-width="1.5"/>
+  <line x1="100" y1="168" x2="100" y2="82" stroke="#D97706" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="250" y1="158" x2="250" y2="72" stroke="#D97706" stroke-width="2" stroke-dasharray="5 4"/>
+  <circle cx="100" cy="172" r="6" fill="#2D362E"/><text x="110" y="177" font-size="12" fill="#2D362E">Mann</text>
+  <circle cx="100" cy="76" r="6" fill="#D97706"/><text x="110" y="81" font-size="12" font-weight="bold" fill="#D97706">König</text>
+  <circle cx="250" cy="162" r="6" fill="#2D362E"/><text x="196" y="167" font-size="12" fill="#2D362E">Frau</text>
+  <circle cx="250" cy="66" r="6" fill="#D97706"/><text x="186" y="62" font-size="12" font-weight="bold" fill="#D97706">Königin</text>
+  <text x="180" y="212" text-anchor="middle" font-size="12" fill="#4B5563">gleiche Richtung = König − Mann + Frau ≈ Königin</text>
+</svg>`;
+    case 5: return `
+<svg viewBox="0 0 460 150" width="460" height="150" role="img" aria-label="Attention-Bezug im Satz">
+  <rect x="176" y="86" width="92" height="22" rx="5" fill="#fff7ed" stroke="#D97706" stroke-width="1.5"/>
+  <rect x="300" y="86" width="28" height="22" rx="5" fill="#fff7ed" stroke="#D97706" stroke-width="1.5"/>
+  <g font-size="13" fill="#2D362E">
+    <text x="10" y="102">Der</text>
+    <text x="40" y="102">Ingenieur</text>
+    <text x="112" y="102">prüfte</text>
+    <text x="156" y="102">die</text>
+    <text x="180" y="102" font-weight="bold" fill="#D97706">Komponente,</text>
+    <text x="272" y="102">weil</text>
+    <text x="304" y="102" font-weight="bold" fill="#D97706">sie</text>
+    <text x="332" y="102">defekt</text>
+    <text x="378" y="102">war</text>
+  </g>
+  <path d="M222 84 Q267 38 314 84" fill="none" stroke="#D97706" stroke-width="2"/>
+  <text x="230" y="132" text-anchor="middle" font-size="12" fill="#4B5563">&quot;sie&quot; bezieht sich auf &quot;Komponente&quot;</text>
+</svg>`;
+  }
+  return "";
+}
+function schaubildMod2(e){
+  switch(e){
+    case 0: return `
+<svg viewBox="0 0 360 222" width="360" height="222" role="img" aria-label="Trainingsstufen">
+  <text x="180" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">So entsteht ein Modell — Stufe für Stufe</text>
+  <g font-size="11" fill="#fff" font-weight="bold">
+    <rect x="15" y="28" width="330" height="38" rx="8" fill="#2D362E"/><text x="26" y="51">1 · Pretraining (Weltwissen)</text>
+    <rect x="40" y="74" width="280" height="38" rx="8" fill="#3D4A3E"/><text x="51" y="97">2 · Fine-tuning</text>
+    <rect x="65" y="120" width="230" height="38" rx="8" fill="#8A9189"/><text x="76" y="143">3 · RLHF (Feedback)</text>
+    <rect x="90" y="166" width="180" height="38" rx="8" fill="#D97706"/><text x="101" y="189">4 · Constitutional AI</text>
+  </g>
+</svg>`;
+    case 1: return `
+<svg viewBox="0 0 360 212" width="360" height="212" role="img" aria-label="Kontextfenster">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Kontextfenster = Arbeitsgedächtnis</text>
+  <rect x="36" y="34" width="288" height="96" rx="10" fill="#F3F4F6" stroke="#2D362E" stroke-width="2"/>
+  <g font-size="11" fill="#fff" text-anchor="middle">
+    <rect x="52" y="58" width="46" height="28" rx="6" fill="#2D362E"/><text x="75" y="77">Tok</text>
+    <rect x="104" y="58" width="46" height="28" rx="6" fill="#2D362E"/><text x="127" y="77">Tok</text>
+    <rect x="156" y="58" width="48" height="28" rx="6" fill="#8A9189"/><text x="180" y="77">Mitte</text>
+    <rect x="210" y="58" width="46" height="28" rx="6" fill="#2D362E"/><text x="233" y="77">Tok</text>
+    <rect x="262" y="58" width="46" height="28" rx="6" fill="#2D362E"/><text x="285" y="77">Tok</text>
+  </g>
+  <text x="180" y="110" text-anchor="middle" font-size="10" fill="#4B5563">"lost in the middle": Mitte wird schwächer beachtet</text>
+  <rect x="286" y="160" width="46" height="28" rx="6" fill="#fff" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="4 3"/><text x="309" y="179" font-size="11" fill="#9CA3AF" text-anchor="middle">Tok</text>
+  <text x="150" y="178" text-anchor="middle" font-size="11" fill="#9CA3AF">außerhalb = unsichtbar →</text>
+</svg>`;
+    case 2: return `
+<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Temperature">
+  <text x="95" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">niedrige Temperature</text>
+  <text x="265" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">hohe Temperature</text>
+  <g fill="#D97706">
+    <rect x="40" y="150" width="18" height="10"/><rect x="62" y="130" width="18" height="30"/><rect x="84" y="60" width="18" height="100"/><rect x="106" y="120" width="18" height="40"/><rect x="128" y="150" width="18" height="10"/>
+  </g>
+  <line x1="34" y1="160" x2="156" y2="160" stroke="#9CA3AF"/>
+  <text x="95" y="180" text-anchor="middle" font-size="10" fill="#4B5563">spitz → fast immer das Top-Token</text>
+  <g fill="#2D362E">
+    <rect x="210" y="110" width="18" height="50"/><rect x="232" y="95" width="18" height="65"/><rect x="254" y="85" width="18" height="75"/><rect x="276" y="100" width="18" height="60"/><rect x="298" y="115" width="18" height="45"/>
+  </g>
+  <line x1="204" y1="160" x2="326" y2="160" stroke="#9CA3AF"/>
+  <text x="265" y="180" text-anchor="middle" font-size="10" fill="#4B5563">flach → mehr Vielfalt / Kreativität</text>
+</svg>`;
+    case 3: return `
+<svg viewBox="0 0 360 210" width="360" height="210" role="img" aria-label="Halluzination und Gegenmaßnahmen">
+  <rect x="28" y="22" width="304" height="60" rx="12" fill="#fff7ed" stroke="#D97706" stroke-width="2"/>
+  <text x="46" y="46" font-size="12" font-weight="bold" fill="#2D362E">"Quelle XY belegt das eindeutig."</text>
+  <text x="46" y="68" font-size="11" font-weight="bold" fill="#b91c1c">✗ klingt überzeugend — ist aber erfunden</text>
+  <text x="180" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Gegenmaßnahmen</text>
+  <g font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">
+    <rect x="20" y="122" width="74" height="30" rx="7" fill="#2D362E"/><text x="57" y="141">RAG</text>
+    <rect x="103" y="122" width="74" height="30" rx="7" fill="#2D362E"/><text x="140" y="141">Tool Use</text>
+    <rect x="186" y="122" width="74" height="30" rx="7" fill="#2D362E"/><text x="223" y="141">niedrige T</text>
+    <rect x="269" y="122" width="74" height="30" rx="7" fill="#2D362E"/><text x="306" y="141">CoT</text>
+  </g>
+  <text x="180" y="184" text-anchor="middle" font-size="11" fill="#4B5563">Plausibel ≠ wahr — wichtige Fakten gegenprüfen</text>
+</svg>`;
+  }
+  return "";
+}
+function schaubildMod3(e){
+  switch(e){
+    case 0: return `
+<svg viewBox="0 0 360 210" width="360" height="210" role="img" aria-label="Prompt-Bausteine">
+  <rect x="24" y="16" width="312" height="180" rx="12" fill="#F3F4F6" stroke="#2D362E" stroke-width="1.5"/>
+  <text x="40" y="42" font-size="11" font-weight="bold" fill="#D97706">ROLLE</text>
+  <text x="40" y="59" font-size="11" fill="#4B5563">"Du bist ein erfahrener Vertriebsingenieur."</text>
+  <text x="40" y="86" font-size="11" font-weight="bold" fill="#D97706">KONTEXT</text>
+  <text x="40" y="103" font-size="11" fill="#4B5563">"Kunde fragt nach Komponente X …"</text>
+  <text x="40" y="130" font-size="11" font-weight="bold" fill="#D97706">AUFGABE</text>
+  <text x="40" y="147" font-size="11" fill="#4B5563">"Formuliere eine kurze, klare Antwort."</text>
+  <text x="40" y="174" font-size="11" font-weight="bold" fill="#D97706">FORMAT + BEISPIELE (Few-Shot)</text>
+</svg>`;
+    case 1: return `
+<svg viewBox="0 0 360 195" width="360" height="195" role="img" aria-label="Direkt vs. Schritt für Schritt">
+  <text x="180" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Zwei Wege zur Antwort</text>
+  <rect x="20" y="34" width="84" height="30" rx="7" fill="#9CA3AF"/><text x="62" y="54" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Frage</text>
+  <text x="110" y="54" font-size="15" fill="#9CA3AF">→</text>
+  <rect x="130" y="34" width="110" height="30" rx="7" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/><text x="185" y="54" text-anchor="middle" font-size="11" fill="#b91c1c" font-weight="bold">direkt ✗</text>
+  <text x="250" y="54" font-size="11" fill="#b91c1c">oft falsch</text>
+  <rect x="20" y="104" width="84" height="30" rx="7" fill="#9CA3AF"/><text x="62" y="124" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Frage</text>
+  <text x="110" y="124" font-size="15" fill="#9CA3AF">→</text>
+  <rect x="130" y="104" width="62" height="30" rx="7" fill="#3D4A3E"/><text x="161" y="124" text-anchor="middle" font-size="10" fill="#fff">Schritt 1</text>
+  <text x="198" y="124" font-size="15" fill="#9CA3AF">→</text>
+  <rect x="216" y="104" width="62" height="30" rx="7" fill="#3D4A3E"/><text x="247" y="124" text-anchor="middle" font-size="10" fill="#fff">Schritt 2</text>
+  <text x="284" y="124" font-size="15" fill="#9CA3AF">→</text>
+  <rect x="302" y="104" width="40" height="30" rx="7" fill="#D97706"/><text x="322" y="124" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">✓</text>
+  <text x="180" y="166" text-anchor="middle" font-size="11" fill="#4B5563">Schritt-für-Schritt trifft öfter richtig</text>
+</svg>`;
+    case 2: return `
+<svg viewBox="0 0 360 235" width="360" height="235" role="img" aria-label="RAG-Pipeline">
+  <text x="180" y="15" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">RAG: erst nachschlagen, dann antworten</text>
+  <text x="180" y="34" text-anchor="middle" font-size="10" fill="#9CA3AF">Vorbereitung: Dokumente → Chunking → Embeddings → Vektor-DB</text>
+  <rect x="30" y="52" width="100" height="34" rx="8" fill="#D97706"/><text x="80" y="74" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Deine Frage</text>
+  <text x="80" y="102" text-anchor="middle" font-size="16" fill="#9CA3AF">↓</text>
+  <rect x="30" y="110" width="100" height="46" rx="8" fill="#2D362E"/><text x="80" y="130" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Vektor-DB</text><text x="80" y="146" text-anchor="middle" font-size="9" fill="#d7dcd7">Ähnlichkeit</text>
+  <text x="138" y="137" font-size="16" fill="#9CA3AF">→</text>
+  <rect x="158" y="110" width="104" height="46" rx="8" fill="#8A9189"/><text x="210" y="130" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Treffer +</text><text x="210" y="146" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Frage</text>
+  <text x="270" y="137" font-size="16" fill="#9CA3AF">→</text>
+  <rect x="288" y="110" width="58" height="46" rx="8" fill="#2D362E"/><text x="317" y="137" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Modell</text>
+  <text x="317" y="178" text-anchor="middle" font-size="16" fill="#9CA3AF">↓</text>
+  <rect x="246" y="186" width="100" height="34" rx="8" fill="#D97706"/><text x="296" y="208" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Antwort + Quelle</text>
+</svg>`;
+    case 3: return `
+<svg viewBox="0 0 360 215" width="360" height="215" role="img" aria-label="Tool Use und MCP">
+  <text x="180" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">MCP — "USB-C für KI"</text>
+  <line x1="180" y1="98" x2="60" y2="150" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="180" y1="98" x2="140" y2="150" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="180" y1="98" x2="222" y2="150" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="180" y1="98" x2="301" y2="150" stroke="#9CA3AF" stroke-width="1.5"/>
+  <rect x="135" y="32" width="90" height="40" rx="9" fill="#2D362E"/><text x="180" y="57" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">Modell</text>
+  <rect x="160" y="78" width="40" height="20" rx="4" fill="#D97706"/><text x="180" y="93" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">MCP</text>
+  <g font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">
+    <rect x="22" y="150" width="76" height="30" rx="7" fill="#3D4A3E"/><text x="60" y="169">Websuche</text>
+    <rect x="104" y="150" width="72" height="30" rx="7" fill="#3D4A3E"/><text x="140" y="169">Rechner</text>
+    <rect x="184" y="150" width="76" height="30" rx="7" fill="#3D4A3E"/><text x="222" y="169">Datenbank</text>
+    <rect x="266" y="150" width="72" height="30" rx="7" fill="#3D4A3E"/><text x="302" y="169">E-Mail</text>
+  </g>
+  <text x="180" y="202" text-anchor="middle" font-size="11" fill="#4B5563">ein Standard-Stecker für viele Werkzeuge</text>
+</svg>`;
+    case 4: return `
+<svg viewBox="0 0 360 215" width="360" height="215" role="img" aria-label="Agenten-Schleife">
+  <text x="180" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Agenten-Schleife</text>
+  <rect x="120" y="26" width="120" height="30" rx="7" fill="#D97706"/><text x="180" y="46" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Ziel</text>
+  <text x="180" y="72" text-anchor="middle" font-size="14" fill="#9CA3AF">↓</text>
+  <line x1="225" y1="97" x2="252" y2="120" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="240" y1="135" x2="122" y2="135" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="72" y1="120" x2="158" y2="98" stroke="#9CA3AF" stroke-width="1.5"/>
+  <g font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">
+    <rect x="135" y="76" width="90" height="30" rx="7" fill="#2D362E"/><text x="180" y="96">Plan</text>
+    <rect x="240" y="120" width="104" height="30" rx="7" fill="#2D362E"/><text x="292" y="140">Aktion (Tool)</text>
+    <rect x="18" y="120" width="104" height="30" rx="7" fill="#2D362E"/><text x="70" y="140">Beobachtung</text>
+  </g>
+  <text x="289" y="172" text-anchor="middle" font-size="10" fill="#4B5563">wiederholen</text>
+  <rect x="120" y="176" width="120" height="30" rx="7" fill="#D97706"/><text x="180" y="196" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Ergebnis</text>
+</svg>`;
+  }
+  return "";
+}
+function schaubildMod4(e){
+  switch(e){
+    case 0: return `
+<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Anbieter">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Die großen Anbieter 2026</text>
+  <g text-anchor="middle">
+    <rect x="28" y="32" width="148" height="62" rx="9" fill="#D97706"/><text x="102" y="60" font-size="13" fill="#fff" font-weight="bold">Claude</text><text x="102" y="79" font-size="10" fill="#fff">Anthropic</text>
+    <rect x="184" y="32" width="148" height="62" rx="9" fill="#2D362E"/><text x="258" y="60" font-size="13" fill="#fff" font-weight="bold">GPT</text><text x="258" y="79" font-size="10" fill="#d7dcd7">OpenAI</text>
+    <rect x="28" y="104" width="148" height="62" rx="9" fill="#2D362E"/><text x="102" y="132" font-size="13" fill="#fff" font-weight="bold">Gemini</text><text x="102" y="151" font-size="10" fill="#d7dcd7">Google</text>
+    <rect x="184" y="104" width="148" height="62" rx="9" fill="#8A9189"/><text x="258" y="132" font-size="12" fill="#fff" font-weight="bold">Offene Modelle</text><text x="258" y="151" font-size="10" fill="#fff">DeepSeek, Qwen …</text>
+  </g>
+  <text x="180" y="188" text-anchor="middle" font-size="11" fill="#4B5563">kein pauschal "bestes" — Wahl nach Aufgabe</text>
+</svg>`;
+    case 1: return `
+<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Modellwahl">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Modell zur Aufgabe wählen</text>
+  <rect x="24" y="30" width="148" height="62" rx="9" fill="#8A9189"/><text x="98" y="54" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">schnell &amp; günstig</text><text x="98" y="74" text-anchor="middle" font-size="9" fill="#fff">für einfache, häufige Aufgaben</text>
+  <rect x="188" y="30" width="148" height="62" rx="9" fill="#2D362E"/><text x="262" y="54" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">tief &amp; teuer</text><text x="262" y="74" text-anchor="middle" font-size="9" fill="#d7dcd7">nur für harte Probleme</text>
+  <text x="180" y="116" text-anchor="middle" font-size="11" font-weight="bold" fill="#2D362E">Kriterien</text>
+  <g font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">
+    <rect x="20" y="128" width="62" height="26" rx="6" fill="#D97706"/><text x="51" y="145">Aufgabe</text>
+    <rect x="90" y="128" width="56" height="26" rx="6" fill="#D97706"/><text x="118" y="145">Kosten</text>
+    <rect x="154" y="128" width="62" height="26" rx="6" fill="#D97706"/><text x="185" y="145">Kontext</text>
+    <rect x="224" y="128" width="52" height="26" rx="6" fill="#D97706"/><text x="250" y="145">Daten</text>
+    <rect x="284" y="128" width="56" height="26" rx="6" fill="#D97706"/><text x="312" y="145">Tools</text>
+  </g>
+  <text x="180" y="182" text-anchor="middle" font-size="11" fill="#4B5563">die Wahl hängt von der Aufgabe ab, nicht vom Ranking</text>
+</svg>`;
+    case 2: return `
+<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Benchmarks">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Benchmarks: oft gesättigt</text>
+  <line x1="34" y1="46" x2="316" y2="46" stroke="#9CA3AF" stroke-dasharray="5 4"/><text x="332" y="50" font-size="9" fill="#9CA3AF" text-anchor="end">100%</text>
+  <g fill="#D97706">
+    <rect x="52" y="52" width="34" height="92"/><rect x="106" y="58" width="34" height="86"/><rect x="160" y="50" width="34" height="94"/><rect x="214" y="56" width="34" height="88"/><rect x="268" y="54" width="34" height="90"/>
+  </g>
+  <line x1="40" y1="144" x2="320" y2="144" stroke="#2D362E"/>
+  <text x="180" y="166" text-anchor="middle" font-size="11" fill="#4B5563">alle nahe 100 % → kaum noch unterscheidbar</text>
+  <text x="180" y="186" text-anchor="middle" font-size="11" font-weight="bold" fill="#b91c1c">Achtung: Daten-Kontamination verfälscht</text>
+</svg>`;
+    case 3: return `
+<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Multimodalität">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Nativ multimodal: ein Modell, viele Sinne</text>
+  <line x1="80" y1="58" x2="150" y2="92" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="280" y1="58" x2="210" y2="92" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="80" y1="150" x2="150" y2="116" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="280" y1="150" x2="210" y2="116" stroke="#9CA3AF" stroke-width="1.5"/>
+  <rect x="138" y="84" width="84" height="40" rx="9" fill="#D97706"/><text x="180" y="109" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">Modell</text>
+  <g font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">
+    <rect x="40" y="44" width="80" height="28" rx="7" fill="#2D362E"/><text x="80" y="63">Text</text>
+    <rect x="240" y="44" width="80" height="28" rx="7" fill="#2D362E"/><text x="280" y="63">Bild</text>
+    <rect x="40" y="136" width="80" height="28" rx="7" fill="#2D362E"/><text x="80" y="155">Audio</text>
+    <rect x="240" y="136" width="80" height="28" rx="7" fill="#2D362E"/><text x="280" y="155">Video</text>
+  </g>
+  <text x="180" y="190" text-anchor="middle" font-size="11" fill="#4B5563">Text, Bild, Audio, Video — im selben Modell</text>
+</svg>`;
+    case 4: return `
+<svg viewBox="0 0 360 205" width="360" height="205" role="img" aria-label="Sicherheit">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Risiken im Blick</text>
+  <g font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">
+    <rect x="20" y="30" width="155" height="34" rx="7" fill="#2D362E"/><text x="97" y="51">Prompt Injection</text>
+    <rect x="185" y="30" width="155" height="34" rx="7" fill="#2D362E"/><text x="262" y="51">Datenschutz</text>
+    <rect x="20" y="72" width="155" height="34" rx="7" fill="#2D362E"/><text x="97" y="93">Bias &amp; Fairness</text>
+    <rect x="185" y="72" width="155" height="34" rx="7" fill="#2D362E"/><text x="262" y="93">Schutzmaßnahmen</text>
+  </g>
+  <rect x="20" y="122" width="320" height="58" rx="10" fill="#fff7ed" stroke="#D97706" stroke-width="2"/>
+  <text x="180" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Grundregel</text>
+  <text x="180" y="167" text-anchor="middle" font-size="11" fill="#4B5563">Externe Inhalte sind Daten — keine Befehle.</text>
+</svg>`;
+    case 5: return `
+<svg viewBox="0 0 360 210" width="360" height="210" role="img" aria-label="Praxis-Prinzipien">
+  <text x="180" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Die wichtigsten Merksätze</text>
+  <g font-size="11" fill="#2D362E">
+    <text x="26" y="50"><tspan fill="#D97706" font-weight="bold">✓ </tspan>In Tokens denken, nicht in Wörtern</text>
+    <text x="26" y="76"><tspan fill="#D97706" font-weight="bold">✓ </tspan>Plausibel ist nicht wahr — gegenprüfen / erden</text>
+    <text x="26" y="102"><tspan fill="#D97706" font-weight="bold">✓ </tspan>Modellklasse zur Aufgabe wählen</text>
+    <text x="26" y="128"><tspan fill="#D97706" font-weight="bold">✓ </tspan>Prompt-Qualität entscheidet</text>
+    <text x="26" y="154"><tspan fill="#D97706" font-weight="bold">✓ </tspan>Externe Inhalte sind Daten, keine Befehle</text>
+    <text x="26" y="180"><tspan fill="#D97706" font-weight="bold">✓ </tspan>Der Mensch steuert und prüft</text>
+  </g>
+</svg>`;
+  }
+  return "";
+}
+function schaubildMod5(e){
+  switch(e){
+    case 0: return `
+<svg viewBox="0 0 360 190" width="360" height="190" role="img" aria-label="Byte-Pair Encoding">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">BPE: häufige Paare verschmelzen</text>
+  <g font-size="13" font-weight="bold" text-anchor="middle">
+    <rect x="120" y="30" width="30" height="28" rx="6" fill="#2D362E"/><text x="135" y="49" fill="#fff">n</text>
+    <rect x="152" y="30" width="30" height="28" rx="6" fill="#2D362E"/><text x="167" y="49" fill="#fff">e</text>
+    <rect x="184" y="30" width="30" height="28" rx="6" fill="#2D362E"/><text x="199" y="49" fill="#fff">u</text>
+    <rect x="216" y="30" width="30" height="28" rx="6" fill="#2D362E"/><text x="231" y="49" fill="#fff">n</text>
+    <text x="183" y="80" font-size="15" fill="#9CA3AF">&#8595;</text>
+    <rect x="120" y="88" width="48" height="28" rx="6" fill="#D97706"/><text x="144" y="107" fill="#fff">ne</text>
+    <rect x="170" y="88" width="30" height="28" rx="6" fill="#2D362E"/><text x="185" y="107" fill="#fff">u</text>
+    <rect x="202" y="88" width="30" height="28" rx="6" fill="#2D362E"/><text x="217" y="107" fill="#fff">n</text>
+    <text x="183" y="138" font-size="15" fill="#9CA3AF">&#8595;</text>
+    <rect x="120" y="146" width="64" height="28" rx="6" fill="#D97706"/><text x="152" y="165" fill="#fff">neu</text>
+    <rect x="186" y="146" width="30" height="28" rx="6" fill="#2D362E"/><text x="201" y="165" fill="#fff">n</text>
+  </g>
+</svg>`;
+    case 1: return `
+<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Query Key Value">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Query trifft Key → liefert Value</text>
+  <rect x="26" y="80" width="92" height="46" rx="9" fill="#D97706"/><text x="72" y="101" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">„sie"</text><text x="72" y="118" text-anchor="middle" font-size="10" fill="#fff">Query</text>
+  <text x="142" y="108" text-anchor="middle" font-size="16" fill="#9CA3AF">&#8594;</text>
+  <rect x="172" y="64" width="166" height="78" rx="9" fill="#2D362E"/><text x="255" y="90" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">„Komponente"</text><text x="255" y="111" text-anchor="middle" font-size="10" fill="#d7dcd7">Key: passt zur Query</text><text x="255" y="128" text-anchor="middle" font-size="10" fill="#d7dcd7">Value: ihr Inhalt fließt ein</text>
+  <text x="180" y="174" text-anchor="middle" font-size="11" fill="#4B5563">Bibliothek: Anfrage → Schlagwort → Inhalt</text>
+</svg>`;
+    case 2: return `
+<svg viewBox="0 0 360 205" width="360" height="205" role="img" aria-label="Kontextuelle Embeddings">
+  <text x="180" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Kontextuelles Embedding: „Bank"</text>
+  <text x="14" y="44" font-size="11" fill="#4B5563">„Geld auf der <tspan fill="#D97706" font-weight="bold">Bank</tspan>"</text>
+  <text x="200" y="44" font-size="11" fill="#4B5563">„sitzen auf der <tspan fill="#D97706" font-weight="bold">Bank</tspan>"</text>
+  <rect x="40" y="58" width="280" height="108" rx="10" fill="#F3F4F6"/>
+  <circle cx="108" cy="100" r="7" fill="#D97706"/><text x="120" y="104" font-size="11" fill="#2D362E">Bank (Geld)</text>
+  <circle cx="250" cy="140" r="7" fill="#D97706"/><text x="168" y="144" font-size="11" fill="#2D362E">Bank (Sitzmöbel)</text>
+  <text x="180" y="190" text-anchor="middle" font-size="11" fill="#4B5563">derselbe Begriff, je nach Satz andere Position</text>
+</svg>`;
+    case 3: return `
+<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Gradientenabstieg">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Gradientenabstieg: bergab ins Tal</text>
+  <path d="M30 60 Q120 60 180 150 Q240 60 330 60" fill="none" stroke="#8A9189" stroke-width="3"/>
+  <circle cx="62" cy="78" r="7" fill="#D97706"/>
+  <circle cx="98" cy="110" r="7" fill="#D97706"/>
+  <circle cx="138" cy="140" r="7" fill="#D97706"/>
+  <circle cx="180" cy="150" r="8" fill="#2D362E"/>
+  <text x="180" y="180" text-anchor="middle" font-size="10.5" fill="#4B5563">Fehler messen → Gradient → kleiner Schritt (Lernrate) → wiederholen</text>
+</svg>`;
+    case 4: return `
+<svg viewBox="0 0 360 190" width="360" height="190" role="img" aria-label="Fine-tuning mit LoRA">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">LoRA: Basis einfrieren, Adapter trainieren</text>
+  <rect x="40" y="34" width="280" height="58" rx="10" fill="#8A9189"/><text x="180" y="59" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">Basis-Modell — eingefroren ❄</text><text x="180" y="79" text-anchor="middle" font-size="10" fill="#fff">Milliarden Parameter, unverändert</text>
+  <rect x="108" y="102" width="144" height="38" rx="9" fill="#D97706"/><text x="180" y="126" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">LoRA-Adapter (trainiert)</text>
+  <text x="180" y="170" text-anchor="middle" font-size="11" fill="#4B5563">Alignment heute oft per DPO — ohne Belohnungsmodell</text>
+</svg>`;
+    case 5: return `
+<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Test-Time Compute">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Mehr Nachdenken = mehr Rechenzeit</text>
+  <g font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">
+    <rect x="20" y="44" width="68" height="30" rx="7" fill="#9CA3AF"/><text x="54" y="64">Frage</text>
+    <text x="98" y="64" font-size="15" fill="#9CA3AF">&#8594;</text>
+    <rect x="114" y="44" width="80" height="30" rx="7" fill="#2D362E"/><text x="154" y="64">Antwort</text>
+  </g>
+  <text x="210" y="63" font-size="10" fill="#4B5563">direkt — bei harten Aufgaben oft falsch</text>
+  <g font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">
+    <rect x="20" y="110" width="64" height="30" rx="7" fill="#9CA3AF"/><text x="52" y="130" font-size="11">Frage</text>
+    <text x="90" y="130" font-size="14" fill="#9CA3AF">&#8594;</text>
+    <rect x="104" y="110" width="34" height="30" rx="6" fill="#D97706"/><text x="121" y="129">denk</text>
+    <rect x="142" y="110" width="34" height="30" rx="6" fill="#D97706"/><text x="159" y="129">denk</text>
+    <rect x="180" y="110" width="34" height="30" rx="6" fill="#D97706"/><text x="197" y="129">denk</text>
+    <text x="222" y="130" font-size="14" fill="#9CA3AF">&#8594;</text>
+    <rect x="238" y="110" width="80" height="30" rx="7" fill="#2D362E"/><text x="278" y="129" font-size="11">Antwort</text>
+  </g>
+  <text x="180" y="178" text-anchor="middle" font-size="11" fill="#4B5563">Zwischenschritte = zusätzlicher Arbeitsspeicher</text>
+</svg>`;
+  }
+  return "";
+}
+function schaubildMod6(e){
+  switch(e){
+    case 0: return `
+<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="RAG-Pipeline">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Jede Stufe ist eine Stellschraube ⚙</text>
+  <g font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">
+    <rect x="20" y="50" width="150" height="40" rx="8" fill="#2D362E"/><text x="95" y="74">⚙ Chunking</text>
+    <rect x="190" y="50" width="150" height="40" rx="8" fill="#2D362E"/><text x="265" y="74">⚙ Embedding</text>
+    <rect x="20" y="110" width="150" height="40" rx="8" fill="#D97706"/><text x="95" y="134">⚙ Suche + Re-Ranker</text>
+    <rect x="190" y="110" width="150" height="40" rx="8" fill="#2D362E"/><text x="265" y="134">Modell → Antwort</text>
+  </g>
+  <text x="180" y="184" text-anchor="middle" font-size="11" fill="#4B5563">hybride Suche + Re-Ranker = bessere Treffer</text>
+</svg>`;
+    case 1: return `
+<svg viewBox="0 0 360 205" width="360" height="205" role="img" aria-label="ReAct-Schleife">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">ReAct-Schleife</text>
+  <line x1="180" y1="66" x2="288" y2="120" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="258" y1="135" x2="102" y2="135" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="72" y1="120" x2="160" y2="66" stroke="#9CA3AF" stroke-width="1.5"/>
+  <g font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">
+    <rect x="120" y="36" width="120" height="30" rx="7" fill="#D97706"/><text x="180" y="56">Thought</text>
+    <rect x="248" y="120" width="100" height="30" rx="7" fill="#2D362E"/><text x="298" y="140" font-size="10">Action (Tool)</text>
+    <rect x="12" y="120" width="110" height="30" rx="7" fill="#2D362E"/><text x="67" y="140" font-size="10">Observation</text>
+  </g>
+  <text x="180" y="190" text-anchor="middle" font-size="10.5" fill="#4B5563">+ Reflexion · Plan-and-Execute · Multi-Agent je nach Engpass</text>
+</svg>`;
+    case 2: return `
+<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Context Engineering">
+  <text x="180" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Was steht im Kontextfenster?</text>
+  <rect x="86" y="26" width="188" height="150" rx="10" fill="none" stroke="#2D362E" stroke-width="2"/>
+  <g font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">
+    <rect x="96" y="34" width="168" height="26" rx="6" fill="#D97706"/><text x="180" y="51">Systemanweisung (wichtig)</text>
+    <rect x="96" y="64" width="168" height="26" rx="6" fill="#8A9189"/><text x="180" y="81">RAG-Treffer</text>
+    <rect x="96" y="94" width="168" height="26" rx="6" fill="#8A9189"/><text x="180" y="111">Gesprächsverlauf</text>
+    <rect x="96" y="124" width="168" height="26" rx="6" fill="#D97706"/><text x="180" y="141">Aktuelle Aufgabe (wichtig)</text>
+  </g>
+  <text x="180" y="192" text-anchor="middle" font-size="10" fill="#4B5563">Wichtiges an Anfang/Ende — die Mitte wird schwächer beachtet</text>
+</svg>`;
+    case 3: return `
+<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Inferenz-Optimierung">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Schneller & billiger im Betrieb</text>
+  <g text-anchor="middle">
+    <rect x="20" y="40" width="320" height="40" rx="8" fill="#2D362E"/><text x="180" y="58" font-size="12" fill="#fff" font-weight="bold">Quantisierung</text><text x="180" y="73" font-size="10" fill="#d7dcd7">16-Bit → 4-Bit: kleiner & schneller</text>
+    <rect x="20" y="92" width="320" height="40" rx="8" fill="#8A9189"/><text x="180" y="110" font-size="12" fill="#fff" font-weight="bold">KV-Caching ♻</text><text x="180" y="125" font-size="10" fill="#fff">berechnete Keys/Values wiederverwenden</text>
+    <rect x="20" y="144" width="320" height="40" rx="8" fill="#D97706"/><text x="180" y="162" font-size="12" fill="#fff" font-weight="bold">Destillation</text><text x="180" y="177" font-size="10" fill="#fff">großes Lehrer- → kleines Schüler-Modell</text>
+  </g>
+</svg>`;
+    case 4: return `
+<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Evaluation">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">LLM-as-a-Judge</text>
+  <g font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">
+    <rect x="20" y="50" width="110" height="44" rx="8" fill="#8A9189"/><text x="75" y="70">Modell A</text><text x="75" y="86" font-size="10">Ausgabe</text>
+    <text x="142" y="76" font-size="16" fill="#9CA3AF">&#8594;</text>
+    <rect x="158" y="50" width="116" height="44" rx="8" fill="#2D362E"/><text x="216" y="70">Modell B ⚖</text><text x="216" y="86" font-size="10">bewertet</text>
+    <text x="284" y="76" font-size="16" fill="#9CA3AF">&#8594;</text>
+    <rect x="300" y="50" width="46" height="44" rx="8" fill="#D97706"/><text x="323" y="79">Note</text>
+  </g>
+  <rect x="20" y="108" width="326" height="30" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/><text x="183" y="127" text-anchor="middle" font-size="10.5" fill="#b91c1c">Judge-Bias: Länge · Reihenfolge · eigener Stil</text>
+  <text x="180" y="168" text-anchor="middle" font-size="11" fill="#4B5563" font-weight="bold">Am aussagekräftigsten: eigene, realitätsnahe Evals</text>
+</svg>`;
+  }
+  return "";
+}
+function schaubildMod7(e){
+  switch(e){
+    case 0: return `
+<svg viewBox="0 0 420 178" width="420" height="178" role="img" aria-label="Agentic Loop">
+  <text x="210" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Agentic Loop — Claude Code im Terminal</text>
+  <rect x="10" y="32" width="76" height="34" rx="7" fill="#2D362E"/>
+  <text x="48" y="54" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Aufgabe</text>
+  <text x="93" y="54" text-anchor="middle" font-size="16" fill="#9CA3AF">&#8594;</text>
+  <rect x="106" y="32" width="70" height="34" rx="7" fill="#D97706"/>
+  <text x="141" y="54" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Lesen</text>
+  <text x="183" y="54" text-anchor="middle" font-size="16" fill="#9CA3AF">&#8594;</text>
+  <rect x="196" y="32" width="80" height="34" rx="7" fill="#D97706"/>
+  <text x="236" y="54" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Ausführen</text>
+  <text x="284" y="54" text-anchor="middle" font-size="16" fill="#9CA3AF">&#8594;</text>
+  <rect x="296" y="32" width="114" height="34" rx="7" fill="#3D4A3E"/>
+  <text x="353" y="48" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Prüfen</text>
+  <text x="353" y="63" text-anchor="middle" font-size="10" fill="#D97706">Fehler?</text>
+  <text x="353" y="88" text-anchor="middle" font-size="20" fill="#9CA3AF">&#8601;</text>
+  <text x="200" y="116" text-anchor="middle" font-size="11" fill="#D97706" font-weight="bold">&#10007; Fehler &#8594; Korrigieren &#8594; zurück zu „Lesen"</text>
+  <text x="200" y="136" text-anchor="middle" font-size="11" fill="#2D362E" font-weight="bold">&#10003; Fertig &#8594; Ergebnis</text>
+  <text x="200" y="164" text-anchor="middle" font-size="10" fill="#4B5563">Shell · Dateisystem · Tools — mehr als ein Chat-Interface</text>
+</svg>`;
+    case 1: return `
+<svg viewBox="0 0 420 164" width="420" height="164" role="img" aria-label="Skills Übersicht">
+  <text x="210" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Skills &amp; Slash-Befehle</text>
+  <rect x="10" y="34" width="108" height="80" rx="9" fill="#3D4A3E"/>
+  <text x="64" y="55" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">commit.md</text>
+  <text x="64" y="71" text-anchor="middle" font-size="10" fill="#d7dcd7">## Commit-Skill</text>
+  <text x="64" y="86" text-anchor="middle" font-size="10" fill="#d7dcd7">Erstelle Git-Commit …</text>
+  <text x="64" y="103" text-anchor="middle" font-size="9" fill="#9CA3AF">~/.claude/skills/</text>
+  <text x="125" y="78" text-anchor="middle" font-size="20" fill="#9CA3AF">&#8594;</text>
+  <rect x="142" y="46" width="90" height="32" rx="8" fill="#D97706"/>
+  <text x="187" y="67" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">/commit</text>
+  <text x="240" y="64" text-anchor="middle" font-size="16" fill="#9CA3AF">&#8594;</text>
+  <rect x="256" y="34" width="150" height="80" rx="9" fill="#2D362E"/>
+  <text x="331" y="58" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Claude Code</text>
+  <text x="331" y="75" text-anchor="middle" font-size="10" fill="#d7dcd7">lädt Skill-Datei</text>
+  <text x="331" y="91" text-anchor="middle" font-size="10" fill="#D97706">führt aus</text>
+  <text x="210" y="136" text-anchor="middle" font-size="11" fill="#4B5563">Einmal definiert — per /slash-befehl immer abrufbar</text>
+</svg>`;
+    case 2: return `
+<svg viewBox="0 0 440 164" width="440" height="164" role="img" aria-label="Hooks Ablauf">
+  <text x="220" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Hooks — Automatik ohne Eingriff</text>
+  <rect x="10" y="38" width="90" height="34" rx="7" fill="#3D4A3E"/>
+  <text x="55" y="59" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Ereignis</text>
+  <text x="108" y="68" text-anchor="middle" font-size="10" fill="#9CA3AF">PostToolUse</text>
+  <text x="156" y="62" text-anchor="middle" font-size="16" fill="#9CA3AF">&#8594;</text>
+  <rect x="172" y="38" width="118" height="34" rx="7" fill="#D97706"/>
+  <text x="231" y="53" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Hook-Befehl</text>
+  <text x="231" y="67" text-anchor="middle" font-size="10" fill="#fff7ed">prettier --write</text>
+  <text x="298" y="62" text-anchor="middle" font-size="16" fill="#9CA3AF">&#8594;</text>
+  <rect x="314" y="38" width="114" height="34" rx="7" fill="#2D362E"/>
+  <text x="371" y="53" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Ergebnis</text>
+  <text x="371" y="67" text-anchor="middle" font-size="10" fill="#D97706">Claude sieht es</text>
+  <text x="220" y="106" text-anchor="middle" font-size="11" fill="#4B5563">Der Harness führt aus — nicht Claude selbst</text>
+  <rect x="60" y="120" width="300" height="26" rx="7" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+  <text x="210" y="138" text-anchor="middle" font-size="10.5" fill="#15803d">Konfiguriert in settings.json · auditierbar · transparent</text>
+</svg>`;
+    case 3: return `
+<svg viewBox="0 0 380 198" width="380" height="198" role="img" aria-label="Orchestrator und Subagents">
+  <text x="190" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Orchestrator &amp; Subagents (parallel)</text>
+  <rect x="125" y="28" width="130" height="36" rx="8" fill="#2D362E"/>
+  <text x="190" y="51" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">Orchestrator</text>
+  <line x1="190" y1="64" x2="68" y2="112" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="190" y1="64" x2="190" y2="112" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="190" y1="64" x2="312" y2="112" stroke="#9CA3AF" stroke-width="1.5"/>
+  <rect x="16" y="112" width="104" height="42" rx="8" fill="#D97706"/>
+  <text x="68" y="129" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Subagent A</text>
+  <text x="68" y="144" text-anchor="middle" font-size="10" fill="#fff7ed">Aufgabe 1</text>
+  <rect x="138" y="112" width="104" height="42" rx="8" fill="#D97706"/>
+  <text x="190" y="129" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Subagent B</text>
+  <text x="190" y="144" text-anchor="middle" font-size="10" fill="#fff7ed">Aufgabe 2</text>
+  <rect x="260" y="112" width="104" height="42" rx="8" fill="#D97706"/>
+  <text x="312" y="129" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Subagent C</text>
+  <text x="312" y="144" text-anchor="middle" font-size="10" fill="#fff7ed">Aufgabe 3</text>
+  <text x="190" y="178" text-anchor="middle" font-size="11" fill="#4B5563">Parallel — jeder startet kalt, Prompt muss eigenständig sein</text>
+</svg>`;
+    case 4: return `
+<svg viewBox="0 0 360 198" width="360" height="198" role="img" aria-label="MCP Stern-Topologie">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">MCP-Server in der Praxis</text>
+  <rect x="124" y="80" width="112" height="36" rx="9" fill="#2D362E"/>
+  <text x="180" y="103" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">Claude Code</text>
+  <line x1="124" y1="92" x2="72" y2="54" stroke="#D97706" stroke-width="1.5"/>
+  <rect x="10" y="34" width="62" height="28" rx="7" fill="#3D4A3E"/>
+  <text x="41" y="52" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Gmail</text>
+  <line x1="180" y1="80" x2="180" y2="46" stroke="#D97706" stroke-width="1.5"/>
+  <rect x="134" y="22" width="92" height="28" rx="7" fill="#3D4A3E"/>
+  <text x="180" y="40" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Google Drive</text>
+  <line x1="236" y1="92" x2="290" y2="54" stroke="#D97706" stroke-width="1.5"/>
+  <rect x="288" y="34" width="62" height="28" rx="7" fill="#3D4A3E"/>
+  <text x="319" y="52" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Kalender</text>
+  <line x1="180" y1="116" x2="180" y2="152" stroke="#D97706" stroke-width="1.5"/>
+  <rect x="138" y="152" width="84" height="28" rx="7" fill="#8A9189"/>
+  <text x="180" y="170" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">+ weitere</text>
+  <text x="180" y="190" text-anchor="middle" font-size="10" fill="#4B5563">Nur vertrauenswürdige Server einbinden</text>
+</svg>`;
+    case 5: return `
+<svg viewBox="0 0 420 188" width="420" height="188" role="img" aria-label="Reversibel vs Irreversibel">
+  <text x="210" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Reversibel vs. Irreversibel</text>
+  <rect x="10" y="32" width="186" height="80" rx="9" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+  <text x="103" y="54" text-anchor="middle" font-size="12" fill="#15803d" font-weight="bold">&#10003; Reversibel</text>
+  <text x="103" y="72" text-anchor="middle" font-size="11" fill="#14532d">Datei editieren</text>
+  <text x="103" y="88" text-anchor="middle" font-size="11" fill="#14532d">Variable umbenennen</text>
+  <text x="103" y="104" text-anchor="middle" font-size="10" fill="#166534">(git revert möglich)</text>
+  <rect x="224" y="32" width="186" height="80" rx="9" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="317" y="54" text-anchor="middle" font-size="12" fill="#b91c1c" font-weight="bold">&#10007; Irreversibel</text>
+  <text x="317" y="72" text-anchor="middle" font-size="11" fill="#7f1d1d">E-Mail senden</text>
+  <text x="317" y="88" text-anchor="middle" font-size="11" fill="#7f1d1d">Datei löschen</text>
+  <text x="317" y="104" text-anchor="middle" font-size="10" fill="#991b1b">git push --force</text>
+  <rect x="100" y="126" width="220" height="34" rx="8" fill="#D97706"/>
+  <text x="210" y="148" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">Human-in-the-Loop &#9995;</text>
+  <text x="210" y="174" text-anchor="middle" font-size="11" fill="#4B5563">Irreversibles immer bestätigen lassen</text>
+</svg>`;
+  }
+  return "";
+}
+function schaubild(m,e){
+  if(m===0) return schaubildMod1(e);
+  if(m===1) return schaubildMod2(e);
+  if(m===2) return schaubildMod3(e);
+  if(m===3) return schaubildMod4(e);
+  if(m===4) return schaubildMod5(e);
+  if(m===5) return schaubildMod6(e);
+  if(m===6) return schaubildMod7(e);
+  return "";
+}
+
+/* ===================== Render: Startseite ===================== */
+function renderStart(){
+  let resume = "";
+  if(state.letzteStelle && module[state.letzteStelle.m] && module[state.letzteStelle.m].etappen[state.letzteStelle.e]){
+    const m = state.letzteStelle.m, e = state.letzteStelle.e;
+    resume = `<div class="resume">
+      <span>Weiter wo du warst — Modul ${m+1}, Etappe ${e+1}: ${module[m].etappen[e].titel}</span>
+      <button class="btn btn-primary" onclick="navigate('etappe',{m:${m},e:${e}})">Weiterlernen</button>
+    </div>`;
+  }
+  const karten = module.map(mod=>{
+    const fp = modulFortschritt(mod.id);
+    const fertig = fp.erledigt===fp.gesamt;
+    return `<div class="karte ${fertig?'erledigt':''}" onclick="navigate('modul',${mod.id})">
+      <div class="nummer">${fertig?'&#10003;':(mod.id+1)}</div>
+      <div class="ktxt"><div class="ktitel">Modul ${mod.id+1}: ${mod.titel}</div><div class="kkern">${mod.kurz}</div></div>
+      <div class="status">${fp.erledigt}/${fp.gesamt}</div>
+    </div>`;
+  }).join("");
+  document.getElementById("app").innerHTML = `
+    <h1>KI verstehen</h1>
+    <p class="lead">Sechs Module. Erst verstehen, dann verknüpfen, dann abprüfen. Dein Fortschritt wird automatisch gespeichert.</p>
+    ${resume}
+    <div class="pfad">${karten}</div>
+    <div class="abschluss-box">
+      <button class="btn btn-primary" onclick="navigate('karten')">🃏 Karteikarten</button>
+      <button class="btn-ghost" onclick="resetFortschritt()">Fortschritt zurücksetzen</button>
+    </div>`;
+}
+
+/* ===================== Render: Modul-Übersicht ===================== */
+function renderModul(){
+  const m = state.aktuellesModul; const mod = module[m];
+  const fp = modulFortschritt(m); const proz = Math.round(fp.erledigt/fp.gesamt*100);
+  const alleFertig = fp.erledigt===fp.gesamt;
+  const karten = mod.etappen.map((e,i)=>{
+    const fertig = istErledigt(m,i);
+    return `<div class="karte ${fertig?'erledigt':''}" onclick="navigate('etappe',{m:${m},e:${i}})">
+      <div class="nummer">${fertig?'&#10003;':(i+1)}</div>
+      <div class="ktxt"><div class="ktitel">${e.titel}</div><div class="kkern">${e.kurz}</div></div>
+      <div class="status">${fertig?'erledigt':'offen'}</div>
+    </div>`;
+  }).join("");
+  let extra = "";
+  if(mod.synthese){
+    extra = `<button class="btn ${alleFertig?'btn-primary':'btn-secondary'}" onclick="navigate('faden')">Der rote Faden</button>
+      <button class="btn btn-secondary" onclick="navigate('netz')">Wissensnetz</button>`;
+  }
+  document.getElementById("app").innerHTML = `
+    <div class="topnav"><button class="btn-ghost" onclick="navigate('start')">&#8592; Alle Module</button></div>
+    <h1>Modul ${m+1}: ${mod.titel}</h1>
+    <p class="lead">${mod.kurz}</p>
+    <div class="fortschritt-wrap">
+      <div class="txt">${fp.erledigt} von ${fp.gesamt} Etappen erledigt</div>
+      <div class="fortschritt"><i style="width:${proz}%"></i></div>
+    </div>
+    <div class="pfad">${karten}</div>
+    <div class="abschluss-box">
+      <button class="btn ${alleFertig?'btn-primary':'btn-secondary'}" onclick="navigate('quiz')">Abschlussquiz</button>
+      ${extra}
+    </div>`;
+  window.scrollTo(0,0);
+}
+
+/* ===================== Render: Etappe ===================== */
+function checkHTML(c){
+  const shuffled = shuffleArr([...c.opt]);
+  const opts = shuffled.map((o,oi)=>`<button class="opt" data-correct="${o.c}" onclick="miniAnswer(this)">${o.t}</button>`).join("");
+  return `<div class="frage" data-erkl="${c.erkl.replace(/"/g,'&quot;')}">
+    <div class="ftxt">${c.ftxt}</div>
+    <div class="optionen">${opts}</div>
+    <div class="feedback" style="display:none"></div>
+  </div>`;
+}
+function renderEtappe(){
+  const m = state.aktuellesModul, i = state.aktuelleEtappe;
+  state.letzteStelle = {m:m, e:i}; saveState();
+  const mod = module[m]; const e = mod.etappen[i];
+  const checks = e.check.map(checkHTML).join("");
+  const istLetzte = i === mod.etappen.length-1;
+  document.getElementById("app").innerHTML = `
+    <div class="topnav"><button class="btn-ghost" onclick="navigate('modul',${m})">&#8592; ${mod.titel}</button></div>
+    <h1>${i+1}. ${e.titel}</h1>
+    ${abkHTML(m,i)}
+    <div class="schaubild">${schaubild(m,i)}</div>
+    <div class="kernsatz">${e.kernsatz}</div>
+    <ul class="punkte">${e.punkte.map(p=>`<li>${p}</li>`).join("")}</ul>
+    <div class="merkbild">&#128161; ${e.merkbild}</div>
+    ${vertiefungHTML(m,i)}
+    <div class="label">Kurz-Check</div>
+    ${checks}
+    <div class="navrow">
+      <button class="btn btn-secondary" onclick="navigate('etappe',{m:${m},e:${i-1}})" ${i===0?'disabled style=visibility:hidden':''}>&#8592; Zurück</button>
+      <button class="btn btn-primary" onclick="etappeFertig()">${istLetzte?'Verstanden &#8594; Abschluss':'Verstanden &#8594; Weiter'}</button>
+    </div>`;
+  window.scrollTo(0,0);
+}
+function miniAnswer(btn){
+  const frage = btn.closest(".frage");
+  if(frage.dataset.done) return;
+  frage.dataset.done = "1";
+  const correct = btn.dataset.correct === "true";
+  frage.querySelectorAll(".opt").forEach(o=>{
+    o.disabled = true;
+    if(o.dataset.correct === "true") o.classList.add("opt-correct");
+  });
+  if(!correct) btn.classList.add("opt-wrong");
+  const fb = frage.querySelector(".feedback");
+  fb.style.display = "block";
+  fb.innerHTML = (correct ? "&#10003; Richtig. " : "&#10007; Nicht ganz. ") + frage.dataset.erkl;
+}
+function etappeFertig(){
+  const m = state.aktuellesModul, i = state.aktuelleEtappe;
+  setErledigt(m,i);
+  const mod = module[m];
+  if(i < mod.etappen.length-1){ state.aktuelleEtappe=i+1; state.letzteStelle={m:m,e:i+1}; saveState(); navigate("etappe",{m:m,e:i+1}); }
+  else { saveState(); navigate("modul", m); }
+}
+
+/* ===================== Render: Roter Faden ===================== */
+function renderFaden(){
+  document.getElementById("app").innerHTML = `
+    <div class="topnav"><button class="btn-ghost" onclick="navigate('start')">&#8592; Übersicht</button></div>
+    <h1>Der rote Faden</h1>
+    <p class="lead">Wie aus deiner Eingabe eine Antwort wird — die sechs Konzepte als eine durchgehende Kette.</p>
+    <div class="faden">
+      <div class="fchip eingabe">Deine Eingabe (Text)</div>
+      <div class="farrow">&#8595;</div>
+      <div class="fchip">Tokens<small>Text wird in Bausteine zerlegt · Etappe 2</small></div>
+      <div class="farrow">&#8595;</div>
+      <div class="fchip">Embeddings<small>jedes Token wird zum Bedeutungs-Vektor · Etappe 5</small></div>
+      <div class="farrow">&#8595;</div>
+      <div class="fchip">Transformer &amp; Attention<small>gewichtet, welche Wörter füreinander wichtig sind · Etappe 6</small></div>
+      <div class="farrow">&#8595;</div>
+      <div class="fchip">Next-Token-Prediction<small>erzeugt die Antwort Token für Token, dann von vorn · Etappe 3</small></div>
+      <div class="farrow">&#8595;</div>
+      <div class="fchip antwort">Die Antwort</div>
+      <div class="callout">&#9888; Weil hier auf Plausibilität optimiert wird, kann eine <b>Halluzination</b> entstehen — ein flüssiger, aber falscher Satz.</div>
+    </div>
+    <div class="fnote">
+      <b>Was in jedem Schritt mitwirkt:</b> die <b>Parameter</b> — das geronnene Wissen des Modells (Etappe 4, mit MoE nur teils aktiv).<br>
+      <b>Der Rahmen über allem:</b> die <b>Begriffspyramide</b> (Etappe 1) — ein Sprachmodell ist Generative KI, ist Deep Learning, ist ML, ist KI.
+    </div>
+    <div class="navrow">
+      <button class="btn btn-secondary" onclick="navigate('start')">Zur Übersicht</button>
+      <button class="btn btn-primary" onclick="navigate('quiz')">Weiter zum Abschlussquiz</button>
+    </div>`;
+  window.scrollTo(0,0);
+}
+
+/* ===================== Render: Wissensnetz ===================== */
+function netzNode(cx,cy,w,label,akzent){
+  const x = cx - w/2;
+  return `<rect x="${x}" y="${cy-17}" width="${w}" height="34" rx="9" fill="${akzent?'#D97706':'#2D362E'}"/>
+    <text x="${cx}" y="${cy+5}" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">${label}</text>`;
+}
+function renderNetz(){
+  const edges = [
+    [95,70,240,200],[95,300,240,200],[390,80,240,200],[395,300,240,200],
+    [95,70,95,300],[395,300,240,360],[95,300,70,200]
+  ].map(e=>`<line x1="${e[0]}" y1="${e[1]}" x2="${e[2]}" y2="${e[3]}" stroke="#9CA3AF" stroke-width="2"/>`).join("");
+  document.getElementById("app").innerHTML = `
+    <div class="topnav"><button class="btn-ghost" onclick="navigate('start')">&#8592; Übersicht</button></div>
+    <h1>Wissensnetz</h1>
+    <p class="lead">Wie die Begriffe zusammenhängen. Das Sprachmodell steht in der Mitte.</p>
+    <div class="schaubild">
+      <svg viewBox="0 0 480 400" width="480" height="400" role="img" aria-label="Wissensnetz der Begriffe">
+        ${edges}
+        ${netzNode(240,200,140,"Sprachmodell",true)}
+        ${netzNode(95,70,90,"Tokens",false)}
+        ${netzNode(95,300,118,"Embeddings",false)}
+        ${netzNode(390,80,110,"Attention",false)}
+        ${netzNode(395,300,118,"Next-Token",false)}
+        ${netzNode(240,360,130,"Halluzination",false)}
+        ${netzNode(70,200,110,"Sem. Suche",false)}
+      </svg>
+    </div>
+    <ul class="punkte">
+      <li>Tokens werden zu Embeddings — so gelangt Text ins Modell.</li>
+      <li>Attention und Next-Token-Prediction sind das Herz des Sprachmodells.</li>
+      <li>Next-Token-Prediction erklärt, warum Halluzinationen entstehen.</li>
+      <li>Embeddings sind die Grundlage der semantischen Suche.</li>
+    </ul>
+    <div class="navrow">
+      <button class="btn btn-secondary" onclick="navigate('start')">Zur Übersicht</button>
+      <button class="btn btn-primary" onclick="navigate('quiz')">Abschlussquiz</button>
+    </div>`;
+  window.scrollTo(0,0);
+}
+
+/* ===================== Render: Quiz ===================== */
+function renderQuiz(){
+  const m = state.aktuellesModul; const mod = module[m]; const qf = mod.quiz;
+  const fragen = qf.map((q,i)=>{
+    const correct = q.opt[q.korrekt];
+    const shuffledOpts = shuffleArr([...q.opt]);
+    const newKorrekt = shuffledOpts.indexOf(correct);
+    const opts = shuffledOpts.map((o,oi)=>`<button class="opt" data-idx="${oi}" onclick="quizSelect(this)">${o}</button>`).join("");
+    return `<div class="frage" id="q${i}" data-korrekt="${newKorrekt}"><div class="ftxt">${i+1}. ${q.f}</div><div class="optionen">${opts}</div></div>`;
+  }).join("");
+  document.getElementById("app").innerHTML = `
+    <div class="topnav"><button class="btn-ghost" onclick="navigate('modul',${m})">&#8592; ${mod.titel}</button></div>
+    <h1>Abschlussquiz — Modul ${m+1}</h1>
+    <p class="lead">${qf.length} Fragen über die Etappen dieses Moduls. Wähle je eine Antwort und werte am Ende aus.</p>
+    <div id="quizfragen">${fragen}</div>
+    <div id="quizresult"></div>
+    <div class="navrow">
+      <button class="btn btn-secondary" onclick="navigate('modul',${m})">Zur Modul-Übersicht</button>
+      <button class="btn btn-primary" onclick="quizAuswerten()">Auswerten</button>
+    </div>`;
+  window.scrollTo(0,0);
+}
+function quizSelect(btn){
+  const frage = btn.closest(".frage");
+  if(frage.dataset.locked) return;
+  frage.querySelectorAll(".opt").forEach(o=>o.classList.remove("opt-sel"));
+  btn.classList.add("opt-sel");
+  frage.dataset.sel = btn.dataset.idx;
+}
+function quizAuswerten(){
+  const m = state.aktuellesModul; const mod = module[m]; const qf = mod.quiz;
+  let score = 0; const fehl = new Set();
+  qf.forEach((q,i)=>{
+    const frage = document.getElementById("q"+i);
+    frage.dataset.locked = "1";
+    const sel = frage.dataset.sel;
+    const opts = frage.querySelectorAll(".opt");
+    opts.forEach(o=>o.disabled=true);
+    const selNum = sel===undefined ? -1 : Number(sel);
+    const korrekt = Number(frage.dataset.korrekt);
+    opts[korrekt].classList.add("opt-correct");
+    if(selNum === korrekt){ score++; }
+    else { if(selNum>=0) opts[selNum].classList.add("opt-wrong"); fehl.add(q.etappe); }
+  });
+  if(!state.quizErgebnis || typeof state.quizErgebnis !== "object") state.quizErgebnis = {};
+  state.quizErgebnis[m] = { score:score, total:qf.length, datum:new Date().toISOString() };
+  saveState();
+  let empf = "";
+  if(fehl.size){
+    const liste = [...fehl].sort((a,b)=>a-b).map(e=>`Etappe ${e+1} (${mod.etappen[e].titel})`).join(", ");
+    empf = `<div class="empfehlung"><b>Empfehlung zum Wiederholen:</b> ${liste}.</div>`;
+  } else {
+    empf = `<div class="empfehlung"><b>Stark!</b> Alle Themen dieses Moduls sitzen.</div>`;
+  }
+  document.getElementById("quizresult").innerHTML = `
+    <div class="ergebnis"><div class="score"><b>${score}</b> / ${qf.length} richtig</div></div>
+    ${empf}
+    <div class="navrow" style="margin-top:0">
+      <button class="btn btn-secondary" onclick="navigate('quiz')">Quiz wiederholen</button>
+      <button class="btn btn-primary" onclick="navigate('modul',${m})">Zur Modul-Übersicht</button>
+    </div>`;
+  document.getElementById("quizresult").scrollIntoView({behavior:"smooth"});
+}
+
+/* ===================== Karteikarten (Baustein B) ===================== */
+const karteikarten = [
+  { id:"k1", modul:0, front:"Künstliche Intelligenz (KI)", back:"Oberbegriff für Systeme, die Aufgaben lösen, die sonst menschliche Intelligenz erfordern." },
+  { id:"k2", modul:0, front:"Machine Learning", back:"Teilgebiet der KI; lernt Muster aus Daten statt aus festen Regeln." },
+  { id:"k3", modul:0, front:"Deep Learning", back:"Teilgebiet des ML; nutzt vielschichtige (tiefe) neuronale Netze." },
+  { id:"k4", modul:0, front:"Generative KI", back:"KI, die neue Inhalte erzeugt: Text, Bild, Code, Audio." },
+  { id:"k5", modul:0, front:"Token", back:"Kleinster Textbaustein, den ein Modell verarbeitet (meist ein Wortteil)." },
+  { id:"k6", modul:0, front:"Tokenisierung", back:"Das Zerlegen von Text in Tokens." },
+  { id:"k7", modul:0, front:"Next-Token-Prediction", back:"Kernmechanismus: das Modell sagt fortlaufend das wahrscheinlich nächste Token voraus." },
+  { id:"k8", modul:0, front:"Autoregressiv", back:"Die Ausgabe wird schrittweise erzeugt; bereits Erzeugtes dient als Kontext." },
+  { id:"k9", modul:0, front:"Parameter (Gewichte)", back:"Interne, trainierte Stellschrauben des Modells — das geronnene Wissen des Modells." },
+  { id:"k10", modul:0, front:"Mixture of Experts (MoE)", back:"Architektur, bei der pro Anfrage nur wenige spezialisierte Teilnetze aktiv sind — effizienter." },
+  { id:"k11", modul:0, front:"Embedding", back:"Übersetzung von Text in einen Zahlenvektor, der Bedeutung geometrisch abbildet." },
+  { id:"k12", modul:0, front:"Vektorraum", back:"Hochdimensionaler Raum, in dem ähnliche Bedeutungen nah beieinanderliegen." },
+  { id:"k13", modul:0, front:"Kosinus-Ähnlichkeit", back:"Maß für die Ähnlichkeit zweier Vektoren (der Winkel zwischen ihnen)." },
+  { id:"k14", modul:0, front:"Transformer", back:"Die vorherrschende Architektur moderner Sprachmodelle (seit 2017)." },
+  { id:"k15", modul:0, front:"Attention", back:"Mechanismus, der gewichtet, welche Tokens im Text füreinander relevant sind." },
+  { id:"k16", modul:1, front:"Pretraining", back:"Erste, teuerste Trainingsphase auf riesigen Textmengen." },
+  { id:"k17", modul:1, front:"Fine-tuning", back:"Nachschärfen des Modells mit kleineren, gezielten Datensätzen." },
+  { id:"k18", modul:1, front:"RLHF", back:"Reinforcement Learning from Human Feedback: Lernen aus menschlichen Bewertungen." },
+  { id:"k19", modul:1, front:"Constitutional AI", back:"Anthropics Ansatz: das Modell prüft sich gegen schriftliche Prinzipien (eine „Verfassung“)." },
+  { id:"k20", modul:1, front:"Kontextfenster", back:"Menge an Tokens, die ein Modell gleichzeitig verarbeiten kann (sein Arbeitsgedächtnis)." },
+  { id:"k21", modul:1, front:"Lost in the middle", back:"Phänomen: Inhalte in der Mitte langer Eingaben werden schlechter beachtet." },
+  { id:"k22", modul:1, front:"Inferenz", back:"Die Nutzung des fertig trainierten Modells zur Erzeugung von Antworten." },
+  { id:"k23", modul:1, front:"Temperature", back:"Parameter für die Zufälligkeit/Kreativität der Ausgabe (niedrig = faktentreu)." },
+  { id:"k24", modul:1, front:"Halluzination", back:"Plausibel klingende, aber falsche oder erfundene Modellausgabe." },
+  { id:"k25", modul:1, front:"Wissensstichtag", back:"Zeitpunkt, nach dem das Modell von sich aus nichts mehr weiß." },
+  { id:"k26", modul:2, front:"Prompt Engineering", back:"Die Fertigkeit, Eingaben so zu formulieren, dass nützliche Ausgaben entstehen." },
+  { id:"k27", modul:2, front:"Zero-Shot", back:"Eine Aufgabe ohne Beispiele stellen." },
+  { id:"k28", modul:2, front:"Few-Shot", back:"Eine Aufgabe mit einigen Beispielen stellen, damit das Modell das Muster überträgt." },
+  { id:"k29", modul:2, front:"Chain of Thought", back:"Das Modell denkt in nachvollziehbaren Zwischenschritten vor der Endantwort." },
+  { id:"k30", modul:2, front:"Reasoning-Modell", back:"Modell, das gezielt darauf trainiert ist, vor der Antwort intern zu „denken“." },
+  { id:"k31", modul:2, front:"RAG", back:"Retrieval Augmented Generation: Anbindung externer Wissensquellen zur Erdung der Antworten." },
+  { id:"k32", modul:2, front:"Chunking", back:"Das Zerlegen von Dokumenten in kleine Stücke für RAG." },
+  { id:"k33", modul:2, front:"Vektordatenbank", back:"Speicher für Embeddings; ermöglicht die Ähnlichkeitssuche." },
+  { id:"k34", modul:2, front:"Tool Use / Function Calling", back:"Das Modell ruft externe Werkzeuge/Funktionen auf (suchen, rechnen, Aktionen)." },
+  { id:"k35", modul:2, front:"MCP (Model Context Protocol)", back:"Offener Standard (Anthropic 2024) zur Werkzeug-Anbindung — „USB-C für KI“." },
+  { id:"k36", modul:2, front:"KI-Agent", back:"System, das ein Ziel selbstständig in mehreren Schritten verfolgt." },
+  { id:"k37", modul:2, front:"Agentic Coding", back:"Ein Agent übernimmt die Programmier-Schleife (schreiben, testen, korrigieren) eigenständig." },
+  { id:"k38", modul:3, front:"Anthropic / Claude", back:"Sicherheits-fokussierter Anbieter; Stufen Haiku, Sonnet, Opus; prägte Constitutional AI und MCP." },
+  { id:"k39", modul:3, front:"Modellwahl", back:"Es gibt kein pauschal bestes Modell — die Wahl hängt von der Aufgabe ab." },
+  { id:"k40", modul:3, front:"Benchmark", back:"Standardisierter Test zum Modellvergleich (z. B. MMLU, SWE-bench)." },
+  { id:"k41", modul:3, front:"Daten-Kontamination", back:"Testaufgaben sind ins Training geraten — das verfälscht Benchmark-Ergebnisse." },
+  { id:"k42", modul:3, front:"Multimodal", back:"Verarbeitung mehrerer Datenarten: Text, Bild, Audio, Video." },
+  { id:"k43", modul:3, front:"Nativ multimodal", back:"Von Grund auf für mehrere Modalitäten gebaut, nicht nachträglich angekoppelt." },
+  { id:"k44", modul:3, front:"Prompt Injection", back:"Versteckte schädliche Anweisungen in Inhalten. Regel: externe Inhalte sind Daten, keine Befehle." },
+  { id:"k45", modul:3, front:"Bias", back:"Verzerrungen, die ein Modell aus seinen Trainingsdaten übernimmt." },
+  { id:"k46", modul:4, front:"Byte-Pair Encoding (BPE)", back:"Tokenisierungsverfahren: fasst die häufigsten Zeichenpaare iterativ zu einem neuen Token zusammen." },
+  { id:"k47", modul:4, front:"Vokabular (Vocabulary)", back:"Gesamtbestand aller Tokens, die ein Modell kennt (oft 100.000–200.000)." },
+  { id:"k48", modul:4, front:"Query / Key / Value", back:"Die drei Vektoren je Token in der Attention: Query = Suchanfrage, Key = Relevanz-Signal, Value = Inhalt." },
+  { id:"k49", modul:4, front:"Multi-Head Attention", back:"Mehrere parallele Attention-Berechnungen, die verschiedene Beziehungsarten erfassen." },
+  { id:"k50", modul:4, front:"Positionskodierung (RoPE)", back:"Gibt dem Modell die Wortstellung mit — Attention allein ist reihenfolgeblind." },
+  { id:"k51", modul:4, front:"Kontextuelles Embedding", back:"Der Vektor eines Wortes hängt vom umgebenden Satz ab — löst Mehrdeutigkeit (z. B. 'Bank')." },
+  { id:"k52", modul:4, front:"Verlustfunktion (Loss)", back:"Maß für den Fehler einer Vorhersage (beim Sprachmodell oft Cross-Entropy)." },
+  { id:"k53", modul:4, front:"Backpropagation", back:"Berechnet den Beitrag jedes Parameters zum Fehler und liefert den Gradienten." },
+  { id:"k54", modul:4, front:"Gradientenabstieg", back:"Verschiebt Parameter schrittweise Richtung kleinerer Fehler; Schrittgröße = Lernrate." },
+  { id:"k55", modul:4, front:"Overfitting", back:"Das Modell memoriert Trainingsdaten statt zu verallgemeinern — glänzt im Training, versagt bei Neuem." },
+  { id:"k56", modul:4, front:"LoRA", back:"Parameter-effizientes Fine-tuning: Basis-Gewichte einfrieren, nur kleine Adapter trainieren." },
+  { id:"k57", modul:4, front:"DPO (Direct Preference Optimization)", back:"Vereinfachtes Alignment ohne separates Belohnungsmodell — 2026 Praxisstandard statt RLHF/PPO." },
+  { id:"k58", modul:4, front:"Test-Time Compute", back:"Mehr Rechenleistung zur Antwortzeit durch Zwischen-Tokens (Nachdenken als Arbeitsspeicher)." },
+  { id:"k59", modul:5, front:"Hybride Suche", back:"Kombination aus semantischer Ähnlichkeitssuche und lexikalischer Stichwortsuche." },
+  { id:"k60", modul:5, front:"Re-Ranker", back:"Stufe nach der Suche, die Treffer nach echter Relevanz neu sortiert." },
+  { id:"k61", modul:5, front:"ReAct", back:"Agentenmuster: Schleife aus Thought (Gedanke) → Action (Werkzeug) → Observation (Ergebnis)." },
+  { id:"k62", modul:5, front:"Context Engineering", back:"Die Disziplin, den gesamten Kontextinhalt zu gestalten (was, wie viel, Reihenfolge)." },
+  { id:"k63", modul:5, front:"Quantisierung", back:"Parameter mit weniger Bit speichern (z. B. 4 statt 16) → kleiner und schneller im Betrieb." },
+  { id:"k64", modul:5, front:"KV-Caching", back:"Zwischenspeichern berechneter Keys/Values für effiziente Token-für-Token-Erzeugung." },
+  { id:"k65", modul:5, front:"Destillation", back:"Ein großes Lehrer-Modell trainiert ein kleines Schüler-Modell — kompakt und leistungsstark." },
+  { id:"k66", modul:5, front:"LLM-as-a-Judge", back:"Ein Modell bewertet automatisiert die Ausgaben eines anderen — skaliert, hat aber Judge-Biases." },
+  { id:"k67", modul:5, front:"Observability (Agenten)", back:"Nachvollziehbarkeit des Agenten-Verhaltens: richtiger Pfad? unnötige Schleifen? sauberer Abbruch?" },
+  { id:"k68", modul:6, front:"CLI (Command-Line Interface)", back:"Kommandozeilen-Interface; das Terminal ist das Eingabefenster — direkter Systemzugriff ohne grafische Oberfläche." },
+  { id:"k69", modul:6, front:"Claude Code", back:"Agentic Coding Tool im Terminal; liest Code, schreibt ihn, führt ihn aus und arbeitet selbstständig in Schleifen bis zum Ziel." },
+  { id:"k70", modul:6, front:"Agentic Loop", back:"Selbstständige Schleife: Aufgabe → Lesen → Ausführen → Prüfen → Korrigieren — wiederholt bis das Ziel erreicht ist." },
+  { id:"k71", modul:6, front:"Skill (Claude Code)", back:"Markdown-Datei mit wiederverwendbaren Verhaltensanweisungen — per Slash-Befehl (/skill-name) abrufbar." },
+  { id:"k72", modul:6, front:"CLAUDE.md", back:"Projektspezifische Anweisungsdatei: erklärt Claude Spielregeln, Konventionen und Grenzen des Projekts." },
+  { id:"k73", modul:6, front:"Hook (Claude Code)", back:"Shell-Befehl, der automatisch bei bestimmten Ereignissen ausgeführt wird (z. B. nach jeder Datei-Bearbeitung)." },
+  { id:"k74", modul:6, front:"Harness", back:"Das Claude-Code-Framework, das Hooks ausführt; Claude selbst sieht nur das Ergebnis und kann darauf reagieren." },
+  { id:"k75", modul:6, front:"Subagent", back:"Separate Claude-Instanz für eine Teilaufgabe — startet kalt ohne Gedächtnis der Hauptkonversation; Prompt muss eigenständig sein." },
+  { id:"k76", modul:6, front:"Reversible vs. irreversible Aktion", back:"Reversibel = rückgängig machbar (Datei editieren, git revert). Irreversibel = nicht rückgängig (E-Mail senden, Datei löschen)." },
+  { id:"k77", modul:6, front:"Human-in-the-Loop (HITL)", back:"Menschen bestätigen kritische oder irreversible Aktionen vor der Ausführung — Sicherheitsnetz bei agentic KI." }
+];
+let kRound = null;
+function cardsForDeck(deck){ return deck==="alle" ? karteikarten : karteikarten.filter(c=>c.modul===Number(deck)); }
+function kState(id){ return state.karten[id] || {b:1,d:0}; }
+function kFaellig(id){ return (state.karten[id] ? state.karten[id].d : 0) <= state.kRunde; }
+function kPromote(id){ const c=kState(id); const nb=Math.min(5,c.b+1); const iv=[1,2,4,8,16][nb-1]; state.karten[id]={b:nb,d:state.kRunde+iv}; }
+function kDemote(id){ state.karten[id]={b:1,d:state.kRunde+1}; }
+function deckStats(deck){ const ids=cardsForDeck(deck).map(c=>c.id); let gem=0,fae=0; ids.forEach(id=>{ if(kState(id).b>=5)gem++; if(kFaellig(id))fae++; }); return {total:ids.length, gemeistert:gem, faellig:fae}; }
+function shuffleArr(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function renderKartenDecks(){
+  const decks=[{k:"alle",t:"Alle Module"},{k:0,t:"Modul 1: Grundlagen"},{k:1,t:"Modul 2: Wie Modelle arbeiten"},{k:2,t:"Modul 3: Mit Modellen arbeiten"},{k:3,t:"Modul 4: Anbieter & Praxis"},{k:4,t:"Modul 5: Vertiefung Mechanik"},{k:5,t:"Modul 6: Vertiefung Systeme & Praxis"},{k:6,t:"Modul 7: KI-Tools im Alltag"}];
+  const karten=decks.map(d=>{
+    const s=deckStats(d.k);
+    return `<div class="karte ${s.gemeistert===s.total?'erledigt':''}" onclick="startRunde('${d.k}')">
+      <div class="nummer">🃏</div>
+      <div class="ktxt"><div class="ktitel">${d.t}</div><div class="kkern">${s.gemeistert}/${s.total} gemeistert · ${s.faellig} fällig</div></div>
+      <div class="status">üben →</div>
+    </div>`;
+  }).join("");
+  document.getElementById("app").innerHTML = `
+    <div class="topnav"><button class="btn-ghost" onclick="navigate('start')">&#8592; Übersicht</button></div>
+    <h1>Karteikarten</h1>
+    <p class="lead">Wähle einen Stapel. Gewusste Karten kommen seltener dran, schwierige öfter (Leitner-System). Dein Lernstand wird gespeichert.</p>
+    <div class="pfad">${karten}</div>
+    <div class="abschluss-box">
+      <button class="btn-ghost" onclick="resetKarten()">Karteikarten-Fortschritt zurücksetzen</button>
+    </div>`;
+  window.scrollTo(0,0);
+}
+function startRunde(deck){
+  let ids=cardsForDeck(deck).map(c=>c.id);
+  let due=ids.filter(kFaellig);
+  let frei=false;
+  if(due.length===0){ due=ids.slice(); frei=true; }
+  shuffleArr(due);
+  if(due.length>20) due=due.slice(0,20);
+  kRound={ deck:deck, queue:due.slice(), pending:new Set(due), total:due.length, gewusst:0, frei:frei };
+  state.view="kartenrunde"; saveState();
+  renderKartenrunde();
+}
+function renderKartenrunde(){
+  if(!kRound || kRound.queue.length===0){ renderKartenErgebnis(); return; }
+  const id=kRound.queue[0];
+  const card=karteikarten.find(c=>c.id===id);
+  const done=kRound.total-kRound.pending.size;
+  const proz=Math.round(done/kRound.total*100);
+  document.getElementById("app").innerHTML = `
+    <div class="topnav"><button class="btn-ghost" onclick="navigate('karten')">&#8592; Stapel</button></div>
+    <h1>Karteikarte</h1>
+    ${kRound.frei?'<p class="lead">Alle Karten sind aktuell gelernt — freie Wiederholung.</p>':''}
+    <div class="fortschritt-wrap">
+      <div class="txt">${done} von ${kRound.total} geschafft</div>
+      <div class="fortschritt"><i style="width:${proz}%"></i></div>
+    </div>
+    <div class="kk-card" onclick="kkFlip()">
+      <div class="kk-label">Begriff</div>
+      <div class="kk-front">${card.front}</div>
+      <div class="kk-back" id="kkback" hidden><div class="kk-label">Definition</div>${card.back}</div>
+      <div class="kk-hint" id="kkhint">tippen zum Umdrehen</div>
+    </div>
+    <div class="navrow" id="kkbtns" hidden>
+      <button class="btn btn-secondary" onclick="kkBewerte(false)">Nochmal ✗</button>
+      <button class="btn btn-primary" onclick="kkBewerte(true)">Gewusst ✓</button>
+    </div>`;
+  window.scrollTo(0,0);
+}
+function kkFlip(){
+  const back=document.getElementById("kkback");
+  if(!back || !back.hidden) return;
+  back.hidden=false;
+  document.getElementById("kkhint").style.display="none";
+  document.getElementById("kkbtns").hidden=false;
+}
+function kkBewerte(gewusst){
+  if(!kRound || kRound.queue.length===0) return;
+  const id=kRound.queue.shift();
+  if(gewusst){ kPromote(id); kRound.pending.delete(id); kRound.gewusst++; }
+  else { kDemote(id); kRound.queue.push(id); }
+  saveState();
+  if(kRound.pending.size===0) renderKartenErgebnis();
+  else renderKartenrunde();
+}
+function renderKartenErgebnis(){
+  state.kRunde=state.kRunde+1; saveState();
+  const s=deckStats(kRound.deck);
+  document.getElementById("app").innerHTML = `
+    <div class="topnav"><button class="btn-ghost" onclick="navigate('karten')">&#8592; Stapel</button></div>
+    <h1>Runde geschafft</h1>
+    <div class="ergebnis"><div class="score"><b>${kRound.gewusst}</b> / ${kRound.total} gewusst</div></div>
+    <div class="empfehlung"><b>Stapel-Lernstand:</b> ${s.gemeistert}/${s.total} gemeistert.</div>
+    <div class="navrow" style="margin-top:0">
+      <button class="btn btn-secondary" onclick="navigate('karten')">Zur Stapel-Auswahl</button>
+      <button class="btn btn-primary" onclick="startRunde('${kRound.deck}')">Neue Runde</button>
+    </div>`;
+  window.scrollTo(0,0);
+}
+function resetKarten(){
+  if(confirm("Karteikarten-Lernstand wirklich zurücksetzen?")){
+    state.karten={}; state.kRunde=0; saveState(); renderKartenDecks();
+  }
+}
+
+/* ===================== Router ===================== */
+function navigate(view, payload){
+  state.view = view;
+  if(view === "modul"){ state.aktuellesModul = Number(payload); }
+  else if(view === "etappe"){
+    if(payload && typeof payload === "object"){ state.aktuellesModul = Number(payload.m); state.aktuelleEtappe = Number(payload.e); }
+    else if(payload !== undefined){ state.aktuelleEtappe = Number(payload); }
+  }
+  saveState();
+  render();
+}
+function render(){
+  const v = state.view;
+  if(v === "modul") renderModul();
+  else if(v === "etappe") renderEtappe();
+  else if(v === "faden") renderFaden();
+  else if(v === "netz") renderNetz();
+  else if(v === "quiz") renderQuiz();
+  else if(v === "karten") renderKartenDecks();
+  else if(v === "kartenrunde"){ if(kRound) renderKartenrunde(); else renderKartenDecks(); }
+  else renderStart();
+}
+function resetFortschritt(){
+  if(confirm("Wirklich den gesamten Lernfortschritt zurücksetzen?")){
+    state = leererState(); saveState(); navigate("start");
+  }
+}
+
+/* Start: immer auf der Übersicht beginnen (Resume-Button bietet Wiedereinstieg) */
+state.view = "start";
+render();
+</script>
+</body>
+</html>
