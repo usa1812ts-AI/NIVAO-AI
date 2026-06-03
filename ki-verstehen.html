@@ -1893,6 +1893,80 @@ function schaubild(m,e){
   return "";
 }
 
+/* ===================== Glossar: Hilfsfunktionen ===================== */
+let _glossarAnker = null; // transient: welcher Begriff soll im Glossar hervorgehoben werden
+
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escRegex(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+
+function glossarTermMap(){
+  // Gibt ein Objekt zurück: { "shell": { front:"Shell", back:"...", modul:6 }, ... }
+  const map = {};
+  karteikarten.forEach(k => { map[k.front.toLowerCase()] = { front:k.front, back:k.back, modul:k.modul }; });
+  return map;
+}
+
+function toggleTooltip(el){
+  const isActive = el.classList.contains('aktiv');
+  document.querySelectorAll('.glossar-term.aktiv').forEach(t => t.classList.remove('aktiv'));
+  if(!isActive) el.classList.add('aktiv');
+}
+
+// Globaler Click-Handler: schließt offene Tooltips
+document.addEventListener('click', function(){ document.querySelectorAll('.glossar-term.aktiv').forEach(t => t.classList.remove('aktiv')); });
+
+function injectTooltips(container){
+  const map = glossarTermMap();
+  // Längste Begriffe zuerst, damit "KI-Agent" vor "KI" gematcht wird
+  const terms = Object.values(map).sort((a,b) => b.front.length - a.front.length);
+  if(!terms.length) return;
+
+  const SKIP_TAGS = new Set(['H1','H2','H3','H4','BUTTON','SCRIPT','STYLE','INPUT','TEXTAREA','A']);
+  const SKIP_CLASSES = ['frage','navrow','abk-box','abk-chip','glossar-term','glossar-tooltip','topnav'];
+
+  function shouldSkip(el){
+    if(SKIP_TAGS.has(el.tagName)) return true;
+    return SKIP_CLASSES.some(c => el.classList.contains(c));
+  }
+
+  // Alle passenden Textknoten sammeln
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+    acceptNode(node){
+      let el = node.parentElement;
+      while(el && el !== container){
+        if(shouldSkip(el)) return NodeFilter.FILTER_REJECT;
+        el = el.parentElement;
+      }
+      return node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+    }
+  });
+  const nodes = [];
+  let n;
+  while((n = walker.nextNode())) nodes.push(n);
+
+  const used = new Set(); // Jeder Begriff nur beim ersten Vorkommen
+
+  nodes.forEach(textNode => {
+    let text = textNode.textContent;
+    let changed = false;
+    terms.forEach(({ front, back }) => {
+      if(used.has(front.toLowerCase())) return;
+      const rx = new RegExp('\\b' + escRegex(front) + '\\b', 'i');
+      if(!rx.test(text)) return;
+      text = text.replace(rx, match => {
+        used.add(front.toLowerCase());
+        return `<span class="glossar-term" onclick="toggleTooltip(this);event.stopPropagation()"><span class="gt-word">${escHtml(match)}</span><span class="glossar-tooltip"><strong>${escHtml(front)}</strong> — ${escHtml(back)}<a class="gt-link" data-term="${escHtml(front)}" onclick="navigate('glossar',this.dataset.term);event.stopPropagation()">→ Im Glossar nachschlagen</a></span></span>`;
+      });
+      changed = true;
+    });
+    if(changed){
+      const span = document.createElement('span');
+      span.innerHTML = text;
+      textNode.parentNode.replaceChild(span, textNode);
+    }
+  });
+}
+
 /* ===================== Render: Startseite ===================== */
 function renderStart(){
   let resume = "";
