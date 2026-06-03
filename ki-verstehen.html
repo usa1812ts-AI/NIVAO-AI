@@ -113,6 +113,26 @@ ul.punkte li::before{content:"";position:absolute;left:2px;top:13px;width:8px;he
 .kk-hint{margin-top:16px;font-size:12px;color:var(--gray)}
 footer{max-width:880px;margin:0 auto;padding:18px 20px 40px;color:var(--gray);font-size:12px;border-top:1px solid var(--light)}
 footer i{font-style:italic}
+/* ===== Glossar: Inline-Tooltips ===== */
+.glossar-term{position:relative;border-bottom:2px dotted var(--orange);cursor:pointer;display:inline}
+.glossar-tooltip{display:none;position:absolute;left:0;top:120%;z-index:200;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px 14px;width:240px;box-shadow:0 4px 16px rgba(0,0,0,.13);font-size:13px;line-height:1.55;color:var(--graphite);font-weight:400;font-style:normal}
+.glossar-term.aktiv .glossar-tooltip{display:block}
+.gt-link{color:var(--orange);font-weight:700;cursor:pointer;text-decoration:none;display:block;margin-top:8px;font-size:12px}
+/* ===== Glossar: Seite ===== */
+.gl-suche-wrap{margin-bottom:12px}
+.gl-suche{width:100%;border:1.5px solid #e5e7eb;border-radius:8px;padding:10px 12px;font:inherit;font-size:14px;color:var(--graphite);background:#fff}
+.gl-suche:focus{outline:none;border-color:var(--orange)}
+.gl-buchstaben{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.gl-buchstabe{background:var(--light);border:none;border-radius:6px;padding:4px 10px;font:inherit;font-size:12px;font-weight:700;color:var(--olive);cursor:pointer}
+.gl-buchstabe:hover{background:var(--orange);color:#fff}
+.gl-gruppe{margin-bottom:10px}
+.gl-buchstaben-head{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);padding:6px 0 4px;border-bottom:1px solid var(--light);margin-bottom:6px}
+.gl-eintrag{padding:12px 14px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:8px}
+.gl-eintrag-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:4px}
+.gl-term{font-weight:700;color:var(--olive);font-size:15px}
+.gl-modul-badge{font-size:11px;background:#f0fdf4;color:#15803d;padding:2px 8px;border-radius:10px;font-weight:700;white-space:nowrap}
+.gl-def{font-size:13px;color:var(--graphite);line-height:1.55}
+.gl-karte-link{font-size:12px;margin-top:6px;padding:0;color:var(--orange);display:inline-block}
 </style>
 </head>
 <body>
