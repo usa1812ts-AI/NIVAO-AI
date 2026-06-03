@@ -2329,6 +2329,81 @@ function renderKartenDecks(){
     </div>`;
   window.scrollTo(0,0);
 }
+
+/* ===================== Render: Glossar ===================== */
+function renderGlossar(){
+  // Alphabetisch sortieren
+  const sorted = [...karteikarten].sort((a,b) => a.front.localeCompare(b.front,'de'));
+  // Nach Anfangsbuchstaben gruppieren
+  const groups = {};
+  sorted.forEach(k => {
+    const letter = k.front[0].toUpperCase();
+    if(!groups[letter]) groups[letter] = [];
+    groups[letter].push(k);
+  });
+  const letters = Object.keys(groups).sort();
+
+  const letterButtons = letters.map(l =>
+    `<button class="gl-buchstabe" onclick="glossarSprung('${escHtml(l)}')">${escHtml(l)}</button>`
+  ).join('');
+
+  const eintraege = letters.map(l => `
+    <div class="gl-gruppe" id="gl-gruppe-${l}">
+      <div class="gl-buchstaben-head" id="gl-${l}">${l}</div>
+      ${groups[l].map(k => `
+        <div class="gl-eintrag" data-term="${escHtml(k.front)}">
+          <div class="gl-eintrag-head">
+            <span class="gl-term">${escHtml(k.front)}</span>
+            <span class="gl-modul-badge">Modul ${k.modul+1}</span>
+          </div>
+          <div class="gl-def">${escHtml(k.back)}</div>
+          <button class="btn-ghost gl-karte-link" onclick="navigate('karten')">→ als Karteikarte lernen</button>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+
+  document.getElementById('app').innerHTML = `
+    <div class="topnav"><button class="btn-ghost" onclick="navigate('start')">&#8592; Übersicht</button></div>
+    <h1>📖 Glossar</h1>
+    <p class="lead">${karteikarten.length} Begriffe aus allen Modulen — Tippe los oder springe per Buchstabe.</p>
+    <div class="gl-suche-wrap">
+      <input id="gl-suche" class="gl-suche" type="search" placeholder="🔍 Begriff suchen …" oninput="glossarSuche(this.value)" autocomplete="off">
+    </div>
+    <div class="gl-buchstaben">${letterButtons}</div>
+    <div id="gl-liste">${eintraege}</div>`;
+  window.scrollTo(0,0);
+
+  // Zum Anker scrollen (wenn aus Tooltip geöffnet)
+  if(_glossarAnker){
+    const term = _glossarAnker;
+    _glossarAnker = null;
+    setTimeout(() => {
+      const el = document.querySelector(`.gl-eintrag[data-term="${escHtml(term)}"]`);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+    }, 80);
+  }
+}
+
+function glossarSuche(val){
+  const q = val.toLowerCase().trim();
+  document.querySelectorAll('.gl-eintrag').forEach(el => {
+    const term = (el.querySelector('.gl-term')||{}).textContent||'';
+    const def  = (el.querySelector('.gl-def')||{}).textContent||'';
+    el.style.display = (!q || term.toLowerCase().includes(q) || def.toLowerCase().includes(q)) ? '' : 'none';
+  });
+  // Leere Buchstabengruppen ausblenden
+  document.querySelectorAll('.gl-gruppe').forEach(g => {
+    const visible = [...g.querySelectorAll('.gl-eintrag')].some(e => e.style.display !== 'none');
+    g.style.display = visible ? '' : 'none';
+  });
+}
+
+function glossarSprung(letter){
+  const el = document.getElementById('gl-' + letter);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
 function startRunde(deck){
   let ids=cardsForDeck(deck).map(c=>c.id);
   let due=ids.filter(kFaellig);
