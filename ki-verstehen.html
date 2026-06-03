@@ -1993,6 +1993,9 @@ function renderStart(){
     <div class="pfad">${karten}</div>
     <div class="abschluss-box">
       <button class="btn btn-primary" onclick="navigate('karten')">🃏 Karteikarten</button>
+      <button class="btn btn-secondary" onclick="navigate('glossar')">📖 Glossar</button>
+    </div>
+    <div style="text-align:center;margin-bottom:18px">
       <button class="btn-ghost" onclick="resetFortschritt()">Fortschritt zurücksetzen</button>
     </div>`;
 }
@@ -2480,7 +2483,8 @@ function resetKarten(){
 /* ===================== Router ===================== */
 function navigate(view, payload){
   state.view = view;
-  if(view === "modul"){ state.aktuellesModul = Number(payload); }
+  if(view === "glossar"){ _glossarAnker = payload || null; }
+  else if(view === "modul"){ state.aktuellesModul = Number(payload); }
   else if(view === "etappe"){
     if(payload && typeof payload === "object"){ state.aktuellesModul = Number(payload.m); state.aktuelleEtappe = Number(payload.e); }
     else if(payload !== undefined){ state.aktuelleEtappe = Number(payload); }
@@ -2496,6 +2500,7 @@ function render(){
   else if(v === "netz") renderNetz();
   else if(v === "quiz") renderQuiz();
   else if(v === "karten") renderKartenDecks();
+  else if(v === "glossar") renderGlossar();
   else if(v === "kartenrunde"){ if(kRound) renderKartenrunde(); else renderKartenDecks(); }
   else renderStart();
 }
