@@ -2066,6 +2066,7 @@ function renderEtappe(){
       <button class="btn btn-primary" onclick="etappeFertig()">${istLetzte?'Verstanden &#8594; Abschluss':'Verstanden &#8594; Weiter'}</button>
     </div>`;
   window.scrollTo(0,0);
+  injectTooltips(document.getElementById('app'));
 }
 function miniAnswer(btn){
   const frage = btn.closest(".frage");
