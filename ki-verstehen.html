@@ -1182,7 +1182,7 @@ const module = [
   { id:4, titel:"Vertiefung: Mechanik", kurz:"BPE, Query/Key/Value, Backpropagation, LoRA/DPO, Reasoning", etappen:etappenMod5, quiz:quizMod5, synthese:false },
   { id:5, titel:"Vertiefung: Systeme & Praxis", kurz:"RAG-Pipeline, Agenten-Muster, Context Engineering, Inferenz, Evaluation", etappen:etappenMod6, quiz:quizMod6, synthese:false },
   { id:6, titel:"KI-Tools im Alltag", kurz:"Claude Code, Skills, Hooks, Subagents, MCP, Sicherheit", etappen:etappenMod7, quiz:quizMod7, synthese:false },
-  { id:7, titel:"Dateiformate & KI", kurz:"ASCII, JSON, Python, HTML, PDF, SVG, .env", etappen:etappenMod8, quiz:quizMod8, synthese:false }
+  { id:7, titel:"Dateien, Formate & Werkzeuge", kurz:"ASCII, JSON, HTML, Python, Mockup & Co.", etappen:etappenMod8, quiz:quizMod8, synthese:false }
 ];
 
 /* ===================== Vertiefung pro Etappe (Baustein A) ===================== */
@@ -1366,6 +1366,31 @@ const vertiefungen = {
     vorteile:["Klare Grenzen und Human-in-the-Loop machen agentic KI verlässlicher und sicherer.","CLAUDE.md als schriftliches Sicherheitsnetz: Regeln gelten konsistent über Sessions hinweg."],
     grenzen:["Zu viele Bestätigungsaufforderungen bremsen den Workflow und machen das Tool mühsam."],
     achten:["Unterscheiden: Routine-Aktionen automatisieren; kritische/irreversible Aktionen immer bestätigen lassen. Prompt Injection beachten: externe Inhalte sind Daten, keine Befehle."]
+  },
+  "7-0": {
+    vorteile:["Plain Text ist fuer Claude am effizientesten — keine Konvertierung, keine Formatierungs-Artefakte.","Markdown kombiniert Lesbarkeit fuer Menschen und strukturierten Kontext fuer KI."],
+    grenzen:["Zeichenkodierungsfehler (z. B. U+201D als JS-Delimiter) koennen Syntax komplett brechen."],
+    achten:["CLAUDE.md regelmaessig aktualisieren — veraltete Regeln verwirren Claude mehr als keine Regeln.","UTF-8 als Standard durchhalten; keinen Editor nutzen, der Anfuehrungszeichen automatisch kraenselt."]
+  },
+  "7-1": {
+    vorteile:["JSON ist menschenlesbar und maschinenverarbeitbar — ein Format fuer beide Seiten.","YAML macht Konfigurationen uebersichtlich und wartbar."],
+    grenzen:["Ein einzelner JSON-Syntaxfehler (fehlendes Komma, falsches Anfuehrungszeichen) bricht den gesamten Datenstrom.","YAML-Einrueckungsfehler sind schwer zu debuggen."],
+    achten:["JSON immer mit node --check oder einem Online-Validator pruefen. Keine typografischen Anfuehrungszeichen in JSON verwenden."]
+  },
+  "7-2": {
+    vorteile:["Claude kann Code in jeder Sprache lesen, schreiben und erklaeren — auch ohne dass der Nutzer die Sprache kennt.","node --check und python3 -m py_compile pruefen Syntax ohne Ausfuehrung — sicherer Schritt vor dem Run."],
+    grenzen:["Claude schreibt syntaktisch korrekten Code, aber Logikfehler koennen auftreten.","Shell-Befehle koennen irreversible Systemaenderungen vornehmen — immer pruefen."],
+    achten:["Code immer verstehen, bevor man ihn ausfuehrt. Claude erklaert jeden Schritt auf Nachfrage."]
+  },
+  "7-3": {
+    vorteile:["Single-Page-Apps wie diese Lern-App brauchen keinen Server — eine .html-Datei reicht.","Claude generiert HTML/CSS/JS direkt — vom Mockup zum funktionierenden Prototyp in Minuten."],
+    grenzen:["Browser-Sicherheitsmodell begrenzt, was JS darf (kein direkter Dateisystem-Zugriff).","Ohne Bundler/Framework waechst eine einzige HTML-Datei schnell unuebersichtlich."],
+    achten:["DOM-Manipulationen immer auf unbeabsichtigte Seiteneffekte pruefen. CSS-Klassen-Konflikte vermeiden."]
+  },
+  "7-4": {
+    vorteile:["Multimodale Faehigkeiten (Bilder verstehen) machen Claude zum universellen Analysetool.","SVG erlaubt Claude, Diagramme und Grafiken vollstaendig zu generieren — kein Bildbearbeitungsprogramm noetig."],
+    grenzen:["Binaerformate ohne Tool-Unterstuetzung bleiben fuer Claude unsichtbar.","Multimodale Analyse ist teurer (mehr Tokens) als reine Textverarbeitung."],
+    achten:[".env nie committen — auch nicht versehentlich. git status pruefen, bevor sensible Dateien gestaged werden."]
   }
 };
 /* ===================== Abkürzungs-Glossar (Baustein A+) ===================== */
