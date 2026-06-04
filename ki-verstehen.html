@@ -194,7 +194,9 @@ const etappen = [
       "Künstliche Intelligenz (KI) = Oberbegriff: jedes System, das Aufgaben löst, die sonst Intelligenz brauchen.",
       "Machine Learning = Teilmenge der KI: lernt Muster aus Daten statt aus festen Regeln.",
       "Deep Learning = Teilmenge von ML: nutzt tiefe (vielschichtige) neuronale Netze.",
-      "Generative KI = erzeugt neue Inhalte (Text, Bild, Code, Audio). Große Sprachmodelle gehören hierher."
+      "Generative KI = erzeugt neue Inhalte (Text, Bild, Code, Audio). Große Sprachmodelle gehören hierher.",
+      "Narrow AI vs. AGI: Heutige Sprachmodelle sind spezialisierte KI (Narrow AI) — brillant in Sprache, aber kein allgemeiner Geist (AGI = Artificial General Intelligence).",
+      "Historisch: Vor dem Deep-Learning-Durchbruch dominierte regelbasierte KI (Expertensysteme). ML-Systeme lernen Muster aus Daten statt hart kodierte Regeln zu befolgen — das ist der fundamentale Paradigmenwechsel."
     ],
     merkbild: "Jedes Sprachmodell ist Generative KI, ist Deep Learning, ist ML, ist KI — aber nicht jede KI ist ein Sprachmodell.",
     check: [
@@ -215,7 +217,8 @@ const etappen = [
       "Tokenisierung = der Vorgang, Text in Tokens zu zerlegen.",
       "Faustregel Englisch: 1 Token ≈ 0,75 Wörter ≈ 4 Zeichen.",
       "Deutsch ist \"teurer\": lange zusammengesetzte Wörter zerfallen in mehr Tokens.",
-      "Wichtig: Kontextfenster und Kosten zählen in Tokens — nicht in Wörtern."
+      "Wichtig: Kontextfenster und Kosten zählen in Tokens — nicht in Wörtern.",
+      "Byte-Pair Encoding (BPE) ist das Standard-Tokenisierungsverfahren: startet mit Einzelzeichen und verschmilzt schrittweise die häufigsten Zeichenpaare — häufige Wörter werden ein Token, seltene zerfallen in viele."
     ],
     merkbild: "Denke in Tokens, nicht in Wörtern. Das bestimmt Kosten und Kontext.",
     check: [
@@ -235,7 +238,9 @@ const etappen = [
       "Das Modell sagt das nächste Token voraus, hängt es an und sagt erneut voraus. Das nennt man \"autoregressiv\".",
       "Es \"versteht\" nicht wie ein Mensch und schlägt keine Faktendatenbank nach.",
       "Es berechnet Wahrscheinlichkeiten aus den Mustern, die es im Training gesehen hat.",
-      "Folge: Halluzination. Ein flüssiger Satz kann falsch sein — das Modell optimiert auf Plausibilität, nicht auf Wahrheit."
+      "Folge: Halluzination. Ein flüssiger Satz kann falsch sein — das Modell optimiert auf Plausibilität, nicht auf Wahrheit.",
+      "Das Trainingssignal ist radikal einfach: Vorhersage des nächsten Tokens auf riesigen Textmengen — daraus entstehen trotzdem Übersetzung, Logik und Code als Nebenprodukt.",
+      "Autoregressiv heißt seriell: Das Modell erzeugt Tokens eins nach dem anderen; paralleles Erzeugen mehrerer Tokens gleichzeitig (Speculative Decoding) ist ein aktives Forschungsfeld zur Beschleunigung."
     ],
     merkbild: "Im Grunde eine sehr ausgefeilte Vervollständigungsmaschine.",
     check: [
@@ -255,7 +260,9 @@ const etappen = [
       "Parameter (Gewichte) werden im Training millionen- bis milliardenfach justiert.",
       "\"70B\" bedeutet 70 Milliarden Parameter.",
       "Lange galt: mehr Parameter = besser. 2026 stimmt das nur noch eingeschränkt.",
-      "Mixture of Experts (MoE): viele spezialisierte Teilnetze, aber pro Anfrage sind nur wenige aktiv → spart Rechenleistung."
+      "Mixture of Experts (MoE): viele spezialisierte Teilnetze, aber pro Anfrage sind nur wenige aktiv → spart Rechenleistung.",
+      "Training = Gradientenabstieg: Bei jeder falschen Vorhersage wird gemessen, wie stark jeder Parameter zum Fehler beiträgt — dann werden alle Parameter ein kleines Stück korrigiert (Backpropagation).",
+      "Dense vs. Sparse: Klassische Modelle aktivieren alle Parameter pro Token (dense); MoE-Modelle aktivieren nur einen Teil (sparse) — spart Rechenleistung bei gleichwertiger oder besserer Qualität."
     ],
     merkbild: "Viele Experten im Haus — aber pro Frage arbeiten nur wenige.",
     check: [
@@ -298,7 +305,8 @@ const etappen = [
       "Attention (Aufmerksamkeit) gewichtet die relevanten Bezüge im Text.",
       "Beispiel: \"Der Ingenieur prüfte die Komponente, weil sie defekt war\" — \"sie\" bezieht sich auf \"Komponente\".",
       "Die Verarbeitung läuft parallel über den ganzen Text → gut auf großen Rechenclustern.",
-      "Das \"T\" in GPT steht für Transformer (Generative Pre-trained Transformer)."
+      "Das \"T\" in GPT steht für Transformer (Generative Pre-trained Transformer).",
+      "Multi-Head Attention: Mehrere parallele Aufmerksamkeits-Köpfe beobachten gleichzeitig verschiedene Beziehungsarten (grammatische Bezüge, Thema, Position) — die Ergebnisse werden zusammengeführt."
     ],
     merkbild: "\"sie\" findet sein Bezugswort — Attention richtet den Scheinwerfer auf das Relevante.",
     check: [
@@ -337,7 +345,9 @@ const etappenMod2 = [
       "Pretraining: lernt aus riesigen Textmengen das nächste Token vorherzusagen — die teuerste Stufe, baut das Weltwissen auf.",
       "Fine-tuning: Nachschärfen mit kleineren, gezielten Datensätzen (z. B. Anweisungen folgen, \"Instruction Tuning\").",
       "RLHF: Menschen bewerten Antworten; das Modell lernt, hilfreichere, ehrlichere, harmlosere Antworten zu bevorzugen.",
-      "Constitutional AI (Anthropic): Das Modell prüft sich gegen schriftliche Prinzipien (eine \"Verfassung\") statt nur gegen Einzelurteile."
+      "Constitutional AI (Anthropic): Das Modell prüft sich gegen schriftliche Prinzipien (eine \"Verfassung\") statt nur gegen Einzelurteile.",
+      "RLHF-Vereinfachung: Direct Preference Optimization (DPO) macht dasselbe einfacher und stabiler — 2026 Standard statt klassischem RLHF mit separatem Belohnungsmodell.",
+      "Wissensstichtag: Das Modell kennt nur Informationen aus seinen Trainingsdaten bis zu einem fixen Datum. Für aktuelles Wissen danach braucht es RAG oder neues Fine-tuning."
     ],
     merkbild:"Erst lesen lernen (Pretraining), dann höflich und hilfreich werden (RLHF).",
     check:[
@@ -357,7 +367,9 @@ const etappenMod2 = [
       "Gemessen in Tokens (Eingabe + Ausgabe zusammen).",
       "2026 reichen Spitzenmodelle an ~1 Million Tokens — genug für ganze Dokumentensammlungen.",
       "Großes Fenster heißt nicht, dass alles gleich gut genutzt wird: die Mitte wird oft schlechter beachtet (\"lost in the middle\").",
-      "Kein dauerhaftes Gedächtnis: standardmäßig vergisst das Modell nach der Anfrage alles wieder."
+      "Kein dauerhaftes Gedächtnis: standardmäßig vergisst das Modell nach der Anfrage alles wieder.",
+      "Kosten skalieren mit dem Kontext: sehr lange Eingaben kosten proportional mehr Tokens — Context Caching senkt die Kosten, wenn dieselbe Systembeschreibung oder dasselbe Dokument wiederholt gesendet wird.",
+      "Strategie: Wichtiges an Anfang oder Ende platzieren (nicht in der Mitte vergraben), Irrelevantes heraushalten — eine eigene Disziplin namens Context Engineering."
     ],
     merkbild:"Großer Schreibtisch — aber die Mitte gerät leicht aus dem Blick.",
     check:[
@@ -378,7 +390,8 @@ const etappenMod2 = [
       "Bei jedem Schritt entsteht eine Wahrscheinlichkeitsverteilung über mögliche nächste Tokens.",
       "Niedrige Temperature (nahe 0): deterministisch, faktentreu — wählt fast immer das wahrscheinlichste Token.",
       "Höhere Temperature: vielfältiger und kreativer, aber riskanter (mehr Abwegiges).",
-      "Top-p / Top-k grenzen die Auswahl zusätzlich auf die wahrscheinlichsten Kandidaten ein."
+      "Top-p / Top-k grenzen die Auswahl zusätzlich auf die wahrscheinlichsten Kandidaten ein.",
+      "2026 ist Inferenz ein erheblicher Kostenfaktor: Anbieter betreiben tausende GPUs; für eigene Deployments gibt es optimierte Frameworks wie vLLM oder llama.cpp, die den Durchsatz vervielfachen."
     ],
     merkbild:"Niedrige Temperatur für Fakten, höhere fürs kreative Schreiben.",
     check:[
@@ -398,7 +411,9 @@ const etappenMod2 = [
       "Ursache: Das Modell erzeugt die plausibelste Fortsetzung, nicht die nachweislich wahre (siehe Modul 1).",
       "Gegenmaßnahmen: mit Quellen erden (RAG), Werkzeuge zum Nachschlagen (Tool Use), niedrige Temperature, schrittweises Denken.",
       "Weitere Grenzen: Wissensstichtag (kennt nichts nach dem Training), gelegentliche Fehler bei einfacher Logik/Arithmetik.",
-      "Die Qualität der Antwort hängt stark von der Qualität der Eingabe ab."
+      "Die Qualität der Antwort hängt stark von der Qualität der Eingabe ab.",
+      "Eingebaute Selbstprüfung: Viele 2025/2026-Modelle mit Extended Thinking hinterfragen eigene Zwischenschritte — das reduziert Halluzinationen, eliminiert sie aber nicht.",
+      "Warnzeichen: Selbstbewusster Ton ist kein Wahrheitsbeweis. Besonders prüfen: sehr spezifische Zahlen, Quellen-Zitate, Datumsangaben — diese immer gegenprüfen."
     ],
     merkbild:"Selbstbewusst vorgetragen heißt nicht wahr — wichtige Fakten gegenprüfen.",
     check:[
@@ -430,7 +445,9 @@ const etappenMod3 = [
       "Zero-Shot: Aufgabe direkt stellen, ohne Beispiele — gut für einfache, klare Aufgaben.",
       "Few-Shot: ein paar Beispiele mitgeben — das Modell überträgt das Muster, steuert Format und Stil.",
       "Rolle & Kontext vorgeben (\"Du bist ein erfahrener Vertriebsingenieur …\") verschiebt die Antwort in die richtige Richtung.",
-      "Struktur vorgeben: Format, Länge, Ton — und ruhig auch Negativbeispiele (\"vermeide Fachjargon\")."
+      "Struktur vorgeben: Format, Länge, Ton — und ruhig auch Negativbeispiele (\"vermeide Fachjargon\").",
+      "System-Prompt: Ein separater Rahmen, der Verhalten, Ton und Grenzen für die gesamte Konversation festlegt — typisch für Produktanwendungen und APIs, aber auch in Claude Code per CLAUDE.md.",
+      "Praktische Faustregel: Präzise über vage, Beispiele über keine Beispiele, Schritte über Sprung. Ein guter Prompt kann Qualität vervielfachen — ohne Kosten für Training."
     ],
     merkbild:"Few-Shot schlägt oft Zero-Shot — Beispiele wirken Wunder.",
     check:[
@@ -450,7 +467,9 @@ const etappenMod3 = [
       "Chain of Thought (CoT): das Modell denkt in nachvollziehbaren Zwischenschritten, statt sofort zu antworten (\"Lass uns Schritt für Schritt denken\").",
       "Reasoning-Modelle sind gezielt darauf trainiert, vor der Antwort ausführlich intern zu \"denken\".",
       "2026 bieten Anbieter abgestufte Denktiefen an — von niedrig bis sehr hoch.",
-      "Achtung: Mehr Denken kostet mehr Tokens, Zeit und Geld. Für Einfaches reicht ein schnelles Standardmodell."
+      "Achtung: Mehr Denken kostet mehr Tokens, Zeit und Geld. Für Einfaches reicht ein schnelles Standardmodell.",
+      "Selbstkorrektur: Das Modell kann in Zwischenschritten auf einen Fehler stoßen und ihn korrigieren — ohne CoT hätte der Fehler die ganze Antwort vergiftet.",
+      "Praktischer Tipp: Bei Aufgaben mit Rechenweg, Logik oder mehreren Bedingungen immer CoT verwenden. Bei einfachen Anfragen (Formulierung, kurze Zusammenfassung) meist nicht nötig."
     ],
     merkbild:"Schmierzettel im Kopf — erst rechnen, dann antworten.",
     check:[
@@ -470,7 +489,9 @@ const etappenMod3 = [
       "Vorbereitung: Dokumente in Stücke zerlegen (\"Chunking\"), je Stück ein Embedding, ablegen in einer Vektordatenbank.",
       "Retrieve: Die Frage wird zum Vektor; die Datenbank sucht per Ähnlichkeit die passendsten Textstücke (oft hybride Suche + Re-Ranker).",
       "Augment & Generate: Die Treffer kommen mit der Frage als Kontext ins Modell, das daraus die Antwort formuliert.",
-      "Vorteil: Neues Wissen = einfach die Datenbank aktualisieren, kein Neutraining. Liefert zudem nachvollziehbare Quellen."
+      "Vorteil: Neues Wissen = einfach die Datenbank aktualisieren, kein Neutraining. Liefert zudem nachvollziehbare Quellen.",
+      "Chunking-Strategie ist entscheidend: zu kleine Stücke verlieren Kontext, zu große verwässern die Relevanz — semantisches Chunking (Sinnabschnitte statt fester Länge) liefert bessere Treffer.",
+      "Sicherheit: Vektordatenbanken können ein Angriffsziel sein — aus Embeddings lassen sich teils Rückschlüsse auf Originaldaten ziehen. Zugriff und Verschlüsselung wie bei normalen Datenbanken behandeln."
     ],
     merkbild:"Erst nachschlagen, dann antworten.",
     check:[
@@ -490,7 +511,9 @@ const etappenMod3 = [
       "Ein Modell allein erzeugt nur Text: es kann nicht von sich aus suchen, rechnen oder Aktionen auslösen.",
       "Tool Use / Function Calling: Man stellt Werkzeuge bereit; das Modell entscheidet, wann es welches mit welchen Parametern aufruft.",
       "MCP (Model Context Protocol, Anthropic 2024): ein offener Standard für die Anbindung — \"USB-C für KI\".",
-      "MCP kennt drei Bausteine: Tools (Funktionen), Resources (Datenquellen), Prompts (Vorlagen). 2026 faktischer Standard."
+      "MCP kennt drei Bausteine: Tools (Funktionen), Resources (Datenquellen), Prompts (Vorlagen). 2026 faktischer Standard.",
+      "Ablauf von Tool Use: Das Modell erzeugt einen strukturierten Tool-Call, der Client führt das Tool aus und gibt das Ergebnis zurück — das Modell formuliert dann die Antwort gestützt auf dieses Ergebnis.",
+      "MCP-Ökosystem 2026: Tausende Server für Gmail, GitHub, Slack, Datenbanken und mehr. Wer einen Server einmal baut, kann ihn mit allen MCP-fähigen Clients (Claude Code, GPT, etc.) nutzen."
     ],
     merkbild:"MCP = USB-C für KI-Werkzeuge: einmal bauen, überall nutzen.",
     check:[
@@ -511,7 +534,8 @@ const etappenMod3 = [
       "Agenten-Schleife: planen → Werkzeug aufrufen → Ergebnis lesen → korrigieren → weiter, bis das Ziel erreicht ist.",
       "Agentic Coding: Der Agent übernimmt die Schleife aus Code schreiben, ausführen, Fehler lesen, beheben.",
       "Abgrenzung: \"Vibe Coding\" (frei, riskant) vs. strukturiertes Agentic Engineering (Spezifikation, Tests, Prüfschleifen).",
-      "Die Rolle des Menschen verschiebt sich: vom Ausführen zum Ziel setzen, Spezifizieren und Prüfen."
+      "Die Rolle des Menschen verschiebt sich: vom Ausführen zum Ziel setzen, Spezifizieren und Prüfen.",
+      "HITL (Human-in-the-Loop): Bei realen, irreversiblen Folgen — Dateien löschen, E-Mails senden, Geld überweisen — immer Menschenbestätigung einbauen. Autonomie und Sicherheit in Balance halten."
     ],
     merkbild:"Vom Ausführen zum Spezifizieren und Prüfen.",
     check:[
@@ -545,7 +569,9 @@ const etappenMod4 = [
       "Anthropic (Claude): sicherheits-fokussiert, Constitutional AI. Drei Stufen: Haiku (schnell/günstig), Sonnet (ausgewogen), Opus (am stärksten).",
       "OpenAI (GPT / ChatGPT): bekanntestes Consumer-Produkt; GPT-5-Familie mit einstellbaren Denktiefen.",
       "Google (Gemini): nativ multimodal, sehr großes Kontextfenster; treibt u. a. NotebookLM an.",
-      "Offene & günstige Modelle (z. B. DeepSeek, Qwen, Kimi): zunehmend Spitzen-nahe Leistung zu niedrigen Kosten."
+      "Offene & günstige Modelle (z. B. DeepSeek, Qwen, Kimi): zunehmend Spitzen-nahe Leistung zu niedrigen Kosten.",
+      "Open-Source-Trend 2026: Meta (Llama), Mistral, DeepSeek treiben quelloffene Modelle voran — Teams können Modelle selbst hosten, was bei Datenschutz und Kosten entscheidend sein kann.",
+      "Preisunterschiede sind enorm: Kosten pro Million Tokens variieren um Faktor 100x zwischen Modellklassen — für Batch-Verarbeitung großer Mengen gibt es noch günstigere Async-APIs."
     ],
     merkbild:"Drei große Anbieter plus starke offene Modelle — die Wahl richtet sich nach der Aufgabe.",
     check:[
@@ -565,7 +591,9 @@ const etappenMod4 = [
       "Aufgabentyp: Chat, langes Dokument, agentisches Programmieren, multimodale Analyse.",
       "Geschwindigkeit vs. Tiefe: schnelle, günstige Modelle für Häufiges; teure Reasoning-Modelle nur für harte Probleme.",
       "Kosten: Preis pro Million Tokens (Eingabe und Ausgabe getrennt).",
-      "Außerdem wichtig: Kontextfenster, Datenschutz/Hosting, Ökosystem (Tools, MCP)."
+      "Außerdem wichtig: Kontextfenster, Datenschutz/Hosting, Ökosystem (Tools, MCP).",
+      "Eigene Tests schlagen Benchmarks: 5–10 repräsentative Beispiele aus dem echten Anwendungsfall geben mehr Auskunft über die Eignung eines Modells als öffentliche Ranglisten.",
+      "Anbieterbindung (Vendor Lock-in): Wer stark auf proprietäre Features setzt, riskiert Abhängigkeit. MCP und offene Standards wie OpenAI-kompatible APIs reduzieren dieses Risiko."
     ],
     merkbild:"Nicht das teuerste Modell für jede Kleinigkeit — Modellklasse zur Aufgabe wählen.",
     check:[
@@ -585,7 +613,9 @@ const etappenMod4 = [
       "Benchmarks = standardisierte Testsätze (z. B. SWE-bench für Code, MMLU für breites Wissen).",
       "Sättigung: Spitzenmodelle erreichen nahezu perfekte Werte → der Test verliert Unterscheidungskraft.",
       "Daten-Kontamination: Testaufgaben gerieten ins Training → Glanz durch Erinnerung statt Können.",
-      "Beste Praxis: der eigene, realitätsnahe Test auf den eigenen Aufgaben."
+      "Beste Praxis: der eigene, realitätsnahe Test auf den eigenen Aufgaben.",
+      "Neue Benchmarks entstehen ständig, weil alte saturieren: SWE-bench (Software), GPQA Diamond (Wissenschaft), FrontierMath (Mathematik) sind 2026 noch unterscheidungsstark.",
+      "LLM-as-a-Judge: Ein starkes Modell bewertet automatisiert andere — skaliert gut, hat aber Verzerrungen (Längen-Vorliebe, erstgenannte Option). Kombination aus automatischen und menschlichen Tests ist am belastbarsten."
     ],
     merkbild:"Der beste Benchmark ist dein eigener, echter Anwendungsfall.",
     check:[
@@ -604,7 +634,10 @@ const etappenMod4 = [
     punkte:[
       "Multimodal = mehr als Text (Bilder, Audio, Video, Code).",
       "Nativ multimodal = von Grund auf dafür gebaut (z. B. Gemini), statt nachträglich angekoppelt.",
-      "Praktisch: ein Diagramm interpretieren, ein Foto zusammenfassen, gesprochene Sprache verarbeiten, ein Video analysieren — im selben Modell."
+      "Praktisch: ein Diagramm interpretieren, ein Foto zusammenfassen, gesprochene Sprache verarbeiten, ein Video analysieren — im selben Modell.",
+      "Vertriebsanwendung: Technische Zeichnungen, Produktbilder, Schaltpläne oder Diagramme aus Katalogen können von einem multimodalen Modell gelesen und beschrieben werden — ohne manuelle Dateneingabe.",
+      "Speech-to-Text und Text-to-Speech: Gesprochenes wird zu Text (transkribiert), Text wird zu Sprache (synthetisiert). Viele Modelle 2026 unterstützen beides nativ in einem Aufruf.",
+      "Einschränkungen: Nicht jedes Modell verarbeitet Audio oder Video — Text/Bild-Verarbeitung ist am weitesten verbreitet; multimodale Anfragen können teurer und langsamer sein."
     ],
     merkbild:"Ein Modell, viele Sinne — Text, Bild, Ton, Video.",
     check:[
@@ -624,7 +657,9 @@ const etappenMod4 = [
       "Prompt Injection: versteckte schädliche Anweisungen in verarbeiteten Inhalten (Webseite, E-Mail). Grundregel: externe Inhalte sind Daten, keine Befehle.",
       "Datenschutz: keine Passwörter, Konto-/Ausweisnummern oder Gesundheitsdaten ungeschützt in Prompts oder Vektordatenbanken.",
       "Bias & Fairness: Modelle übernehmen Verzerrungen aus ihren Trainingsdaten.",
-      "Schutzmaßnahmen der Anbieter: Constitutional AI, System Cards, abgestufte Freigaben."
+      "Schutzmaßnahmen der Anbieter: Constitutional AI, System Cards, abgestufte Freigaben.",
+      "Datenleck-Risiko: KI-Dienste in der Cloud dürfen keine Geschäftsgeheimnisse erhalten, die nicht in fremde Hände geraten dürfen. Alternative: selbst gehostete (Open-Source-)Modelle oder On-Premise-Lösungen.",
+      "Deepfakes & Desinformation: Generative Modelle können täuschend echte Bilder, Audios und Videos erzeugen. Provenienz-Standards (C2PA-Wasserzeichen) sollen helfen — sind 2026 aber noch kein universeller Standard."
     ],
     merkbild:"Externe Inhalte sind Daten, keine Befehle.",
     check:[
@@ -680,9 +715,11 @@ const etappenMod5 = [
       "Start mit kleinsten Einheiten (Zeichen/Bytes); das häufigste Nachbarpaar wird zu einem neuen Token verschmolzen — tausendfach wiederholt.",
       "Häufige Wörter werden zu einem Token, seltene Fachbegriffe zerfallen in mehrere Stücke.",
       "Das gelernte Token-Inventar heißt Vokabular (oft 100.000–200.000 Tokens).",
-      "Größeres Vokabular = kürzere Sequenzen, aber mehr Parameter in den Randschichten — ein Abwägungsspiel."
+      "Größeres Vokabular = kürzere Sequenzen, aber mehr Parameter in den Randschichten — ein Abwägungsspiel.",
+      "Nicht-englische Sprachen und Sonderschriften (Chinesisch, Arabisch, Kyrillisch) sind token-teurer — Vokabulare wurden historisch englisch-lastig trainiert.",
+      "Zahlen werden teils seltsam tokenisiert: '42.000' kann zu '42', '.', '000' zerfallen — ein Grundproblem bei Arithmetik in Sprachmodellen."
     ],
-    merkbild:"Aus „n“+„e“ wird „ne“, dann „neu“ … häufige Muster werden zu einem Baustein.",
+    merkbild:"Aus „n”+„e” wird „ne”, dann „neu” … häufige Muster werden zu einem Baustein.",
     check:[
       { ftxt:"Wie geht Byte-Pair Encoding im Kern vor?",
         opt:[{t:"Es fasst die häufigsten Zeichenpaare schrittweise zusammen",c:true},{t:"Es sortiert Wörter alphabetisch",c:false},{t:"Es zerlegt Text zufällig",c:false}],
@@ -700,7 +737,9 @@ const etappenMod5 = [
       "Query = „Wonach suche ich?“, Key = „Wofür bin ich relevant?“, Value = „Mein eigentlicher Inhalt“.",
       "Passt eine Query gut zu einem Key, fließt dessen Value stärker ins Ergebnis ein.",
       "Multi-Head Attention: mehrere parallele „Köpfe“ achten auf verschiedene Beziehungsarten.",
-      "Der Aufwand wächst quadratisch mit der Textlänge — der Grund, warum lange Kontexte teuer sind."
+      "Der Aufwand wächst quadratisch mit der Textlänge — der Grund, warum lange Kontexte teuer sind.",
+      "Self-Attention vs. Cross-Attention: Bei Self-Attention beziehen sich Tokens auf denselben Text (Normalfall); Cross-Attention verbindet zwei Sequenzen — z. B. Frage auf einen abgerufenen Kontext (RAG).",
+      "Subquadratische Alternativen (Mamba, RWKV, FlashAttention) wollen den Rechenaufwand senken — 2026 noch kein klarer Nachfolger für die dominante Transformer-Attention."
     ],
     merkbild:"Wie in einer Bibliothek: Anfrage (Query) trifft Schlagwort (Key), du bekommst den Inhalt (Value).",
     check:[
@@ -719,9 +758,12 @@ const etappenMod5 = [
     punkte:[
       "Ein Embedding-Vektor hat eine feste Länge (z. B. 768 oder 1.536); jede Dimension ist eine gelernte „Bedeutungsachse“.",
       "Positionskodierung (z. B. rotierende Positionskodierung, kurz RoPE = Rotary Position Embedding) gibt dem Modell die Wortstellung — Attention allein ist reihenfolgeblind.",
-      "Statische Embeddings gaben „Bank“ immer denselben Punkt; kontextuelle unterscheiden Geldinstitut und Sitzbank je nach Satz."
+      "Statische Embeddings gaben „Bank” immer denselben Punkt; kontextuelle unterscheiden Geldinstitut und Sitzbank je nach Satz.",
+      "Ähnlichkeit als Winkel: Kosinus-Ähnlichkeit misst den Winkel zwischen zwei Vektoren — kleiner Winkel = ähnliche Bedeutung. Das macht Bedeutungsvergleiche rechenbar.",
+      "Spezialisierte Embedding-Modelle: Für Ähnlichkeitssuche sind dedizierte Embedding-Modelle (z. B. text-embedding-3-large) oft besser geeignet als allgemeine Sprachmodelle.",
+      "Praktische Einsätze: semantische Dokumentensuche, Ähnlichkeits-Matching (welcher Artikel passt zur Anfrage?), Duplikat-Erkennung, Clustering verwandter Texte — all das nutzt Embeddings."
     ],
-    merkbild:"„Bank“ liegt je nach Satz woanders im Raum — Bedeutung hängt vom Kontext ab.",
+    merkbild:"„Bank” liegt je nach Satz woanders im Raum — Bedeutung hängt vom Kontext ab.",
     check:[
       { ftxt:"Was leisten kontextuelle Embeddings?",
         opt:[{t:"Der Vektor hängt vom Satz ab und löst Mehrdeutigkeit",c:true},{t:"Jedes Wort hat immer denselben Vektor",c:false},{t:"Sie funktionieren nur für Zahlen",c:false}],
@@ -739,7 +781,9 @@ const etappenMod5 = [
       "Die Verlustfunktion (Loss, oft Cross-Entropy) misst, wie falsch eine Vorhersage war.",
       "Backpropagation berechnet, wie stark jeder Parameter zum Fehler beiträgt → ergibt den Gradienten.",
       "Gradientenabstieg verschiebt die Parameter ein kleines Stück; die Lernrate ist die Schrittgröße.",
-      "Begleiterscheinungen: Overfitting (memorieren statt verallgemeinern), Catastrophic Forgetting, Scaling Laws."
+      "Begleiterscheinungen: Overfitting (memorieren statt verallgemeinern), Catastrophic Forgetting, Scaling Laws.",
+      "Skalierungsgesetze (Scaling Laws): empirisch beobachtet — mehr Daten, mehr Parameter, mehr Rechenleistung → höhere Qualität nach vorhersagbaren Kurven. Prägte die Strategie \"größer ist besser\" — 2026 durch effiziente Architekturen relativiert.",
+      "Catastrophic Forgetting: Wenn ein Modell auf neuen Daten nachtrainiert wird, kann es älteres Wissen überschreiben — ein zentraler Grund für vorsichtiges, schrittweises Fine-tuning."
     ],
     merkbild:"Das Modell tastet sich in einer Fehlerlandschaft bergab ins Tal.",
     check:[
@@ -759,7 +803,9 @@ const etappenMod5 = [
       "Supervised Fine-Tuning (SFT): Training auf (Eingabe, idealer Ausgabe)-Paaren — die Grundform.",
       "Low-Rank Adaptation (LoRA): friert die Gewichte ein und fügt nur kleine, trainierbare Adapter ein → ein Bruchteil der Parameter bei vergleichbarer Qualität (QLoRA = LoRA + Quantisierung).",
       "Direct Preference Optimization (DPO): vereinfachtes Alignment ohne separates Belohnungsmodell — 2026 Praxisstandard (statt klassischem Reinforcement Learning from Human Feedback / Proximal Policy Optimization).",
-      "Faustregel: wenige hundert sehr saubere Beispiele schlagen Zehntausende schlampige."
+      "Faustregel: wenige hundert sehr saubere Beispiele schlagen Zehntausende schlampige.",
+      "Wann Fine-tuning, wann RAG? Fine-tuning formt Stil, Format und Verhalten — RAG liefert aktuelles Faktenwissen. Meist sinnvoll: zuerst RAG testen, dann Fine-tuning falls nötig.",
+      "LoRA-Adapter sind portabel: Das Ergebnis ist eine kleine Adapter-Datei (oft nur wenige Megabyte), die auf das Basismodell aufgeladen wird — kein neues Vollmodell nötig."
     ],
     merkbild:"Stil/Format/Verhalten → Fine-tuning. Neue Fakten → RAG.",
     check:[
@@ -779,7 +825,9 @@ const etappenMod5 = [
       "Test-Time Compute: durch viele Zwischen-Tokens verschafft sich das Modell mehr Rechenschritte — wie ein Schmierzettel.",
       "Reasoning-Modelle werden mit bestärkendem Lernen an überprüfbaren Aufgaben (Mathe, Code) trainiert.",
       "Ein großer Teil des Fortschritts ist erlernte Chain-of-Thought-Arbeitsweise, weniger „echtes Verstehen“.",
-      "Grenzen: mehr Tokens/Zeit/Geld; „Overthinking“ kann Antworten sogar verschlechtern."
+      "Grenzen: mehr Tokens/Zeit/Geld; „Overthinking” kann Antworten sogar verschlechtern.",
+      "Extended Thinking (Anthropic): Claude generiert interne Gedankenketten, die der Nutzer optional einsehen kann — transparent nachvollziehbares Denken statt Black Box.",
+      "Best-of-N Sampling: Das Modell erzeugt mehrere Antworten parallel und wählt die beste — eine einfache Form von Test-Time Compute, die ohne spezielles Reasoning-Training auskommt."
     ],
     merkbild:"Schmierzettel im Kopf: Zwischenschritte sind zusätzlicher Arbeitsspeicher.",
     check:[
@@ -813,7 +861,9 @@ const etappenMod6 = [
       "Chunking: zu kleine Stücke verlieren Zusammenhang, zu große verwässern die Relevanz; Überlappung und semantisches Chunking helfen.",
       "Retrieval: hybride Suche (Bedeutung + exakte Stichwörter) plus ein Re-Ranker, der nach echter Relevanz sortiert.",
       "Augmentation: zu viel Kontext löst „lost in the middle“ aus, zu wenig lässt Lücken.",
-      "Fortgeschritten: Graph-RAG (Wissensgraphen) und Agentic RAG (ein Agent steuert die Suche)."
+      "Fortgeschritten: Graph-RAG (Wissensgraphen) und Agentic RAG (ein Agent steuert die Suche).",
+      "Sicherheitshinweis: Vektordatenbanken können Angriffsziel sein — aus Embeddings lassen sich teils Rückschlüsse auf Originaldaten ziehen. Zugriff und Verschlüsselung wie bei normalen Datenbanken behandeln.",
+      "Evaluation der Pipeline: Retrieval-Qualität (findet die Suche die richtigen Stücke?) und Generation-Qualität (nutzt das Modell sie richtig?) müssen getrennt gemessen werden."
     ],
     merkbild:"Gute RAG-Qualität entsteht an jeder Stufe — vor allem beim Chunking und Re-Ranking.",
     check:[
@@ -833,7 +883,9 @@ const etappenMod6 = [
       "ReAct (Reasoning + Acting): Schleife aus Thought → Action (Werkzeug) → Observation; Schwäche: Kohärenzverlust bei sehr langen Läufen.",
       "Reflection: expliziter Selbstkritik-Schritt; auf 2–3 Versuche begrenzen, sonst „oszilliert“ der Agent.",
       "Plan-and-Execute: erst kompletter Plan, dann Ausführung (braucht Checkpoints). Multi-Agent: ein Orchestrator verteilt an spezialisierte Worker.",
-      "Viele Produktionsfehler 2024–2026 waren Architektur-, keine Modellfehler. Human-in-the-Loop bei realen Folgen."
+      "Viele Produktionsfehler 2024–2026 waren Architektur-, keine Modellfehler. Human-in-the-Loop bei realen Folgen.",
+      "Werkzeugwahl ist Architekturentscheidung: Welche Tools darf der Agent nutzen? Zu viele erhöhen das Risiko falscher Aufrufe; zu wenige beschränken die Leistung — bewusst begrenzen.",
+      "Observability: In Produktion jeden Schritt protokollieren (LLM-Aufruf, Tool-Call, Ergebnis) — ohne Logs ist Fehlerdiagnose in Agenten-Systemen sehr schwer."
     ],
     merkbild:"Mit dem Muster beginnen, das den größten Engpass löst — nicht alle auf einmal.",
     check:[
@@ -853,7 +905,9 @@ const etappenMod6 = [
       "Kontext-Budget: das Fenster ist endlich und token-teuer — was kommt rein (Systemanweisung, RAG-Treffer, Verlauf, Werkzeuge)?",
       "Kontext-Kompression: lange Verläufe zusammenfassen statt vollständig mitschleppen.",
       "Reihenfolge gegen „lost in the middle“: Wichtiges an Anfang oder Ende.",
-      "Kontext-Hygiene: Irrelevantes/Veraltetes raushalten; externe Inhalte sind Daten, keine Befehle."
+      "Kontext-Hygiene: Irrelevantes/Veraltetes raushalten; externe Inhalte sind Daten, keine Befehle.",
+      "Prompt-Caching: Wiederholte, identische System-Prompts oder Dokumente können gecacht werden — spart bis zu 90 % Kosten für den unveränderlichen Teil des Kontexts.",
+      "Memory-Management: Externe Gedächtnissysteme (episodisches Gedächtnis, Faktengedächtnis) ergänzen das endliche Kontextfenster — gespeicherte Fakten werden bei Bedarf ins Fenster geladen."
     ],
     merkbild:"Nicht nur die Frage zählt, sondern was insgesamt im Fenster steht.",
     check:[
@@ -873,7 +927,9 @@ const etappenMod6 = [
       "Quantisierung: Parameter mit weniger Bit speichern (z. B. 4 statt 16) → kleiner und schneller, meist nur geringer Qualitätsverlust; ermöglicht Modelle auf Laptops.",
       "KV-Caching: bereits berechnete Keys/Values zwischenspeichern → macht die Token-für-Token-Erzeugung praktikabel; Context Caching senkt Kosten wiederholter Anfragen.",
       "Destillation: ein großes Lehrer-Modell bringt einem kleinen Schüler-Modell sein Verhalten bei.",
-      "Mixture-of-Experts (MoE)-Routing aktiviert nur die nötigen Experten pro Token."
+      "Mixture-of-Experts (MoE)-Routing aktiviert nur die nötigen Experten pro Token.",
+      "Speculative Decoding: Ein kleines Entwurfsmodell sagt mehrere Tokens voraus; das große Modell prüft und akzeptiert oder korrigiert in einem Schritt — oft deutlich schnellere Ausgabe.",
+      "Batching: Mehrere Anfragen parallel auf derselben GPU abarbeiten erhöht den Durchsatz — typischer Trade-off im API-Betrieb: mehr Gesamt-Throughput, aber höhere individuelle Latenz."
     ],
     merkbild:"Kleiner rechnen (Quantisierung), nicht doppelt rechnen (Caching), schlanker nachbauen (Destillation).",
     check:[
@@ -893,7 +949,9 @@ const etappenMod6 = [
       "LLM-as-a-Judge: ein starkes Modell bewertet die Ausgaben eines anderen — skaliert gut, hat aber Verzerrungen (Längen-Vorliebe, erstgenannte Option, eigener Stil).",
       "Gegen Daten-Kontamination: frische, nachweislich neue Testaufgaben verwenden.",
       "Eigene Evals sind am aussagekräftigsten — vor und nach jeder Änderung gegen denselben Satz messen.",
-      "Bei Agenten: den ganzen Pfad bewerten (richtige Werkzeuge? unnötige Schleifen?), Observability."
+      "Bei Agenten: den ganzen Pfad bewerten (richtige Werkzeuge? unnötige Schleifen?), Observability.",
+      "Eval-Regression: Nach jeder Modell- oder Prompt-Änderung denselben Eval-Satz laufen lassen — Verbesserungen an einer Stelle können Rückschritte an anderer Stelle verursachen.",
+      "Human Eval als Goldstandard: Automatisierte Evals sind skalierbar; für die finale Entscheidung sind qualitative menschliche Urteile unverzichtbar — besonders bei offenen, kreativen Aufgaben."
     ],
     merkbild:"Der eigene, realitätsnahe Eval-Satz schlägt jedes öffentliche Ranking.",
     check:[
@@ -928,7 +986,8 @@ const etappenMod7 = [
       "Unterschied zu Chat-Interfaces: Claude Code hat Zugriff auf dein Dateisystem, kann Shell-Befehle ausführen, liest und schreibt Dateien — weit mehr als ein Gespräch.",
       "Agentic Loop: Aufgabe erhalten → Kontext lesen → planen → Dateien lesen/schreiben → ausführen → Ergebnis prüfen → korrigieren — in Schleifen, bis das Ziel erreicht ist.",
       "Sessions: Jede Konversation ist eine eigene Session; Claude Code merkt sich Kontext innerhalb der Session, nicht dauerhaft.",
-      "Ideal für: Code refaktorieren, Bugs finden, neue Features umsetzen, Dokumentation schreiben — alles direkt in deiner eigenen Codebase."
+      "Ideal für: Code refaktorieren, Bugs finden, neue Features umsetzen, Dokumentation schreiben — alles direkt in deiner eigenen Codebase.",
+      "Plan-Modus: Bevor Claude Code handelt, kann es einen detaillierten Plan vorlegen, den du genehmigst — wichtig für komplexe Aufgaben mit vielen Dateien oder irreversiblen Schritten."
     ],
     merkbild:"Nicht 'Frag die KI' — sondern 'Gib der KI Zugriff auf dein Werkzeug'.",
     check:[
@@ -949,7 +1008,8 @@ const etappenMod7 = [
       "Slash-Befehle (/skill-name): statt jeden Prompt neu zu schreiben, rufst du den fertigen Skill auf — z. B. /commit, /code-review, /debug.",
       "Globale Skills (~/.claude/skills/): gelten für alle Projekte. Projekt-Skills (.claude/skills/ im Projektordner): nur für das aktuelle Projekt.",
       "CLAUDE.md: eine spezielle Datei, die Claude die Spielregeln des Projekts erklärt (Coding-Konventionen, Verhaltensregeln, Grenzen).",
-      "Skills sollten klar erklären, warum eine Regel gilt, nicht nur was zu tun ist — das hilft Claude bei unklaren Randfällen."
+      "Skills sollten klar erklären, warum eine Regel gilt, nicht nur was zu tun ist — das hilft Claude bei unklaren Randfällen.",
+      "Memory-System: Claude Code kann Erkenntnisse aus Gesprächen persistent in Markdown-Dateien speichern — so wächst über Zeit ein Gedächtnis über Präferenzen, Projekte und Kontext."
     ],
     merkbild:"Einmal definiert, immer abrufbar — dein persönlicher KI-Assistent nach Maß.",
     check:[
@@ -970,7 +1030,8 @@ const etappenMod7 = [
       "Konfiguriert in der settings.json-Datei: welcher Hook, auf welches Ereignis, für welche Tools.",
       "Beispiele: nach jeder Datei-Bearbeitung automatisch Prettier ausführen, Benachrichtigung auslösen wenn Claude fertig ist, Sicherheitsprüfung vor Shell-Befehlen.",
       "Wichtig: Den Harness führt Hooks aus — nicht Claude selbst. Claude sieht das Ergebnis und kann darauf reagieren.",
-      "Hooks sind auditierbar: die Befehle stehen klar in der Konfiguration und sind transparent nachvollziehbar."
+      "Hooks sind auditierbar: die Befehle stehen klar in der Konfiguration und sind transparent nachvollziehbar.",
+      "Sicherheits-Hooks: Vor bestimmten Shell-Befehlen kann ein Hook eine Prüfung auslösen — z. B. um zu verhindern, dass Claude unbeabsichtigt sensible Dateien überschreibt oder löscht."
     ],
     merkbild:"Hooks = automatische Bewachter — der Harness handelt, ohne dass du eingreifen musst.",
     check:[
@@ -991,7 +1052,8 @@ const etappenMod7 = [
       "Parallelisierung: mehrere Subagents arbeiten gleichzeitig — z. B. sechs Dateien gleichzeitig refaktorieren statt nacheinander.",
       "Jeder Subagent startet 'kalt' ohne Gedächtnis der Hauptkonversation → der Prompt muss vollständig eigenständig und selbsterklärend sein.",
       "Worktrees: für isolierte Arbeit kann jeder Subagent auf einem eigenen Git-Branch in einem eigenen Verzeichnis arbeiten.",
-      "Vorteil: drastisch schnellere Ergebnisse bei unabhängigen Teilaufgaben; klare Verantwortungstrennung."
+      "Vorteil: drastisch schnellere Ergebnisse bei unabhängigen Teilaufgaben; klare Verantwortungstrennung.",
+      "Kosten-Bewusstsein: Jeder Subagent ist ein eigener API-Aufruf. Parallelisierung beschleunigt, erhöht aber Kosten — sinnvoll bei zeitkritischen, wirklich unabhängigen Aufgaben, nicht für jede Kleinigkeit."
     ],
     merkbild:"Ein Orchestrator delegiert — jeder Subagent bekommt eine klare, eigenständige Aufgabe.",
     check:[
@@ -1012,7 +1074,8 @@ const etappenMod7 = [
       "Beispiel Gmail-MCP-Server: Claude kann E-Mails lesen, Labels setzen, Entwürfe erstellen — ohne manuellen Zwischenschritt.",
       "Beispiel Google Drive: Dateien suchen, lesen und organisieren — direkt aus Claude Code heraus.",
       "Konfiguration: den Server in claude_desktop_config.json oder der Claude-Code-Einstellung eintragen — dann ist er sofort verfügbar.",
-      "Sicherheit: MCP-Server haben Zugriff auf echte Systeme — nur vertrauenswürdige Server einbinden; Berechtigungen auf das Nötigste begrenzen."
+      "Sicherheit: MCP-Server haben Zugriff auf echte Systeme — nur vertrauenswürdige Server einbinden; Berechtigungen auf das Nötigste begrenzen.",
+      "MCP-Ökosystem 2026: Tausende öffentliche Server (GitHub, Slack, Notion, Datenbanken etc.). Suche im MCP-Registry oder nutze die offiziellen Server der Dienste direkt als Ausgangspunkt."
     ],
     merkbild:"Jeder MCP-Server gibt Claude neue Fähigkeiten — aber mit Zugriff kommt Verantwortung.",
     check:[
@@ -1033,7 +1096,8 @@ const etappenMod7 = [
       "Human-in-the-Loop (HITL): kritische, irreversible Aktionen immer zuerst bestätigen lassen — nicht alles autonom ausführen.",
       "Minimales Berechtigungsprinzip (Principle of Least Privilege): Claude nur den Zugriff geben, den es wirklich braucht.",
       "Prompt Injection in agentic Systemen: wenn Claude Webseiten oder E-Mails liest, können versteckte Anweisungen darin stecken — externe Inhalte immer als Daten, nicht als Befehle behandeln.",
-      "CLAUDE.md als Sicherheitsnetz: Verhaltensregeln und Grenzen schriftlich festlegen — Claude hält sich daran."
+      "CLAUDE.md als Sicherheitsnetz: Verhaltensregeln und Grenzen schriftlich festlegen — Claude hält sich daran.",
+      "Auditierbarkeit: Alle Aktionen von Claude Code (Datei-Edits, Shell-Befehle, Tool-Calls) sind im Transcript sichtbar. Bei sensiblen Projekten Logs aufbewahren und regelmäßig überprüfen."
     ],
     merkbild:"Prüfe vor dem Ausführen: Ist diese Aktion umkehrbar? Wenn nicht — erst fragen.",
     check:[
@@ -1089,7 +1153,8 @@ const etappenMod8 = [
       "JSON-Struktur: Objekte beginnen mit { und enden mit }. Strings stehen in geraden doppelten Anfuehrungszeichen. Ein fehlendes Komma oder ein falsch kodiertes Zeichen als Delimiter bricht das gesamte JSON.",
       "YAML (Yet Another Markup Language): Konfigurationssprache mit Einrueckung statt geschweifter Klammern. Wird fuer MCP-Server-Konfigurationen, GitHub Actions und Docker genutzt.",
       "URL (Uniform Resource Locator): Adresse einer Ressource im Web. Aufbau: https://domain.com/pfad?parameter=wert. Claude kann URLs nur mit Tools oder MCP-Verbindungen aufrufen.",
-      "API-Endpunkt: Spezifische URL, ueber die Programme Daten austauschen. Jeder Claude-Response ist ein API-Call an api.anthropic.com — Claude sendet JSON, empfaengt JSON."
+      "API-Endpunkt: Spezifische URL, ueber die Programme Daten austauschen. Jeder Claude-Response ist ein API-Call an api.anthropic.com — Claude sendet JSON, empfaengt JSON.",
+      "REST-API-Muster: Die meisten modernen Dienste (GitHub, Stripe, Anthropic) bieten eine REST API — standardisierte Endpunkte fuer CRUD-Operationen (Create, Read, Update, Delete). MCP-Server nutzen diese intern."
     ],
     merkbild:"JSON ist die Sprache, in der KI und Werkzeuge miteinander reden. Wer JSON versteht, versteht wie Claude unter der Haube kommuniziert.",
     check:[
@@ -1110,7 +1175,8 @@ const etappenMod8 = [
       "JavaScript (.js / .mjs): Laeuft im Browser (Frontend) oder auf dem Server via Node.js (Backend). node skript.js fuehrt es aus. Diese Lern-App besteht zu einem grossen Teil aus JavaScript.",
       "Shell-Script (.sh): Enthaelt Bash-Shell-Befehle, die nacheinander ausgefuehrt werden. #!/bin/bash am Anfang markiert die Datei als Shell-Script. Claude Code nutzt Shell-Befehle intensiv.",
       "Was macht eine Datei zu Code? Syntaxregeln, die eine Laufzeitumgebung interpretiert. Ein Tippfehler (fehlende Klammer) bricht die Ausfuehrung. Textdateien haben keine Laufzeitumgebung — Code hat eine.",
-      "Sicherheits-Check vor der Ausfuehrung: node --check datei.js prueft JS-Syntax ohne Ausfuehrung. python3 -m py_compile datei.py prueft Python-Syntax."
+      "Sicherheits-Check vor der Ausfuehrung: node --check datei.js prueft JS-Syntax ohne Ausfuehrung. python3 -m py_compile datei.py prueft Python-Syntax.",
+      "Virtuelle Umgebungen (Python): python3 -m venv .venv isoliert Pakete pro Projekt und verhindert Konflikte zwischen Abhaengigkeiten — Claude Code richtet sie auf Nachfrage ein."
     ],
     merkbild:"Python = Daten & Logik. JavaScript = Web & Browser. Shell = Automatisierung & System. Claude beherrscht alle drei.",
     check:[
