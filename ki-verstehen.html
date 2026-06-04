@@ -4,6 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KI verstehen</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#D97706">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="KI verstehen">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
 <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAABmJLR0QA/wD/AP+gvaeTAAABzUlEQVRIie3WPUvDQBwG8MtLLzahpqnokq4VXN21hU4O1tGlKILiJ/ArODt1EXXp4qAgiDgULBXERRxcWwtScZAWuZjY5MydgxBjTNJa00Hx2XI5nl/7D3lhKKVgmGGH2v4PDA4ghKK6+D6Abdv12zohZFhAu92WR2WO44YFIA2llFQk7f6AbuiSJLlXNE2rnFWiATDGhBAIobu9vF+O8bFoANMyBSi4vfJ+eWpyKjuT/bTt4ebpokTxS0+A9xxjC0Ph4+frhm4YRm42597Tvbts7cwTE2k3h+rKEQslEJwvI3rF4dNw2gEAL83z+70FYunfACilDMP00/6enoYXIISwrP/tbRud1m7B3e4Yj8cb/QJhCf5nDC8EnfICLMsGPSS4uJJeO+XiimddzOTH5zYjAAAAI+q0unriNsRMXl06YGLxfgGe5zHGQbs9Rs92HwBCaGHLOZRESRTFaq3qMdLrlYnClrp8GN4OAAD0czDGV9dX7hWEUGm7VK1V6UDxGRHP8aZpOiuJRKK4WMSvYXMLCfP1zdVoNpJyciw1NlijJz73gTwqdzqdSNr9AUVRnvVn27YjAXxGBADodruCIIQ8lH4KRJi/+uH1m4A39KIahyuH3n4AAAAASUVORK5CYII=">
 <style>
 :root{
@@ -2795,6 +2804,16 @@ function resetFortschritt(){
 /* Start: immer auf der Übersicht beginnen (Resume-Button bietet Wiedereinstieg) */
 state.view = "start";
 render();
+</script>
+
+<script>
+  // Service Worker registrieren (PWA / Offline-Support)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/NIVAO-AI/sw.js', { scope: '/NIVAO-AI/' })
+        .catch(err => console.log('SW nicht registriert:', err));
+    });
+  }
 </script>
 </body>
 </html>
