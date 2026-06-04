@@ -1424,28 +1424,64 @@ const abkGlossar = {
   "KV":    "Key-Value (Schlüssel-Wert-Cache)",
   "LLM":   "Large Language Model (Großes Sprachmodell)",
   "GPT":   "Generative Pre-trained Transformer",
-  "RoPE":  "Rotary Position Embedding (Positionskodierung)"
+  "RoPE":  "Rotary Position Embedding (Positionskodierung)",
+  "API":   "Application Programming Interface (Programmierschnittstelle)",
+  "DOM":   "Document Object Model (Baumstruktur einer Webseite)",
+  "HTML":  "HyperText Markup Language (Web-Auszeichnungssprache)",
+  "CSS":   "Cascading Style Sheets (Gestaltungssprache für Web)",
+  "SVG":   "Scalable Vector Graphics (vektorbasiertes Bildformat)",
+  "URL":   "Uniform Resource Locator (Web-Adresse/Link)",
+  "JSON":  "JavaScript Object Notation (Datenaustauschformat, Schlüssel:Wert)",
+  "YAML":  "YAML Ain't Markup Language (Konfigurationsformat, menschenlesbar)",
+  "ASCII": "American Standard Code for Information Interchange (7-Bit-Zeichenkodierung, 128 Zeichen)",
+  "UTF":   "Unicode Transformation Format (UTF-8: universelle Zeichenkodierung für alle Sprachen)",
+  "NLP":   "Natural Language Processing (Natürliche Sprachverarbeitung)",
+  "PWA":   "Progressive Web App (im Browser installierbare Web-Anwendung)",
+  "TTC":   "Test-Time Compute (Rechenzeit während der Inferenz für mehr Nachdenken)",
+  "MMLU":  "Massive Multitask Language Understanding (Wissens-Benchmark, 57 Fachgebiete)",
+  "GPU":   "Graphics Processing Unit (massiv-parallele Recheneinheit, Standard für KI-Training)",
+  "SDK":   "Software Development Kit (Werkzeugsammlung für Entwickler)"
 };
 const etappeAbk = {
+  /* Modul 1 — Grundlagen */
+  "0-0":  ["ML"],
+  "0-1":  ["BPE","NLP"],
   "0-3":  ["MoE"],
+  "0-4":  ["NLP"],
+  "0-5":  ["NLP"],
+  /* Modul 2 — Wie Modelle arbeiten */
   "1-0":  ["RLHF","SFT","CAI"],
+  "1-3":  ["RAG","CoT"],
+  /* Modul 3 — Mit Modellen arbeiten */
+  "2-1":  ["CoT"],
   "2-2":  ["RAG"],
-  "2-3":  ["MCP"],
+  "2-3":  ["MCP","API"],
   "2-4":  ["HITL"],
-  "3-0":  ["CAI"],
+  /* Modul 4 — Anbieter & Praxis */
+  "3-0":  ["CAI","GPT"],
+  "3-2":  ["MMLU"],
+  "3-5":  ["RAG","CoT"],
+  /* Modul 5 — Vertiefung Mechanik */
   "4-0":  ["BPE"],
   "4-2":  ["RoPE"],
   "4-3":  ["ML","CoT","LoRA"],
   "4-4":  ["SFT","LoRA","QLoRA","DPO","RLHF","PPO","CAI"],
-  "4-5":  ["CoT","RL"],
+  "4-5":  ["CoT","RL","TTC"],
+  /* Modul 6 — Vertiefung Systeme */
   "5-0":  ["RAG"],
   "5-1":  ["ReAct","HITL"],
   "5-2":  ["RAG"],
-  "5-3":  ["KV"],
-  "5-4":  ["LLM"],
-  "6-0":  ["CLI"],
-  "6-4":  ["MCP"],
-  "6-5":  ["HITL"]
+  "5-3":  ["KV","GPU"],
+  "5-4":  ["LLM","MMLU"],
+  /* Modul 7 — KI-Tools im Alltag */
+  "6-0":  ["CLI","SDK"],
+  "6-1":  ["SDK"],
+  "6-4":  ["MCP","API"],
+  "6-5":  ["HITL"],
+  /* Modul 8 — Dateien, Formate & Werkzeuge */
+  "7-0":  ["ASCII","UTF"],
+  "7-1":  ["JSON","YAML","URL","API"],
+  "7-3":  ["HTML","CSS","DOM","SVG"]
 };
 function abkHTML(m,i){
   const key = m+"-"+i;
@@ -1517,20 +1553,30 @@ function schaubildMod1(e){
   <text x="215" y="142" text-anchor="middle" font-size="12" fill="#4B5563">anhängen — und wieder von vorn</text>
 </svg>`;
     case 3: return `
-<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Mixture of Experts">
-  <text x="180" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#2D362E">Mixture of Experts</text>
-  <text x="180" y="40" text-anchor="middle" font-size="11" fill="#4B5563">viele Experten — nur wenige aktiv pro Token</text>
-  <g font-size="12" font-weight="bold" text-anchor="middle">
-    <circle cx="60" cy="92" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/><text x="60" y="97" fill="#9CA3AF">E</text>
-    <circle cx="140" cy="92" r="22" fill="#D97706"/><text x="140" y="97" fill="#fff">E</text>
-    <circle cx="220" cy="92" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/><text x="220" y="97" fill="#9CA3AF">E</text>
-    <circle cx="300" cy="92" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/><text x="300" y="97" fill="#9CA3AF">E</text>
-    <circle cx="60" cy="150" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/><text x="60" y="155" fill="#9CA3AF">E</text>
-    <circle cx="140" cy="150" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/><text x="140" y="155" fill="#9CA3AF">E</text>
-    <circle cx="220" cy="150" r="22" fill="#D97706"/><text x="220" y="155" fill="#fff">E</text>
-    <circle cx="300" cy="150" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/><text x="300" y="155" fill="#9CA3AF">E</text>
+<svg viewBox="0 0 360 218" width="360" height="218" role="img" aria-label="Mixture of Experts">
+  <text x="180" y="18" text-anchor="middle" font-size="13" font-weight="bold" fill="#2D362E">Mixture of Experts (MoE)</text>
+  <text x="180" y="36" text-anchor="middle" font-size="11" fill="#4B5563">Gating-Netzwerk wählt pro Token 1–2 Experten aus</text>
+  <rect x="140" y="44" width="80" height="22" rx="6" fill="#2D362E"/>
+  <text x="180" y="59" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Token → Gate</text>
+  <g font-size="10" font-weight="bold" text-anchor="middle">
+    <circle cx="54" cy="106" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/>
+    <text x="54" y="103" fill="#9CA3AF" font-size="9">Experte</text><text x="54" y="114" fill="#9CA3AF" font-size="9">1</text>
+    <circle cx="126" cy="106" r="22" fill="#D97706"/>
+    <text x="126" y="103" fill="#fff" font-size="9">Experte</text><text x="126" y="114" fill="#fff" font-size="9">2 ✓</text>
+    <circle cx="198" cy="106" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/>
+    <text x="198" y="103" fill="#9CA3AF" font-size="9">Experte</text><text x="198" y="114" fill="#9CA3AF" font-size="9">3</text>
+    <circle cx="270" cy="106" r="22" fill="#D97706"/>
+    <text x="270" y="103" fill="#fff" font-size="9">Experte</text><text x="270" y="114" fill="#fff" font-size="9">4 ✓</text>
+    <circle cx="54" cy="166" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/>
+    <text x="54" y="163" fill="#9CA3AF" font-size="9">Experte</text><text x="54" y="174" fill="#9CA3AF" font-size="9">5</text>
+    <circle cx="126" cy="166" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/>
+    <text x="126" y="163" fill="#9CA3AF" font-size="9">Experte</text><text x="126" y="174" fill="#9CA3AF" font-size="9">6</text>
+    <circle cx="198" cy="166" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/>
+    <text x="198" y="163" fill="#9CA3AF" font-size="9">Experte</text><text x="198" y="174" fill="#9CA3AF" font-size="9">7</text>
+    <circle cx="270" cy="166" r="22" fill="#fff" stroke="#9CA3AF" stroke-width="2"/>
+    <text x="270" y="163" fill="#9CA3AF" font-size="9">Experte</text><text x="270" y="174" fill="#9CA3AF" font-size="9">8</text>
   </g>
-  <text x="180" y="190" text-anchor="middle" font-size="11" fill="#D97706" font-weight="bold">orange = aktiv für dieses Token</text>
+  <text x="180" y="206" text-anchor="middle" font-size="10.5" fill="#D97706" font-weight="bold">orange = aktiv · grau = inaktiv · 2 von 8 feuern</text>
 </svg>`;
     case 4: return `
 <svg viewBox="0 0 360 220" width="360" height="220" role="img" aria-label="Vektorraum mit Analogie">
@@ -1687,18 +1733,25 @@ function schaubildMod3(e){
     case 4: return `
 <svg viewBox="0 0 360 215" width="360" height="215" role="img" aria-label="Agenten-Schleife">
   <text x="180" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Agenten-Schleife</text>
-  <rect x="120" y="26" width="120" height="30" rx="7" fill="#D97706"/><text x="180" y="46" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Ziel</text>
+  <defs>
+    <marker id="arrA" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/>
+    </marker>
+  </defs>
+  <rect x="120" y="26" width="120" height="30" rx="7" fill="#D97706"/>
+  <text x="180" y="46" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Ziel</text>
   <text x="180" y="72" text-anchor="middle" font-size="14" fill="#9CA3AF">↓</text>
-  <line x1="225" y1="97" x2="252" y2="120" stroke="#9CA3AF" stroke-width="1.5"/>
-  <line x1="240" y1="135" x2="122" y2="135" stroke="#9CA3AF" stroke-width="1.5"/>
-  <line x1="72" y1="120" x2="158" y2="98" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="225" y1="97" x2="252" y2="118" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrA)"/>
+  <line x1="240" y1="150" x2="124" y2="150" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrA)"/>
+  <line x1="72" y1="120" x2="158" y2="96" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrA)"/>
   <g font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">
     <rect x="135" y="76" width="90" height="30" rx="7" fill="#2D362E"/><text x="180" y="96">Plan</text>
     <rect x="240" y="120" width="104" height="30" rx="7" fill="#2D362E"/><text x="292" y="140">Aktion (Tool)</text>
     <rect x="18" y="120" width="104" height="30" rx="7" fill="#2D362E"/><text x="70" y="140">Beobachtung</text>
   </g>
-  <text x="289" y="172" text-anchor="middle" font-size="10" fill="#4B5563">wiederholen</text>
-  <rect x="120" y="176" width="120" height="30" rx="7" fill="#D97706"/><text x="180" y="196" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Ergebnis</text>
+  <text x="180" y="175" text-anchor="middle" font-size="10" fill="#D97706" font-weight="bold">↺ wiederholen bis Ergebnis</text>
+  <rect x="120" y="183" width="120" height="26" rx="7" fill="#D97706"/>
+  <text x="180" y="201" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Ergebnis</text>
 </svg>`;
   }
   return "";
@@ -1732,15 +1785,27 @@ function schaubildMod4(e){
   <text x="180" y="182" text-anchor="middle" font-size="11" fill="#4B5563">die Wahl hängt von der Aufgabe ab, nicht vom Ranking</text>
 </svg>`;
     case 2: return `
-<svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Benchmarks">
-  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Benchmarks: oft gesättigt</text>
-  <line x1="34" y1="46" x2="316" y2="46" stroke="#9CA3AF" stroke-dasharray="5 4"/><text x="332" y="50" font-size="9" fill="#9CA3AF" text-anchor="end">100%</text>
+<svg viewBox="0 0 360 210" width="360" height="210" role="img" aria-label="Benchmarks">
+  <text x="180" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Benchmarks: oft gesättigt</text>
+  <line x1="34" y1="44" x2="316" y2="44" stroke="#9CA3AF" stroke-dasharray="5 4"/>
+  <text x="318" y="48" font-size="9" fill="#9CA3AF">100%</text>
   <g fill="#D97706">
-    <rect x="52" y="52" width="34" height="92"/><rect x="106" y="58" width="34" height="86"/><rect x="160" y="50" width="34" height="94"/><rect x="214" y="56" width="34" height="88"/><rect x="268" y="54" width="34" height="90"/>
+    <rect x="38" y="50" width="36" height="92"/>
+    <rect x="90" y="56" width="36" height="86"/>
+    <rect x="142" y="48" width="36" height="94"/>
+    <rect x="194" y="54" width="36" height="88"/>
+    <rect x="246" y="52" width="36" height="90"/>
   </g>
-  <line x1="40" y1="144" x2="320" y2="144" stroke="#2D362E"/>
-  <text x="180" y="166" text-anchor="middle" font-size="11" fill="#4B5563">alle nahe 100 % → kaum noch unterscheidbar</text>
-  <text x="180" y="186" text-anchor="middle" font-size="11" font-weight="bold" fill="#b91c1c">Achtung: Daten-Kontamination verfälscht</text>
+  <line x1="30" y1="142" x2="310" y2="142" stroke="#2D362E" stroke-width="1.5"/>
+  <g font-size="9" fill="#4B5563" text-anchor="middle">
+    <text x="56" y="156">MMLU</text>
+    <text x="108" y="156">SWE</text>
+    <text x="160" y="156">Math</text>
+    <text x="212" y="156">Code</text>
+    <text x="264" y="156">Reasoning</text>
+  </g>
+  <text x="180" y="174" text-anchor="middle" font-size="11" fill="#4B5563">alle nahe 100 % → kaum noch unterscheidbar</text>
+  <text x="180" y="192" text-anchor="middle" font-size="11" font-weight="bold" fill="#b91c1c">Achtung: Daten-Kontamination verfälscht Ergebnisse</text>
 </svg>`;
     case 3: return `
 <svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Multimodalität">
@@ -1814,14 +1879,21 @@ function schaubildMod5(e){
   <text x="180" y="174" text-anchor="middle" font-size="11" fill="#4B5563">Bibliothek: Anfrage → Schlagwort → Inhalt</text>
 </svg>`;
     case 2: return `
-<svg viewBox="0 0 360 205" width="360" height="205" role="img" aria-label="Kontextuelle Embeddings">
+<svg viewBox="0 0 360 215" width="360" height="215" role="img" aria-label="Kontextuelle Embeddings">
   <text x="180" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Kontextuelles Embedding: „Bank"</text>
-  <text x="14" y="44" font-size="11" fill="#4B5563">„Geld auf der <tspan fill="#D97706" font-weight="bold">Bank</tspan>"</text>
-  <text x="200" y="44" font-size="11" fill="#4B5563">„sitzen auf der <tspan fill="#D97706" font-weight="bold">Bank</tspan>"</text>
-  <rect x="40" y="58" width="280" height="108" rx="10" fill="#F3F4F6"/>
-  <circle cx="108" cy="100" r="7" fill="#D97706"/><text x="120" y="104" font-size="11" fill="#2D362E">Bank (Geld)</text>
-  <circle cx="250" cy="140" r="7" fill="#D97706"/><text x="168" y="144" font-size="11" fill="#2D362E">Bank (Sitzmöbel)</text>
-  <text x="180" y="190" text-anchor="middle" font-size="11" fill="#4B5563">derselbe Begriff, je nach Satz andere Position</text>
+  <line x1="46" y1="190" x2="320" y2="190" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="46" y1="190" x2="46" y2="34" stroke="#9CA3AF" stroke-width="1.5"/>
+  <text x="183" y="205" text-anchor="middle" font-size="9" fill="#9CA3AF">Dimension 1 (z.B. Finanzkontext)</text>
+  <text x="30" y="112" text-anchor="middle" font-size="9" fill="#9CA3AF" transform="rotate(-90 30 112)">Dim. 2 (Möbel/Sitz)</text>
+  <circle cx="110" cy="168" r="8" fill="#D97706"/>
+  <text x="122" y="165" font-size="11" fill="#2D362E" font-weight="bold">Bank</text>
+  <text x="122" y="178" font-size="10" fill="#4B5563">(Geld)</text>
+  <circle cx="220" cy="90" r="8" fill="#2D362E"/>
+  <text x="232" y="87" font-size="11" fill="#2D362E" font-weight="bold">Bank</text>
+  <text x="232" y="100" font-size="10" fill="#4B5563">(Sitzmöbel)</text>
+  <line x1="110" y1="160" x2="220" y2="98" stroke="#D97706" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="155" y="118" text-anchor="middle" font-size="10" fill="#D97706" font-weight="bold">≠ gleich Vektor</text>
+  <text x="180" y="210" text-anchor="middle" font-size="10" fill="#4B5563">selbes Wort → andere Position je nach Kontext</text>
 </svg>`;
     case 3: return `
 <svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Gradientenabstieg">
@@ -1877,17 +1949,23 @@ function schaubildMod6(e){
   <text x="180" y="184" text-anchor="middle" font-size="11" fill="#4B5563">hybride Suche + Re-Ranker = bessere Treffer</text>
 </svg>`;
     case 1: return `
-<svg viewBox="0 0 360 205" width="360" height="205" role="img" aria-label="ReAct-Schleife">
+<svg viewBox="0 0 360 210" width="360" height="210" role="img" aria-label="ReAct-Schleife">
   <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">ReAct-Schleife</text>
-  <line x1="180" y1="66" x2="288" y2="120" stroke="#9CA3AF" stroke-width="1.5"/>
-  <line x1="258" y1="135" x2="102" y2="135" stroke="#9CA3AF" stroke-width="1.5"/>
-  <line x1="72" y1="120" x2="160" y2="66" stroke="#9CA3AF" stroke-width="1.5"/>
+  <defs>
+    <marker id="arrR" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/>
+    </marker>
+  </defs>
+  <line x1="225" y1="58" x2="278" y2="115" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrR)"/>
+  <line x1="248" y1="150" x2="122" y2="150" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrR)"/>
+  <line x1="67" y1="120" x2="155" y2="68" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrR)"/>
   <g font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">
-    <rect x="120" y="36" width="120" height="30" rx="7" fill="#D97706"/><text x="180" y="56">Thought</text>
-    <rect x="248" y="120" width="100" height="30" rx="7" fill="#2D362E"/><text x="298" y="140" font-size="10">Action (Tool)</text>
-    <rect x="12" y="120" width="110" height="30" rx="7" fill="#2D362E"/><text x="67" y="140" font-size="10">Observation</text>
+    <rect x="120" y="36" width="120" height="30" rx="7" fill="#D97706"/><text x="180" y="56">Thought (Denken)</text>
+    <rect x="248" y="122" width="104" height="30" rx="7" fill="#2D362E"/><text x="300" y="141" font-size="10">Action (Tool)</text>
+    <rect x="8" y="122" width="114" height="30" rx="7" fill="#2D362E"/><text x="65" y="141" font-size="10">Observation</text>
   </g>
-  <text x="180" y="190" text-anchor="middle" font-size="10.5" fill="#4B5563">+ Reflexion · Plan-and-Execute · Multi-Agent je nach Engpass</text>
+  <text x="180" y="178" text-anchor="middle" font-size="10.5" fill="#4B5563">Schleife bis Ziel erreicht — dann Antwort</text>
+  <text x="180" y="196" text-anchor="middle" font-size="10" fill="#9CA3AF">+ Reflexion · Plan-and-Execute · Multi-Agent je nach Engpass</text>
 </svg>`;
     case 2: return `
 <svg viewBox="0 0 360 200" width="360" height="200" role="img" aria-label="Context Engineering">
