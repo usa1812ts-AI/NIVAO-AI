@@ -1882,6 +1882,102 @@ function schaubildMod7(e){
   }
   return "";
 }
+function schaubildMod8(e){
+  switch(e){
+    case 0: return `
+<svg viewBox="0 0 360 210" width="360" height="210" role="img" aria-label="Von ASCII zu CLAUDE.md">
+  <text x="180" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Fundament: von ASCII bis CLAUDE.md</text>
+  <rect x="30" y="170" width="300" height="28" rx="7" fill="#8A9189"/>
+  <text x="180" y="189" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">ASCII — 128 Zeichen als Zahlen 0–127</text>
+  <rect x="50" y="136" width="260" height="28" rx="7" fill="#3D4A3E"/>
+  <text x="180" y="155" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Unicode / UTF-8 — alle Sprachen &amp; Symbole</text>
+  <rect x="70" y="102" width="220" height="28" rx="7" fill="#2D362E"/>
+  <text x="180" y="121" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">.txt · .md · .csv — Textdateien</text>
+  <rect x="90" y="68" width="180" height="28" rx="7" fill="#D97706"/>
+  <text x="180" y="87" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Markdown — strukturierter Text</text>
+  <rect x="110" y="34" width="140" height="28" rx="7" fill="#D97706"/>
+  <text x="180" y="53" text-anchor="middle" font-size="11" fill="#fff7ed" font-weight="bold">CLAUDE.md — Kontext fuer Claude</text>
+</svg>`;
+    case 1: return `
+<svg viewBox="0 0 420 168" width="420" height="168" role="img" aria-label="Claude kommuniziert via JSON">
+  <text x="210" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Claude spricht JSON — bei jedem API-Call</text>
+  <rect x="10" y="40" width="90" height="36" rx="8" fill="#2D362E"/>
+  <text x="55" y="63" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">Claude</text>
+  <text x="107" y="62" text-anchor="middle" font-size="13" fill="#D97706" font-weight="bold">&#8594;</text>
+  <rect x="120" y="40" width="110" height="36" rx="8" fill="#3D4A3E"/>
+  <text x="175" y="57" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">JSON-Request</text>
+  <text x="175" y="70" text-anchor="middle" font-size="9" fill="#d7dcd7">{&quot;tool&quot;:&quot;search&quot;...}</text>
+  <text x="237" y="62" text-anchor="middle" font-size="13" fill="#D97706" font-weight="bold">&#8594;</text>
+  <rect x="250" y="40" width="100" height="36" rx="8" fill="#D97706"/>
+  <text x="300" y="57" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">API-Endpunkt</text>
+  <text x="300" y="70" text-anchor="middle" font-size="9" fill="#fff7ed">api.anthropic.com</text>
+  <text x="357" y="62" text-anchor="middle" font-size="13" fill="#D97706" font-weight="bold">&#8594;</text>
+  <rect x="370" y="40" width="40" height="36" rx="8" fill="#3D4A3E"/>
+  <text x="390" y="63" text-anchor="middle" font-size="9" fill="#fff" font-weight="bold">Tool</text>
+  <path d="M390 76 L390 104 L55 104 L55 76" fill="none" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="4"/>
+  <text x="225" y="122" text-anchor="middle" font-size="10" fill="#4B5563">JSON-Response: Ergebnis fliesst zurueck</text>
+  <text x="210" y="148" text-anchor="middle" font-size="11" fill="#2D362E">MCP · Tool Use · Prompt · Antwort — alles JSON</text>
+</svg>`;
+    case 2: return `
+<svg viewBox="0 0 400 190" width="400" height="190" role="img" aria-label="Code-Dateien im Vergleich">
+  <text x="200" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Code-Dateien: wo laufen sie?</text>
+  <rect x="10" y="32" width="116" height="130" rx="9" fill="#3D4A3E"/>
+  <text x="68" y="52" text-anchor="middle" font-size="12" fill="#D97706" font-weight="bold">.py</text>
+  <text x="68" y="70" text-anchor="middle" font-size="10" fill="#fff">Python</text>
+  <text x="68" y="88" text-anchor="middle" font-size="9" fill="#d7dcd7">python3 sk.py</text>
+  <text x="68" y="108" text-anchor="middle" font-size="9" fill="#9CA3AF">Daten · Backend</text>
+  <text x="68" y="124" text-anchor="middle" font-size="9" fill="#9CA3AF">KI-Scripts</text>
+  <text x="68" y="148" text-anchor="middle" font-size="9" fill="#D97706">Claude schreibt oft .py</text>
+  <rect x="142" y="32" width="116" height="130" rx="9" fill="#2D362E"/>
+  <text x="200" y="52" text-anchor="middle" font-size="12" fill="#D97706" font-weight="bold">.js</text>
+  <text x="200" y="70" text-anchor="middle" font-size="10" fill="#fff">JavaScript</text>
+  <text x="200" y="88" text-anchor="middle" font-size="9" fill="#d7dcd7">node sk.js</text>
+  <text x="200" y="108" text-anchor="middle" font-size="9" fill="#9CA3AF">Web · Browser</text>
+  <text x="200" y="124" text-anchor="middle" font-size="9" fill="#9CA3AF">Node.js Backend</text>
+  <text x="200" y="148" text-anchor="middle" font-size="9" fill="#D97706">Diese App ist .js</text>
+  <rect x="274" y="32" width="116" height="130" rx="9" fill="#8A9189"/>
+  <text x="332" y="52" text-anchor="middle" font-size="12" fill="#2D362E" font-weight="bold">.sh</text>
+  <text x="332" y="70" text-anchor="middle" font-size="10" fill="#fff">Shell</text>
+  <text x="332" y="88" text-anchor="middle" font-size="9" fill="#2D362E">bash sk.sh</text>
+  <text x="332" y="108" text-anchor="middle" font-size="9" fill="#2D362E">Automatisierung</text>
+  <text x="332" y="124" text-anchor="middle" font-size="9" fill="#2D362E">System-Befehle</text>
+  <text x="332" y="148" text-anchor="middle" font-size="9" fill="#2D362E">Claude Code nutzt sh</text>
+</svg>`;
+    case 3: return `
+<svg viewBox="0 0 380 198" width="380" height="198" role="img" aria-label="HTML CSS JS Schichten">
+  <text x="190" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Web: HTML + CSS + JS = lebendige Seite</text>
+  <rect x="20" y="32" width="340" height="42" rx="9" fill="#2D362E"/>
+  <text x="190" y="52" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">HTML — Struktur (Knochen)</text>
+  <text x="190" y="67" text-anchor="middle" font-size="10" fill="#d7dcd7">&lt;h1&gt; &lt;div&gt; &lt;button&gt; &lt;ul&gt; — das Grundgeruest</text>
+  <rect x="20" y="82" width="340" height="42" rx="9" fill="#3D4A3E"/>
+  <text x="190" y="102" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">CSS — Aussehen (Haut)</text>
+  <text x="190" y="117" text-anchor="middle" font-size="10" fill="#d7dcd7">Farben · Abstaende · Schriften · &lt;style&gt;-Block</text>
+  <rect x="20" y="132" width="340" height="42" rx="9" fill="#D97706"/>
+  <text x="190" y="152" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">JavaScript — Verhalten (Muskeln)</text>
+  <text x="190" y="167" text-anchor="middle" font-size="10" fill="#fff7ed">Klicks · DOM · Navigation · Karteikarten-Logik</text>
+  <text x="190" y="190" text-anchor="middle" font-size="11" fill="#4B5563">Diese App: alles in einer einzigen .html-Datei</text>
+</svg>`;
+    case 4: return `
+<svg viewBox="0 0 380 210" width="380" height="210" role="img" aria-label="Dateiformate Uebersicht">
+  <text x="190" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D362E">Formate: was Claude direkt liest</text>
+  <rect x="10" y="30" width="168" height="80" rx="9" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+  <text x="94" y="52" text-anchor="middle" font-size="11" fill="#15803d" font-weight="bold">Direkt lesbar &#10003;</text>
+  <text x="94" y="68" text-anchor="middle" font-size="10" fill="#14532d">.txt .md .csv .py</text>
+  <text x="94" y="82" text-anchor="middle" font-size="10" fill="#14532d">.js .sh .json .yaml</text>
+  <text x="94" y="96" text-anchor="middle" font-size="10" fill="#14532d">.html .css .svg .env</text>
+  <rect x="202" y="30" width="168" height="80" rx="9" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="286" y="52" text-anchor="middle" font-size="11" fill="#b91c1c" font-weight="bold">Extraktion noetig &#10007;</text>
+  <text x="286" y="68" text-anchor="middle" font-size="10" fill="#7f1d1d">.pdf .docx .xlsx</text>
+  <text x="286" y="82" text-anchor="middle" font-size="10" fill="#7f1d1d">.png .jpg (multimodal)</text>
+  <text x="286" y="96" text-anchor="middle" font-size="10" fill="#7f1d1d">.mp3 .zip .exe</text>
+  <rect x="80" y="126" width="220" height="32" rx="8" fill="#2D362E"/>
+  <text x="190" y="147" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">SVG: Bild als Text — Claude schreibt es</text>
+  <rect x="100" y="164" width="180" height="22" rx="6" fill="#fff7ed" stroke="#D97706" stroke-width="1.5"/>
+  <text x="190" y="179" text-anchor="middle" font-size="10" fill="#D97706" font-weight="bold">PNG/JPG: multimodale Modelle sehen Bilder</text>
+</svg>`;
+  }
+  return "";
+}
 function schaubild(m,e){
   if(m===0) return schaubildMod1(e);
   if(m===1) return schaubildMod2(e);
@@ -1890,6 +1986,7 @@ function schaubild(m,e){
   if(m===4) return schaubildMod5(e);
   if(m===5) return schaubildMod6(e);
   if(m===6) return schaubildMod7(e);
+  if(m===7) return schaubildMod8(e);
   return "";
 }
 
