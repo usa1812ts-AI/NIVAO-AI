@@ -1048,6 +1048,131 @@ const quizMod7 = [
   { etappe:5, f:"'Human-in-the-Loop' bedeutet...", opt:["Vollautomatischer Betrieb","KI überwacht Menschen","Menschen bestätigen kritische Aktionen","Kein KI-Einsatz"], korrekt:2 }
 ];
 
+const etappenMod8 = [
+  {
+    titel:"Wie KI Text liest",
+    kurz:"ASCII, Unicode, Textdateien, CLAUDE.md",
+    kernsatz:"LLMs verarbeiten ausschliesslich Text — alles andere muss vorher konvertiert werden. ASCII ist das Fundament, UTF-8 der heutige Standard, Markdown die Muttersprache von Claude.",
+    punkte:[
+      "ASCII (American Standard Code for Information Interchange): kodiert 128 Zeichen als Zahlen 0-127. Das Zeichen A hat den Wert 65, { den Wert 123. Jeder Buchstabe in Code, JSON oder Shell-Befehlen ist eine ASCII-Zahl.",
+      "Unicode / UTF-8: Erweiterung von ASCII auf alle Sprachen der Welt (ue, e-Akzent, CJK-Zeichen, Emojis). UTF-8 ist der Standard in Editoren, Terminals und KI-Tools. Fehler entstehen, wenn Kodierungen gemischt werden.",
+      ".txt-Datei: Reiner Text ohne Formatierung — fuer LLMs das idealste Format. Claude liest .txt-Dateien direkt, ohne Konvertierungsschritt.",
+      "Markdown / .md: Textdatei mit einfacher Formatierung. # fuer Ueberschriften, **fett**, - fuer Listen. CLAUDE.md ist eine Markdown-Datei.",
+      "CLAUDE.md: Spezielle Markdown-Datei im Projektordner. Wird von Claude Code vor jedem Task automatisch geladen — enthaelt Kontext, Regeln und Praeferenzen fuer das Projekt.",
+      ".csv (Comma-Separated Values): Tabellarische Daten als Textdatei, Spalten durch Komma getrennt. LLMs und Python-Scripts lesen CSV direkt — kein Excel noetig."
+    ],
+    merkbild:"Alles, was Claude denkt, ist Text. Bilder, PDFs, Tabellen — erst wenn sie zu Text werden, kann Claude damit arbeiten.",
+    check:[
+      { ftxt:"Welches Format ist fuer LLMs am direktesten lesbar?",
+        opt:[{t:"PDF",c:false},{t:"DOCX",c:false},{t:".txt (reiner Text)",c:true}],
+        erkl:".txt ist reiner Text ohne Formatierungs-Overhead — LLMs verarbeiten ihn ohne Konvertierung." },
+      { ftxt:"Was ist CLAUDE.md?",
+        opt:[{t:"Eine automatische Backup-Datei",c:false},{t:"Markdown-Datei mit Kontext und Regeln — wird vor jedem Task geladen",c:true},{t:"Eine Binaerdatei",c:false}],
+        erkl:"CLAUDE.md gibt Claude Code die Spielregeln des Projekts — sie wird bei jeder Session automatisch eingelesen." }
+    ]
+  },
+  {
+    titel:"Strukturierte Daten & Kommunikation",
+    kurz:"JSON, YAML, URL, API-Endpunkt",
+    kernsatz:"Claude spricht JSON — bei Tool Use, MCP-Calls und API-Kommunikation ist JSON das universelle Austauschformat zwischen KI und Werkzeugen.",
+    punkte:[
+      "JSON (JavaScript Object Notation): Leichtgewichtiges Textformat fuer strukturierte Daten. Syntax: {\"schluessel\": \"wert\"}, Arrays: [1, 2, 3], Boolean: true/false. Jede Claude-Antwort mit Tool Use kommt als JSON.",
+      "JSON-Struktur: Objekte beginnen mit { und enden mit }. Strings stehen in geraden doppelten Anfuehrungszeichen. Ein fehlendes Komma oder ein falsch kodiertes Zeichen als Delimiter bricht das gesamte JSON.",
+      "YAML (Yet Another Markup Language): Konfigurationssprache mit Einrueckung statt geschweifter Klammern. Wird fuer MCP-Server-Konfigurationen, GitHub Actions und Docker genutzt.",
+      "URL (Uniform Resource Locator): Adresse einer Ressource im Web. Aufbau: https://domain.com/pfad?parameter=wert. Claude kann URLs nur mit Tools oder MCP-Verbindungen aufrufen.",
+      "API-Endpunkt: Spezifische URL, ueber die Programme Daten austauschen. Jeder Claude-Response ist ein API-Call an api.anthropic.com — Claude sendet JSON, empfaengt JSON."
+    ],
+    merkbild:"JSON ist die Sprache, in der KI und Werkzeuge miteinander reden. Wer JSON versteht, versteht wie Claude unter der Haube kommuniziert.",
+    check:[
+      { ftxt:"In welchem Format kommuniziert Claude mit Tools bei Tool Use?",
+        opt:[{t:"XML",c:false},{t:"JSON",c:true},{t:"YAML",c:false}],
+        erkl:"Tool Use, MCP und API-Calls laufen immer ueber JSON — das universelle Maschinen-Austauschformat." },
+      { ftxt:"Was unterscheidet YAML von JSON?",
+        opt:[{t:"YAML ist binaer, JSON ist Text",c:false},{t:"YAML nutzt Einrueckung statt {} und ist fuer Konfiguration gedacht",c:true},{t:"YAML ist schneller",c:false}],
+        erkl:"YAML setzt auf Einrueckung und Lesbarkeit — ideal fuer Konfigurationen wie MCP-Server oder CI/CD-Pipelines." }
+    ]
+  },
+  {
+    titel:"Code-Dateien",
+    kurz:"Python, JavaScript, Shell-Scripts",
+    kernsatz:"Claude liest, schreibt und erklaert Code-Dateien in jeder Sprache — aber jede Sprache hat ihren Einsatzbereich und ihre Ausfuehrungsumgebung.",
+    punkte:[
+      "Python (.py): Die beliebteste Sprache fuer Datenanalyse, Automatisierung und KI-Backends. Wird mit python3 skript.py ausgefuehrt. Claude Code schreibt taeglich Python-Scripts.",
+      "JavaScript (.js / .mjs): Laeuft im Browser (Frontend) oder auf dem Server via Node.js (Backend). node skript.js fuehrt es aus. Diese Lern-App besteht zu einem grossen Teil aus JavaScript.",
+      "Shell-Script (.sh): Enthaelt Bash-Shell-Befehle, die nacheinander ausgefuehrt werden. #!/bin/bash am Anfang markiert die Datei als Shell-Script. Claude Code nutzt Shell-Befehle intensiv.",
+      "Was macht eine Datei zu Code? Syntaxregeln, die eine Laufzeitumgebung interpretiert. Ein Tippfehler (fehlende Klammer) bricht die Ausfuehrung. Textdateien haben keine Laufzeitumgebung — Code hat eine.",
+      "Sicherheits-Check vor der Ausfuehrung: node --check datei.js prueft JS-Syntax ohne Ausfuehrung. python3 -m py_compile datei.py prueft Python-Syntax."
+    ],
+    merkbild:"Python = Daten & Logik. JavaScript = Web & Browser. Shell = Automatisierung & System. Claude beherrscht alle drei.",
+    check:[
+      { ftxt:"Mit welchem Befehl wird ein Python-Script ausgefuehrt?",
+        opt:[{t:"run skript.py",c:false},{t:"python3 skript.py",c:true},{t:"execute skript.py",c:false}],
+        erkl:"python3 skript.py startet den Python-Interpreter und fuehrt die Datei aus." },
+      { ftxt:"Was ist #!/bin/bash am Anfang einer .sh-Datei?",
+        opt:[{t:"Ein Kommentar ohne Bedeutung",c:false},{t:"Shebang: gibt an, welcher Interpreter die Datei ausfuehrt",c:true},{t:"Eine Import-Anweisung",c:false}],
+        erkl:"Der Shebang (#!/...) sagt dem Betriebssystem, welches Programm das Script ausfuehren soll." }
+    ]
+  },
+  {
+    titel:"Web-Formate",
+    kurz:"HTML, CSS, DOM, Mockup",
+    kernsatz:"Jede Webseite besteht aus drei Schichten: HTML gibt Struktur, CSS gibt Aussehen, JavaScript gibt Verhalten. Diese Lern-App selbst ist ein perfektes Beispiel.",
+    punkte:[
+      "HTML (HyperText Markup Language): Beschreibt die Struktur einer Seite mit Tags. h1 fuer Ueberschriften, div fuer Bereiche, button fuer Schaltflaechen. Diese App ist eine einzige .html-Datei.",
+      "CSS (Cascading Style Sheets): Beschreibt das Aussehen — Farben, Schriften, Abstaende, Animationen. In dieser App steht alles CSS im style-Block am Anfang.",
+      "DOM (Document Object Model): Die Baumstruktur des HTML im Browser-Speicher. JavaScript manipuliert den DOM: Elemente hinzufuegen, Text aendern, Klassen setzen.",
+      "JavaScript im Browser: Dieselbe Sprache wie Node.js, aber direkt im Browser ausgefuehrt. Reagiert auf Klicks (onclick), veraendert den DOM, liest localStorage.",
+      "Mockup / Wireframe: Visuelle Skizze einer UI, bevor Code geschrieben wird. Klaert Struktur und Layout ohne Logik. Claude kann Mockups als einfaches HTML/CSS generieren.",
+      "URL im Browser: Jede Seite hat eine URL. Innerhalb einer Single-Page-App (wie dieser) simuliert JavaScript die Navigation."
+    ],
+    merkbild:"HTML = Knochen, CSS = Haut, JavaScript = Muskeln. Zusammen ergeben sie eine lebendige Webseite.",
+    check:[
+      { ftxt:"Was ist der DOM?",
+        opt:[{t:"Eine Datenbankstruktur",c:false},{t:"Die Baumstruktur des HTML im Browser-Speicher",c:true},{t:"Ein CSS-Framework",c:false}],
+        erkl:"Der DOM ist die lebendige Repraesentation des HTML — JavaScript kann ihn lesen und veraendern." },
+      { ftxt:"Was ist ein Mockup?",
+        opt:[{t:"Ein fertiges Produkt",c:false},{t:"Ein JavaScript-Framework",c:false},{t:"Visuelle UI-Skizze vor dem Code — klaert Layout ohne Logik",c:true}],
+        erkl:"Ein Mockup zeigt, wie etwas aussehen soll — bevor eine einzige Zeile Logik-Code existiert." }
+    ]
+  },
+  {
+    titel:"Binaer, Bilder & Grenzen von KI",
+    kurz:"PDF, DOCX, PNG, SVG, .env",
+    kernsatz:"Nicht alles ist fuer LLMs direkt lesbar. Binaerformate brauchen Extraktion, Bilder brauchen multimodale Modelle — und manche Dateien sollten Claude bewusst vorenthalten werden.",
+    punkte:[
+      "Binaerformat: Datei, die keine lesbare Textstruktur hat — stattdessen Rohdaten in Bytes. PDF, DOCX, XLSX, MP3, PNG, JPG sind Binaerformate. Ein Texteditor oeffnet sie als unlesbaren Zeichensalat.",
+      "PDF: Weit verbreitetes Dokumentformat — aber binaer. Claude kann PDFs nicht direkt lesen; ein Tool (z. B. via MCP) muss zuerst den Text extrahieren.",
+      "DOCX / XLSX: Microsoft-Formate fuer Word und Excel — intern ZIP-Archive mit XML. Muessen zu .txt oder .csv konvertiert werden. Der DOCX-Skill erledigt das automatisch.",
+      "PNG / JPG: Bilddateien. Multimodale Modelle (Claude 3 Sonnet, Opus, Haiku und neuere) koennen Bilder direkt sehen — der Screenshot wird als Bild an die API gesendet.",
+      "SVG (Scalable Vector Graphic): Der Sonderfall unter den Bildformaten — SVG ist XML/Text und damit fuer Claude direkt lesbar und schreibbar. Die Schaubilder in dieser App sind SVGs.",
+      ".env-Datei: Textdatei mit Umgebungsvariablen wie API-Keys und Passwoertern. Wird nie in Git committet. Claude Code erkennt .env-Dateien und warnt vor versehentlichem Upload.",
+      "package.json: Konfigurationsdatei fuer Node.js-Projekte im JSON-Format. Listet alle Abhaengigkeiten und Skripte. Claude liest sie, um das Projekt zu verstehen."
+    ],
+    merkbild:"Was Text ist, liest Claude direkt. Was binaer ist, braucht einen Mittler. Was geheim ist, bleibt geheim.",
+    check:[
+      { ftxt:"Warum kann Claude eine PDF-Datei nicht direkt lesen?",
+        opt:[{t:"PDFs sind zu gross",c:false},{t:"PDF ist ein Binaerformat — Text muss erst extrahiert werden",c:true},{t:"Claude kennt PDF nicht",c:false}],
+        erkl:"PDFs sind binaer kodiert. Erst nach Textextraktion durch ein Tool steht der Inhalt fuer Claude zur Verfuegung." },
+      { ftxt:"Was ist besonders an SVG unter den Bildformaten?",
+        opt:[{t:"SVG ist komprimiert",c:false},{t:"SVG ist XML/Text — Claude kann es direkt lesen und schreiben",c:true},{t:"SVG ist ein Microsoft-Format",c:false}],
+        erkl:"SVG beschreibt Grafiken als Text-Markup — Claude kann SVGs generieren, analysieren und veraendern." }
+    ]
+  }
+];
+
+const quizMod8 = [
+  { etappe:0, f:"Was ist ASCII?", opt:["Ein Bildformat","128 Zeichen als Zahlen 0-127 kodiert","Ein Protokoll fuer Netzwerke","Ein Python-Paket"], korrekt:1 },
+  { etappe:0, f:"Welche Datei laedt Claude Code automatisch vor jedem Task?", opt:["package.json",".env","CLAUDE.md","README.md"], korrekt:2 },
+  { etappe:1, f:"In welchem Format kommuniziert Claude mit Tools und APIs?", opt:["XML","CSV","YAML","JSON"], korrekt:3 },
+  { etappe:1, f:"Was unterscheidet YAML von JSON?", opt:["YAML ist binaer","YAML nutzt Einrueckung statt {} und ist fuer Konfiguration gedacht","YAML ist schneller","Kein Unterschied"], korrekt:1 },
+  { etappe:2, f:"Welcher Befehl fuehrt ein Python-Script aus?", opt:["run skript.py","execute skript.py","python3 skript.py","bash skript.py"], korrekt:2 },
+  { etappe:2, f:"Was ist der Shebang (#!/bin/bash) am Anfang einer .sh-Datei?", opt:["Ein Kommentar","Gibt den Interpreter an, der das Script ausfuehrt","Eine Import-Anweisung","Einen Fehler"], korrekt:1 },
+  { etappe:3, f:"Was ist der DOM?", opt:["Eine Datenbank","Ein CSS-Framework","Die Baumstruktur des HTML im Browser-Speicher","Ein Build-Tool"], korrekt:2 },
+  { etappe:3, f:"Was ist ein Mockup?", opt:["Ein fertiges Produkt","Eine Testdatei","Ein JavaScript-Framework","Visuelle UI-Skizze vor dem Code"], korrekt:3 },
+  { etappe:4, f:"Warum kann Claude eine PDF-Datei nicht direkt lesen?", opt:["PDFs sind zu gross","PDF ist ein Binaerformat — Text muss extrahiert werden","Claude kennt PDF nicht","PDFs haben kein UTF-8"], korrekt:1 },
+  { etappe:4, f:"Was ist besonders an SVG?", opt:["Es ist komprimiert","Es ist ein Microsoft-Format","SVG ist XML/Text — direkt lesbar und schreibbar fuer Claude","SVG kann nicht animiert werden"], korrekt:2 }
+];
+
 /* ===================== Modul-Register ===================== */
 const module = [
   { id:0, titel:"Grundlagen", kurz:"KI, Tokens, Embeddings, Attention", etappen:etappen, quiz:quizFragen, synthese:true },
@@ -1056,7 +1181,8 @@ const module = [
   { id:3, titel:"Anbieter & Praxis", kurz:"Anbieter, Modellwahl, Benchmarks, Multimodalität, Sicherheit, Praxis", etappen:etappenMod4, quiz:quizMod4, synthese:false },
   { id:4, titel:"Vertiefung: Mechanik", kurz:"BPE, Query/Key/Value, Backpropagation, LoRA/DPO, Reasoning", etappen:etappenMod5, quiz:quizMod5, synthese:false },
   { id:5, titel:"Vertiefung: Systeme & Praxis", kurz:"RAG-Pipeline, Agenten-Muster, Context Engineering, Inferenz, Evaluation", etappen:etappenMod6, quiz:quizMod6, synthese:false },
-  { id:6, titel:"KI-Tools im Alltag", kurz:"Claude Code, Skills, Hooks, Subagents, MCP, Sicherheit", etappen:etappenMod7, quiz:quizMod7, synthese:false }
+  { id:6, titel:"KI-Tools im Alltag", kurz:"Claude Code, Skills, Hooks, Subagents, MCP, Sicherheit", etappen:etappenMod7, quiz:quizMod7, synthese:false },
+  { id:7, titel:"Dateiformate & KI", kurz:"ASCII, JSON, Python, HTML, PDF, SVG, .env", etappen:etappenMod8, quiz:quizMod8, synthese:false }
 ];
 
 /* ===================== Vertiefung pro Etappe (Baustein A) ===================== */
