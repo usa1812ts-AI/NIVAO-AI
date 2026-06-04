@@ -2595,7 +2595,7 @@ function kDemote(id){ state.karten[id]={b:1,d:state.kRunde+1}; }
 function deckStats(deck){ const ids=cardsForDeck(deck).map(c=>c.id); let gem=0,fae=0; ids.forEach(id=>{ if(kState(id).b>=5)gem++; if(kFaellig(id))fae++; }); return {total:ids.length, gemeistert:gem, faellig:fae}; }
 function shuffleArr(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
 function renderKartenDecks(){
-  const decks=[{k:"alle",t:"Alle Module"},{k:0,t:"Modul 1: Grundlagen"},{k:1,t:"Modul 2: Wie Modelle arbeiten"},{k:2,t:"Modul 3: Mit Modellen arbeiten"},{k:3,t:"Modul 4: Anbieter & Praxis"},{k:4,t:"Modul 5: Vertiefung Mechanik"},{k:5,t:"Modul 6: Vertiefung Systeme & Praxis"},{k:6,t:"Modul 7: KI-Tools im Alltag"}];
+  const decks=[{k:"alle",t:"Alle Module"},{k:0,t:"Modul 1: Grundlagen"},{k:1,t:"Modul 2: Wie Modelle arbeiten"},{k:2,t:"Modul 3: Mit Modellen arbeiten"},{k:3,t:"Modul 4: Anbieter & Praxis"},{k:4,t:"Modul 5: Vertiefung Mechanik"},{k:5,t:"Modul 6: Vertiefung Systeme & Praxis"},{k:6,t:"Modul 7: KI-Tools im Alltag"},{k:7,t:"Modul 8: Dateien, Formate & Werkzeuge"}];
   const karten=decks.map(d=>{
     const s=deckStats(d.k);
     return `<div class="karte ${s.gemeistert===s.total?'erledigt':''}" onclick="startRunde('${d.k}')">
