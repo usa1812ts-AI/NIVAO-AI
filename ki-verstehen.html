@@ -413,7 +413,8 @@ const etappenMod2 = [
       "Weitere Grenzen: Wissensstichtag (kennt nichts nach dem Training), gelegentliche Fehler bei einfacher Logik/Arithmetik.",
       "Die Qualität der Antwort hängt stark von der Qualität der Eingabe ab.",
       "Eingebaute Selbstprüfung: Viele 2025/2026-Modelle mit Extended Thinking hinterfragen eigene Zwischenschritte — das reduziert Halluzinationen, eliminiert sie aber nicht.",
-      "Warnzeichen: Selbstbewusster Ton ist kein Wahrheitsbeweis. Besonders prüfen: sehr spezifische Zahlen, Quellen-Zitate, Datumsangaben — diese immer gegenprüfen."
+      "Warnzeichen: Selbstbewusster Ton ist kein Wahrheitsbeweis. Besonders prüfen: sehr spezifische Zahlen, Quellen-Zitate, Datumsangaben — diese immer gegenprüfen.",
+      "→ Vertiefung Modul 6: Wie man RAG als vollständige Pipeline mit Chunking, Re-Rankern und Evaluation aufbaut — Etappe ‚RAG als Pipeline'."
     ],
     merkbild:"Selbstbewusst vorgetragen heißt nicht wahr — wichtige Fakten gegenprüfen.",
     check:[
@@ -470,7 +471,8 @@ const etappenMod3 = [
       "2026 bieten Anbieter abgestufte Denktiefen an — von niedrig bis sehr hoch.",
       "Achtung: Mehr Denken kostet mehr Tokens, Zeit und Geld. Für Einfaches reicht ein schnelles Standardmodell.",
       "Selbstkorrektur: Das Modell kann in Zwischenschritten auf einen Fehler stoßen und ihn korrigieren — ohne CoT hätte der Fehler die ganze Antwort vergiftet.",
-      "Praktischer Tipp: Bei Aufgaben mit Rechenweg, Logik oder mehreren Bedingungen immer CoT verwenden. Bei einfachen Anfragen (Formulierung, kurze Zusammenfassung) meist nicht nötig."
+      "Praktischer Tipp: Bei Aufgaben mit Rechenweg, Logik oder mehreren Bedingungen immer CoT verwenden. Bei einfachen Anfragen (Formulierung, kurze Zusammenfassung) meist nicht nötig.",
+      "→ Vertiefung Modul 5: Wie Extended Thinking und Test-Time Compute unter der Haube funktionieren — Etappe ‚Reasoning-Mechanik'."
     ],
     merkbild:"Schmierzettel im Kopf — erst rechnen, dann antworten.",
     check:[
@@ -493,7 +495,8 @@ const etappenMod3 = [
       "Vorteil: Neues Wissen = einfach die Datenbank aktualisieren, kein Neutraining. Liefert zudem nachvollziehbare Quellen.",
       "Chunking-Strategie ist entscheidend: zu kleine Stücke verlieren Kontext, zu große verwässern die Relevanz — semantisches Chunking (Sinnabschnitte statt fester Länge) liefert bessere Treffer.",
       "Sicherheit: Vektordatenbanken können ein Angriffsziel sein — aus Embeddings lassen sich teils Rückschlüsse auf Originaldaten ziehen. Zugriff und Verschlüsselung wie bei normalen Datenbanken behandeln.",
-      "Maschinenbau-Anwendung: Ein RAG-System über den Produktkatalog beantwortet Kundenanfragen zu technischen Daten, Alternativen und Verfügbarkeit — ohne manuelle Katalogsuche. Die Datenbank bleibt aktuell, wenn das PDF-Katalog-Update eingespielt wird."
+      "Maschinenbau-Anwendung: Ein RAG-System über den Produktkatalog beantwortet Kundenanfragen zu technischen Daten, Alternativen und Verfügbarkeit — ohne manuelle Katalogsuche. Die Datenbank bleibt aktuell, wenn das PDF-Katalog-Update eingespielt wird.",
+      "→ Vertiefung Modul 6: Chunking-Strategien, Re-Ranker, Graph-RAG und Pipeline-Evaluation — Etappe ‚RAG als Pipeline'."
     ],
     merkbild:"Erst nachschlagen, dann antworten.",
     check:[
@@ -516,7 +519,8 @@ const etappenMod3 = [
       "MCP kennt drei Bausteine: Tools (Funktionen), Resources (Datenquellen), Prompts (Vorlagen). 2026 faktischer Standard.",
       "Ablauf von Tool Use: Das Modell erzeugt einen strukturierten Tool-Call, der Client führt das Tool aus und gibt das Ergebnis zurück — das Modell formuliert dann die Antwort gestützt auf dieses Ergebnis.",
       "MCP-Ökosystem 2026: Tausende Server für Gmail, GitHub, Slack, Datenbanken und mehr. Wer einen Server einmal baut, kann ihn mit allen MCP-fähigen Clients (Claude Code, GPT, etc.) nutzen.",
-      "Vertriebsanwendung: Ein MCP-Server verbindet Claude mit dem CRM (Salesforce/HubSpot). Claude liest Kundenhistorie, schlägt Folgemaßnahmen vor und trägt Gesprächsnotizen ein — direkt aus dem Chat, ohne manuelles Eintragen."
+      "Vertriebsanwendung: Ein MCP-Server verbindet Claude mit dem CRM (Salesforce/HubSpot). Claude liest Kundenhistorie, schlägt Folgemaßnahmen vor und trägt Gesprächsnotizen ein — direkt aus dem Chat, ohne manuelles Eintragen.",
+      "→ Praxis Modul 7: MCP konkret in Claude Code einrichten und eigene Server anbinden — Etappe ‚MCP in der Praxis'."
     ],
     merkbild:"MCP = USB-C für KI-Werkzeuge: einmal bauen, überall nutzen.",
     check:[
@@ -540,7 +544,8 @@ const etappenMod3 = [
       "Strukturiertes Agentic Engineering als Gegenpol: Spezifikation → Tests schreiben → Agent implementiert → Mensch prüft. Der Unterschied: Vibe Coding lässt das Modell steuern, strukturierter Ansatz lässt den Menschen mit Spezifikation und Prüfschleife das Steuer behalten.",
       "Die Rolle des Menschen verschiebt sich: vom Ausführen zum Ziel setzen, Spezifizieren und Prüfen.",
       "HITL (Human-in-the-Loop): Bei realen, irreversiblen Folgen — Dateien löschen, E-Mails senden, Geld überweisen — immer Menschenbestätigung einbauen. Autonomie und Sicherheit in Balance halten.",
-      "Maschinenbau-Anwendung: Ein Agent liest eine Kundenanfrage, sucht passende Produkte in der Datenbank, erstellt einen Angebotsentwurf und legt ihn im CRM an — der Vertriebsingenieur prüft, ergänzt und sendet. KI übernimmt die Routine, der Mensch die finale Entscheidung."
+      "Maschinenbau-Anwendung: Ein Agent liest eine Kundenanfrage, sucht passende Produkte in der Datenbank, erstellt einen Angebotsentwurf und legt ihn im CRM an — der Vertriebsingenieur prüft, ergänzt und sendet. KI übernimmt die Routine, der Mensch die finale Entscheidung.",
+      "→ Vertiefung Modul 6: Produktionstaugliche Architekturmuster für Agenten (ReAct, Reflexion, Multi-Agent) — Etappe ‚Agenten-Architekturmuster'."
     ],
     merkbild:"Vom Ausführen zum Spezifizieren und Prüfen.",
     check:[
@@ -813,7 +818,8 @@ const etappenMod5 = [
       "Direct Preference Optimization (DPO): vereinfachtes Alignment ohne separates Belohnungsmodell — 2026 Praxisstandard (statt klassischem Reinforcement Learning from Human Feedback / Proximal Policy Optimization).",
       "Faustregel: wenige hundert sehr saubere Beispiele schlagen Zehntausende schlampige.",
       "Wann Fine-tuning, wann RAG? Fine-tuning formt Stil, Format und Verhalten — RAG liefert aktuelles Faktenwissen. Meist sinnvoll: zuerst RAG testen, dann Fine-tuning falls nötig.",
-      "LoRA-Adapter sind portabel: Das Ergebnis ist eine kleine Adapter-Datei (oft nur wenige Megabyte), die auf das Basismodell aufgeladen wird — kein neues Vollmodell nötig."
+      "LoRA-Adapter sind portabel: Das Ergebnis ist eine kleine Adapter-Datei (oft nur wenige Megabyte), die auf das Basismodell aufgeladen wird — kein neues Vollmodell nötig.",
+      "→ Grundlagen Modul 3: Wann RAG die bessere Alternative zu Fine-tuning ist — Etappe ‚RAG — Retrieval Augmented Generation'."
     ],
     merkbild:"Stil/Format/Verhalten → Fine-tuning. Neue Fakten → RAG.",
     check:[
