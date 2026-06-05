@@ -536,7 +536,8 @@ const etappenMod3 = [
       "Prompt Engineering = eine einzelne Frage gut formulieren. Ein Agent verfolgt ein Ziel über viele Schritte.",
       "Agenten-Schleife: planen → Werkzeug aufrufen → Ergebnis lesen → korrigieren → weiter, bis das Ziel erreicht ist.",
       "Agentic Coding: Der Agent übernimmt die Schleife aus Code schreiben, ausführen, Fehler lesen, beheben.",
-      "Abgrenzung: \"Vibe Coding\" (frei, riskant) vs. strukturiertes Agentic Engineering (Spezifikation, Tests, Prüfschleifen).",
+      "Vibe Coding: schnelles, prompt-geführtes Entwickeln ohne tiefe Architekturplanung — Ziel ist sichtbarer Fortschritt, nicht zwingend sauberer Code. Gut für Prototypen und Wegwerf-Skripte; riskant bei produktivem Code ohne Tests, weil Fehler sich unsichtbar summieren.",
+      "Strukturiertes Agentic Engineering als Gegenpol: Spezifikation → Tests schreiben → Agent implementiert → Mensch prüft. Der Unterschied: Vibe Coding lässt das Modell steuern, strukturierter Ansatz lässt den Menschen mit Spezifikation und Prüfschleife das Steuer behalten.",
       "Die Rolle des Menschen verschiebt sich: vom Ausführen zum Ziel setzen, Spezifizieren und Prüfen.",
       "HITL (Human-in-the-Loop): Bei realen, irreversiblen Folgen — Dateien löschen, E-Mails senden, Geld überweisen — immer Menschenbestätigung einbauen. Autonomie und Sicherheit in Balance halten.",
       "Maschinenbau-Anwendung: Ein Agent liest eine Kundenanfrage, sucht passende Produkte in der Datenbank, erstellt einen Angebotsentwurf und legt ihn im CRM an — der Vertriebsingenieur prüft, ergänzt und sendet. KI übernimmt die Routine, der Mensch die finale Entscheidung."
@@ -788,6 +789,8 @@ const etappenMod5 = [
       "Gradientenabstieg verschiebt die Parameter ein kleines Stück; die Lernrate ist die Schrittgröße.",
       "Begleiterscheinungen: Overfitting (memorieren statt verallgemeinern), Catastrophic Forgetting, Scaling Laws.",
       "Skalierungsgesetze (Scaling Laws): empirisch beobachtet — mehr Daten, mehr Parameter, mehr Rechenleistung → höhere Qualität nach vorhersagbaren Kurven. Prägte die Strategie \"größer ist besser\" — 2026 durch effiziente Architekturen relativiert.",
+      "Chinchilla-Gesetz (Hoffmann et al. 2022): compute-optimales Training erfordert gleichmäßige Skalierung von Parametern und Daten. GPT-3 hatte zu viele Parameter bei zu wenig Daten. Chinchilla (70 Mrd. Parameter, 1,4 Bio. Tokens) schlug 280-Mrd.-Modelle — Datenmenge ist genauso wichtig wie Modellgröße.",
+      "Emergente Fähigkeiten: Bei bestimmten Skalierungsschwellen tauchen Fähigkeiten scheinbar plötzlich auf — z. B. Few-Shot-Reasoning, Arithmetik, mehrsprachige Übersetzung ohne explizites Training. Debatte: echte Emergenz oder Artefakt der Messmetrik? Praxisrelevanz: neue Modellgenerationen können unerwartet neue Fähigkeiten mitbringen.",
       "Catastrophic Forgetting: Wenn ein Modell auf neuen Daten nachtrainiert wird, kann es älteres Wissen überschreiben — ein zentraler Grund für vorsichtiges, schrittweises Fine-tuning."
     ],
     merkbild:"Das Modell tastet sich in einer Fehlerlandschaft bergab ins Tal.",
@@ -890,7 +893,9 @@ const etappenMod6 = [
       "Plan-and-Execute: erst kompletter Plan, dann Ausführung (braucht Checkpoints). Multi-Agent: ein Orchestrator verteilt an spezialisierte Worker.",
       "Viele Produktionsfehler 2024–2026 waren Architektur-, keine Modellfehler. Human-in-the-Loop bei realen Folgen.",
       "Werkzeugwahl ist Architekturentscheidung: Welche Tools darf der Agent nutzen? Zu viele erhöhen das Risiko falscher Aufrufe; zu wenige beschränken die Leistung — bewusst begrenzen.",
-      "Observability: In Produktion jeden Schritt protokollieren (LLM-Aufruf, Tool-Call, Ergebnis) — ohne Logs ist Fehlerdiagnose in Agenten-Systemen sehr schwer."
+      "Observability: In Produktion jeden Schritt protokollieren (LLM-Aufruf, Tool-Call, Ergebnis) — ohne Logs ist Fehlerdiagnose in Agenten-Systemen sehr schwer.",
+      "Autonome Agenten (Fully Autonomous): laufen ohne menschliche Eingriffe über Stunden — Computer Use, autonomes Coding (z. B. SWE-bench-Szenarien), Web-Research-Pipelines. 2025/2026: zuverlässig bei klar abgegrenzten, gut spezifizierten Aufgaben; fehleranfällig bei Mehrdeutigkeit und unbekannten Ausnahmesituationen.",
+      "Trust Levels: Anthropic unterscheidet Operator (hat das System gebaut und konfiguriert), User (interagiert im Gespräch) und Agent (handelt stellvertretend für den User). Ein autonomer Agent erbt die Vertrauensstufe des Users, nicht des Operators — begrenzt, was er darf, und schützt vor Privilege Escalation."
     ],
     merkbild:"Mit dem Muster beginnen, das den größten Engpass löst — nicht alle auf einmal.",
     check:[
