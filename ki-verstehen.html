@@ -1506,11 +1506,26 @@ const abkGlossar = {
   "TTC":   "Test-Time Compute (Rechenzeit während der Inferenz für mehr Nachdenken)",
   "MMLU":  "Massive Multitask Language Understanding (Wissens-Benchmark, 57 Fachgebiete)",
   "GPU":   "Graphics Processing Unit (massiv-parallele Recheneinheit, Standard für KI-Training)",
-  "SDK":   "Software Development Kit (Werkzeugsammlung für Entwickler)"
+  "SDK":   "Software Development Kit (Werkzeugsammlung für Entwickler)",
+  "AGI":   "Artificial General Intelligence (Allgemeine Künstliche Intelligenz — noch nicht erreicht)",
+  "CSV":   "Comma-Separated Values (tabellarische Textdatei, Spalten durch Komma getrennt)",
+  "PDF":   "Portable Document Format (plattformunabhängiges Dokumentformat, oft binär kodiert)",
+  "PNG":   "Portable Network Graphics (verlustfreies Rasterbild-Format)",
+  "JPG":   "Joint Photographic Experts Group (verlustbehaftetes Rasterbild-Format)",
+  "DOCX":  "Microsoft Word Open XML (Textdokument-Format, intern ZIP+XML)",
+  "XLSX":  "Microsoft Excel Open XML (Tabellenkalkulations-Format, intern ZIP+XML)",
+  "XML":   "Extensible Markup Language (strukturiertes Textformat mit Tags, z. B. für Konfiguration)",
+  "ZIP":   "ZIP (Komprimierungsformat; DOCX und XLSX sind intern ZIP-Archive)",
+  "JS":    "JavaScript (Skriptsprache für Browser und Server, läuft in Node.js)",
+  "UI":    "User Interface (Benutzeroberfläche — der sichtbare, bedienbare Teil einer Software)",
+  "REST":  "Representational State Transfer (Architekturprinzip für Web-APIs; HTTP-Methoden GET/POST/PUT/DELETE)",
+  "SWE":   "SWE-bench (Software Engineering Benchmark — misst, ob Modelle reale GitHub-Issues lösen)",
+  "GPQA":  "Graduate-Level Google-Proof Q&A (Wissenschafts-Benchmark auf Doktoranden-Niveau)",
+  "RWKV":  "Receptance Weighted Key Value (subquadratische Transformer-Alternative)"
 };
 const etappeAbk = {
   /* Modul 1 — Grundlagen */
-  "0-0":  ["ML"],
+  "0-0":  ["ML","AGI"],
   "0-1":  ["BPE","NLP"],
   "0-3":  ["MoE"],
   "0-4":  ["NLP"],
@@ -1525,7 +1540,7 @@ const etappeAbk = {
   "2-4":  ["HITL"],
   /* Modul 4 — Anbieter & Praxis */
   "3-0":  ["CAI","GPT"],
-  "3-2":  ["MMLU"],
+  "3-2":  ["MMLU","SWE","GPQA"],
   "3-5":  ["RAG","CoT"],
   /* Modul 5 — Vertiefung Mechanik */
   "4-0":  ["BPE"],
@@ -1545,9 +1560,11 @@ const etappeAbk = {
   "6-4":  ["MCP","API"],
   "6-5":  ["HITL"],
   /* Modul 8 — Dateien, Formate & Werkzeuge */
-  "7-0":  ["ASCII","UTF"],
-  "7-1":  ["JSON","YAML","URL","API"],
-  "7-3":  ["HTML","CSS","DOM","SVG"]
+  "7-0":  ["ASCII","UTF","CSV"],
+  "7-1":  ["JSON","YAML","URL","API","REST"],
+  "7-2":  ["JS"],
+  "7-3":  ["HTML","CSS","DOM","SVG"],
+  "7-4":  ["PDF","DOCX","PNG","JPG","XML","ZIP","XLSX"]
 };
 function abkHTML(m,i){
   const key = m+"-"+i;
