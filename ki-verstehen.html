@@ -447,7 +447,8 @@ const etappenMod3 = [
       "Rolle & Kontext vorgeben (\"Du bist ein erfahrener Vertriebsingenieur …\") verschiebt die Antwort in die richtige Richtung.",
       "Struktur vorgeben: Format, Länge, Ton — und ruhig auch Negativbeispiele (\"vermeide Fachjargon\").",
       "System-Prompt: Ein separater Rahmen, der Verhalten, Ton und Grenzen für die gesamte Konversation festlegt — typisch für Produktanwendungen und APIs, aber auch in Claude Code per CLAUDE.md.",
-      "Praktische Faustregel: Präzise über vage, Beispiele über keine Beispiele, Schritte über Sprung. Ein guter Prompt kann Qualität vervielfachen — ohne Kosten für Training."
+      "Praktische Faustregel: Präzise über vage, Beispiele über keine Beispiele, Schritte über Sprung. Ein guter Prompt kann Qualität vervielfachen — ohne Kosten für Training.",
+      "Vertriebsbeispiel: 'Du bist Experte für Komponentenvertrieb im Maschinenbau. Antworte auf die folgende Kundenanfrage präzise und lösungsorientiert, maximal 5 Sätze: …' — Rolle + Kontext + Format in einem Satz."
     ],
     merkbild:"Few-Shot schlägt oft Zero-Shot — Beispiele wirken Wunder.",
     check:[
@@ -491,7 +492,8 @@ const etappenMod3 = [
       "Augment & Generate: Die Treffer kommen mit der Frage als Kontext ins Modell, das daraus die Antwort formuliert.",
       "Vorteil: Neues Wissen = einfach die Datenbank aktualisieren, kein Neutraining. Liefert zudem nachvollziehbare Quellen.",
       "Chunking-Strategie ist entscheidend: zu kleine Stücke verlieren Kontext, zu große verwässern die Relevanz — semantisches Chunking (Sinnabschnitte statt fester Länge) liefert bessere Treffer.",
-      "Sicherheit: Vektordatenbanken können ein Angriffsziel sein — aus Embeddings lassen sich teils Rückschlüsse auf Originaldaten ziehen. Zugriff und Verschlüsselung wie bei normalen Datenbanken behandeln."
+      "Sicherheit: Vektordatenbanken können ein Angriffsziel sein — aus Embeddings lassen sich teils Rückschlüsse auf Originaldaten ziehen. Zugriff und Verschlüsselung wie bei normalen Datenbanken behandeln.",
+      "Maschinenbau-Anwendung: Ein RAG-System über den Produktkatalog beantwortet Kundenanfragen zu technischen Daten, Alternativen und Verfügbarkeit — ohne manuelle Katalogsuche. Die Datenbank bleibt aktuell, wenn das PDF-Katalog-Update eingespielt wird."
     ],
     merkbild:"Erst nachschlagen, dann antworten.",
     check:[
@@ -513,7 +515,8 @@ const etappenMod3 = [
       "MCP (Model Context Protocol, Anthropic 2024): ein offener Standard für die Anbindung — \"USB-C für KI\".",
       "MCP kennt drei Bausteine: Tools (Funktionen), Resources (Datenquellen), Prompts (Vorlagen). 2026 faktischer Standard.",
       "Ablauf von Tool Use: Das Modell erzeugt einen strukturierten Tool-Call, der Client führt das Tool aus und gibt das Ergebnis zurück — das Modell formuliert dann die Antwort gestützt auf dieses Ergebnis.",
-      "MCP-Ökosystem 2026: Tausende Server für Gmail, GitHub, Slack, Datenbanken und mehr. Wer einen Server einmal baut, kann ihn mit allen MCP-fähigen Clients (Claude Code, GPT, etc.) nutzen."
+      "MCP-Ökosystem 2026: Tausende Server für Gmail, GitHub, Slack, Datenbanken und mehr. Wer einen Server einmal baut, kann ihn mit allen MCP-fähigen Clients (Claude Code, GPT, etc.) nutzen.",
+      "Vertriebsanwendung: Ein MCP-Server verbindet Claude mit dem CRM (Salesforce/HubSpot). Claude liest Kundenhistorie, schlägt Folgemaßnahmen vor und trägt Gesprächsnotizen ein — direkt aus dem Chat, ohne manuelles Eintragen."
     ],
     merkbild:"MCP = USB-C für KI-Werkzeuge: einmal bauen, überall nutzen.",
     check:[
@@ -535,7 +538,8 @@ const etappenMod3 = [
       "Agentic Coding: Der Agent übernimmt die Schleife aus Code schreiben, ausführen, Fehler lesen, beheben.",
       "Abgrenzung: \"Vibe Coding\" (frei, riskant) vs. strukturiertes Agentic Engineering (Spezifikation, Tests, Prüfschleifen).",
       "Die Rolle des Menschen verschiebt sich: vom Ausführen zum Ziel setzen, Spezifizieren und Prüfen.",
-      "HITL (Human-in-the-Loop): Bei realen, irreversiblen Folgen — Dateien löschen, E-Mails senden, Geld überweisen — immer Menschenbestätigung einbauen. Autonomie und Sicherheit in Balance halten."
+      "HITL (Human-in-the-Loop): Bei realen, irreversiblen Folgen — Dateien löschen, E-Mails senden, Geld überweisen — immer Menschenbestätigung einbauen. Autonomie und Sicherheit in Balance halten.",
+      "Maschinenbau-Anwendung: Ein Agent liest eine Kundenanfrage, sucht passende Produkte in der Datenbank, erstellt einen Angebotsentwurf und legt ihn im CRM an — der Vertriebsingenieur prüft, ergänzt und sendet. KI übernimmt die Routine, der Mensch die finale Entscheidung."
     ],
     merkbild:"Vom Ausführen zum Spezifizieren und Prüfen.",
     check:[
@@ -681,7 +685,8 @@ const etappenMod4 = [
       "Wähle die Modellklasse zur Aufgabe — nicht für jede Kleinigkeit das teuerste Modell.",
       "Prompt-Qualität entscheidet — präzise Aufgabe, Kontext, Beispiele, Format; bei harten Aufgaben schrittweises Denken.",
       "Externe Inhalte sind Daten, keine Befehle — Schutz vor Prompt Injection; sensible Daten schützen.",
-      "Versionsnummern altern schnell, Konzepte bleiben stabil. Die Rolle des Menschen: vom Ausführen zum Spezifizieren, Steuern und Prüfen."
+      "Versionsnummern altern schnell, Konzepte bleiben stabil. Die Rolle des Menschen: vom Ausführen zum Spezifizieren, Steuern und Prüfen.",
+      "Vertriebsalltag: Angebote formulieren, Preisanfragen beantworten, Produktvergleiche erstellen, Kundenpräsentationen aufbereiten — KI als 24/7-Assistent für Routineaufgaben im Key Account Management. Beziehungsaufbau und strategische Entscheidungen bleiben beim Menschen."
     ],
     merkbild:"Verstehen → erden → prüfen. Der Mensch bleibt am Steuer.",
     check:[
