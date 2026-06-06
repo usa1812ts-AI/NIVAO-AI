@@ -38,6 +38,8 @@ a{color:var(--orange)}
 ul.punkte{margin:0 0 16px;padding-left:0;list-style:none}
 ul.punkte li{position:relative;padding:5px 0 5px 22px;margin:0}
 ul.punkte li::before{content:"";position:absolute;left:2px;top:13px;width:8px;height:8px;border-radius:50%;background:var(--orange)}
+ul.punkte li.qv{background:#fff7ed;border-left:3px solid var(--orange);border-radius:0 6px 6px 0;padding:7px 12px 7px 14px;margin:6px 0;color:#92400e;font-style:italic}
+ul.punkte li.qv::before{display:none}
 .merkbild{border-left:4px solid var(--orange);background:#fff7ed;padding:12px 14px;border-radius:0 8px 8px 0;font-style:italic;color:var(--olive);margin:0 0 18px}
 .schaubild{background:var(--light);border-radius:12px;padding:18px 14px;margin:0 0 18px;display:flex;justify-content:center}
 .schaubild svg{max-width:100%;height:auto}
@@ -51,6 +53,8 @@ ul.punkte li::before{content:"";position:absolute;left:2px;top:13px;width:8px;he
 .btn-ghost{background:none;color:var(--graphite);text-decoration:underline;padding:6px 2px;border:none;cursor:pointer;font:inherit}
 .navrow{display:flex;justify-content:space-between;gap:10px;margin-top:26px;flex-wrap:wrap}
 .topnav{margin-bottom:14px}
+.tp-row{display:flex;align-items:center;justify-content:space-between}
+.etappe-nr{font-size:12px;color:var(--gray);font-weight:700;letter-spacing:.03em}
 /* Pfad / Startseite */
 .resume{background:var(--olive);color:#fff;border-radius:10px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
 .resume span{font-weight:700}
@@ -2485,12 +2489,12 @@ function renderEtappe(){
   const checks = e.check.map(checkHTML).join("");
   const istLetzte = i === mod.etappen.length-1;
   document.getElementById("app").innerHTML = `
-    <div class="topnav"><button class="btn-ghost" onclick="navigate('modul',${m})">&#8592; ${mod.titel}</button></div>
+    <div class="topnav tp-row"><button class="btn-ghost" onclick="navigate('modul',${m})">&#8592; ${mod.titel}</button><span class="etappe-nr">${i+1} / ${mod.etappen.length}</span></div>
     <h1>${i+1}. ${e.titel}</h1>
     ${abkHTML(m,i)}
     <div class="schaubild">${schaubild(m,i)}</div>
     <div class="kernsatz">${e.kernsatz}</div>
-    <ul class="punkte">${e.punkte.map(p=>`<li>${p}</li>`).join("")}</ul>
+    <ul class="punkte">${e.punkte.map(p=>p.startsWith("→")?`<li class="qv">${p}</li>`:`<li>${p}</li>`).join("")}</ul>
     <div class="merkbild">&#128161; ${e.merkbild}</div>
     ${vertiefungHTML(m,i)}
     <div class="label">Kurz-Check</div>
