@@ -2994,7 +2994,7 @@ render();
   // Service Worker registrieren (PWA / Offline-Support)
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/NIVAO-AI/sw.js', { scope: '/NIVAO-AI/' })
+      navigator.serviceWorker.register('./sw.js')
         .catch(err => console.log('SW nicht registriert:', err));
     });
   }
