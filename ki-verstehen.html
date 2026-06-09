@@ -183,11 +183,55 @@ footer i{font-style:italic}
 "use strict";
 /* ===================== Zustand / Persistenz ===================== */
 const STORE_KEY = "ki-verstehen-v2";
-function leererState(){ return { view:"start", aktuellesModul:0, aktuelleEtappe:0, erledigt:{}, letzteStelle:null, quizErgebnis:{}, karten:{}, kRunde:0 }; }
+const STATE_VERSION = 2; // Internes Schema-Version — erhöhen bei Breaking-Changes
+
+function leererState(){ return { _v:STATE_VERSION, view:"start", aktuellesModul:0, aktuelleEtappe:0, erledigt:{}, letzteStelle:null, quizErgebnis:{}, karten:{}, kRunde:0 }; }
+
 function loadState(){
-  try{ const s = JSON.parse(localStorage.getItem(STORE_KEY)); return s && typeof s==="object" ? Object.assign(leererState(), s) : leererState(); }
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(!raw) return leererState();
+    const s = JSON.parse(raw);
+    if(!s || typeof s !== 'object' || Array.isArray(s)) return leererState();
+    const merged = Object.assign(leererState(), s);
+
+    // Feldtypen reparieren — lieber Teilfortschritt behalten als alles löschen
+    if(typeof merged.view !== 'string') merged.view = 'start';
+    if(typeof merged.aktuellesModul !== 'number' || !isFinite(merged.aktuellesModul)) merged.aktuellesModul = 0;
+    if(typeof merged.aktuelleEtappe !== 'number' || !isFinite(merged.aktuelleEtappe)) merged.aktuelleEtappe = 0;
+    if(merged.kRunde == null || typeof merged.kRunde !== 'number' || !isFinite(merged.kRunde)) merged.kRunde = 0;
+    if(!merged.erledigt || typeof merged.erledigt !== 'object' || Array.isArray(merged.erledigt)) merged.erledigt = {};
+    else {
+      // Jeder Modul-Eintrag muss ein Objekt sein
+      Object.keys(merged.erledigt).forEach(k => {
+        if(!merged.erledigt[k] || typeof merged.erledigt[k] !== 'object' || Array.isArray(merged.erledigt[k])) delete merged.erledigt[k];
+      });
+    }
+    if(!merged.quizErgebnis || typeof merged.quizErgebnis !== 'object' || Array.isArray(merged.quizErgebnis)) merged.quizErgebnis = {};
+    if(!merged.karten || typeof merged.karten !== 'object' || Array.isArray(merged.karten)) merged.karten = {};
+    if(merged.letzteStelle !== null){
+      if(typeof merged.letzteStelle !== 'object' || Array.isArray(merged.letzteStelle) ||
+         typeof merged.letzteStelle.m !== 'number' || typeof merged.letzteStelle.e !== 'number')
+        merged.letzteStelle = null;
+    }
+    merged._v = STATE_VERSION;
+    return merged;
+  }
   catch(e){ return leererState(); }
 }
+
+// Indizes klemmen — nach Laden der Inhaltsdaten aufrufen
+function clampStateIndices(){
+  const maxM = module.length - 1;
+  if(!isFinite(state.aktuellesModul) || state.aktuellesModul < 0 || state.aktuellesModul > maxM) state.aktuellesModul = 0;
+  const maxE = module[state.aktuellesModul].etappen.length - 1;
+  if(!isFinite(state.aktuelleEtappe) || state.aktuelleEtappe < 0 || state.aktuelleEtappe > maxE) state.aktuelleEtappe = 0;
+  if(state.letzteStelle){
+    const {m:lm, e:le} = state.letzteStelle;
+    if(lm < 0 || lm > maxM || le < 0 || le > module[lm].etappen.length - 1) state.letzteStelle = null;
+  }
+}
+
 function saveState(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
 let state = loadState();
 function istErledigt(m,e){ return !!(state.erledigt[m] && state.erledigt[m][e]); }
@@ -2751,7 +2795,7 @@ const karteikarten = [
   { id:"k69", modul:6, front:"Claude Code", back:"Agentic Coding Tool im Terminal; liest Code, schreibt ihn, führt ihn aus und arbeitet selbstständig in Schleifen bis zum Ziel." },
   { id:"k70", modul:6, front:"Agentic Loop", back:"Selbstständige Schleife: Aufgabe → Lesen → Ausführen → Prüfen → Korrigieren — wiederholt bis das Ziel erreicht ist." },
   { id:"k71", modul:6, front:"Skill (Claude Code)", back:"Markdown-Datei mit wiederverwendbaren Verhaltensanweisungen — per Slash-Befehl (/skill-name) abrufbar." },
-  { id:"k72", modul:6, front:"CLAUDE.md", back:"Projektspezifische Markdown-Anweisungsdatei: erklärt Claude Spielregeln, Konventionen und Grenzen des Projekts. Wird bei jeder Session automatisch gelesen." },
+  { id:"k72", modul:6, front:"CLAUDE.md — Rolle im Projekt", back:"Markdown-Datei im Projektordner: erklärt Claude Code die Spielregeln, Konventionen und den Kontext des Projekts. Wird beim Sitzungsstart in den Kontext geladen — als Hinweise, nicht als erzwungene Konfiguration. Global: ~/.claude/CLAUDE.md." },
   { id:"k73", modul:6, front:"Hook (Claude Code)", back:"Shell-Befehl, der automatisch bei bestimmten Ereignissen ausgeführt wird (z. B. nach jeder Datei-Bearbeitung)." },
   { id:"k74", modul:6, front:"Harness", back:"Das Claude-Code-Framework, das Hooks ausführt; Claude selbst sieht nur das Ergebnis und kann darauf reagieren." },
   { id:"k75", modul:6, front:"Subagent", back:"Separate Claude-Instanz für eine Teilaufgabe — startet kalt ohne Gedächtnis der Hauptkonversation; Prompt muss eigenständig sein." },
@@ -3025,6 +3069,7 @@ function resetFortschritt(){
 }
 
 /* Start: immer auf der Übersicht beginnen (Resume-Button bietet Wiedereinstieg) */
+clampStateIndices(); // Modul-/Etappenindizes nach Laden der Inhaltsdaten klemmen
 state.view = "start";
 render();
 </script>
