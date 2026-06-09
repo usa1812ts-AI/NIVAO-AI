@@ -2889,7 +2889,13 @@ function startRunde(deck){
   if(due.length===0){ due=ids.slice(); frei=true; }
   shuffleArr(due);
   if(due.length>20) due=due.slice(0,20);
-  kRound={ deck:deck, queue:due.slice(), pending:new Set(due), total:due.length, gewusst:0, frei:frei };
+  kRound={
+    deck:deck, queue:due.slice(), pending:new Set(due), total:due.length,
+    erstVersuch:0,        // beim ersten Versuch richtig
+    falsch:0,             // Summe aller falschen Antworten
+    wiederholt:new Set(), // IDs die mind. einmal falsch waren
+    frei:frei
+  };
   state.view="kartenrunde"; saveState();
   renderKartenrunde();
 }
@@ -2929,8 +2935,16 @@ function kkFlip(){
 function kkBewerte(gewusst){
   if(!kRound || kRound.queue.length===0) return;
   const id=kRound.queue.shift();
-  if(gewusst){ kPromote(id); kRound.pending.delete(id); kRound.gewusst++; }
-  else { kDemote(id); kRound.queue.push(id); }
+  if(gewusst){
+    kPromote(id);
+    kRound.pending.delete(id);
+    if(!kRound.wiederholt.has(id)) kRound.erstVersuch++; // nur erster Versuch zaehlt
+  } else {
+    kDemote(id);
+    kRound.queue.push(id);
+    kRound.wiederholt.add(id);
+    kRound.falsch++;
+  }
   saveState();
   if(kRound.pending.size===0) renderKartenErgebnis();
   else renderKartenrunde();
@@ -2938,11 +2952,16 @@ function kkBewerte(gewusst){
 function renderKartenErgebnis(){
   state.kRunde=state.kRunde+1; saveState();
   const s=deckStats(kRound.deck);
+  const sofort=kRound.erstVersuch;
+  const mitWdh=kRound.total-sofort;
+  const falschHinweis=kRound.falsch>0
+    ? `<b>${mitWdh}</b> Karte${mitWdh===1?'':'n'} brauchte${mitWdh===1?'':'n'} Wiederholung (${kRound.falsch} falsche Antwort${kRound.falsch===1?'':'en'} gesamt).`
+    : '<b>Perfekt!</b> Alle sofort gewusst.';
   document.getElementById("app").innerHTML = `
     <div class="topnav"><button class="btn-ghost" onclick="navigate('karten')">&#8592; Stapel</button></div>
     <h1>Runde geschafft</h1>
-    <div class="ergebnis"><div class="score"><b>${kRound.gewusst}</b> / ${kRound.total} gewusst</div></div>
-    <div class="empfehlung"><b>Stapel-Lernstand:</b> ${s.gemeistert}/${s.total} gemeistert.</div>
+    <div class="ergebnis"><div class="score"><b>${sofort}</b> / ${kRound.total} sofort gewusst</div></div>
+    <div class="empfehlung">${falschHinweis}<br>Leitner-Fortschritt: <b>${s.gemeistert}/${s.total}</b> gemeistert.</div>
     <div class="navrow" style="margin-top:0">
       <button class="btn btn-secondary" onclick="navigate('karten')">Zur Stapel-Auswahl</button>
       <button class="btn btn-primary" onclick="startRunde('${kRound.deck}')">Neue Runde</button>
