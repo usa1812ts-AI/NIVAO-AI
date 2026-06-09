@@ -44,6 +44,8 @@ ul.punkte li.qv::before{display:none}
 .schaubild{background:var(--light);border-radius:12px;padding:18px 14px;margin:0 0 18px;display:flex;justify-content:center}
 .schaubild svg{max-width:100%;height:auto}
 .label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);margin:18px 0 6px}
+/* Globaler Fokus-Indikator */
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:4px}
 /* Buttons */
 .btn{display:inline-block;border:none;border-radius:8px;padding:11px 18px;font:inherit;font-weight:700;cursor:pointer;text-align:center}
 .btn-primary{background:var(--orange);color:#fff}
@@ -65,6 +67,7 @@ ul.punkte li.qv::before{display:none}
 .pfad{display:grid;gap:11px;margin-bottom:24px}
 .karte{display:flex;gap:14px;align-items:center;background:var(--light);border-left:4px solid var(--gray);border-radius:10px;padding:14px 16px;cursor:pointer;transition:transform .12s,box-shadow .12s}
 .karte:hover{transform:translateX(2px);box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.karte:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:10px;transform:translateX(2px);box-shadow:0 2px 10px rgba(0,0,0,.07)}
 .karte.erledigt{border-left-color:var(--orange)}
 .karte .nummer{flex:0 0 auto;width:38px;height:38px;border-radius:50%;background:#fff;border:2px solid var(--gray);color:var(--olive);font-weight:700;display:flex;align-items:center;justify-content:center}
 .karte.erledigt .nummer{background:var(--orange);border-color:var(--orange);color:#fff}
@@ -120,11 +123,13 @@ ul.punkte li.qv::before{display:none}
 /* Karteikarten (Baustein B) */
 .kk-card{background:var(--olive);color:#fff;border-radius:14px;padding:34px 24px;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;margin:0 0 16px;user-select:none}
 .kk-card:hover{background:#384237}
+.kk-card:focus-visible{outline:3px solid rgba(255,255,255,.75);outline-offset:3px;border-radius:14px}
 .kk-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin-bottom:10px}
 .kk-front{font-size:22px;font-weight:700;line-height:1.35}
 .kk-back{margin-top:18px;border-top:1px solid var(--graphite);padding-top:16px;font-size:16px;line-height:1.55;color:#f3f4f6}
 .kk-hint{margin-top:16px;font-size:12px;color:var(--gray)}
 footer{max-width:880px;margin:0 auto;padding:18px 20px 40px;color:var(--gray);font-size:12px;border-top:1px solid var(--light)}
+@media(prefers-reduced-motion:reduce){.karte,.fortschritt>i{transition:none}}
 footer i{font-style:italic}
 /* ===== Glossar: Inline-Tooltips ===== */
 .glossar-term{position:relative;border-bottom:2px dotted var(--orange);cursor:pointer;display:inline}
@@ -2418,7 +2423,7 @@ function renderStart(){
   const karten = module.map(mod=>{
     const fp = modulFortschritt(mod.id);
     const fertig = fp.erledigt===fp.gesamt;
-    return `<div class="karte ${fertig?'erledigt':''}" onclick="navigate('modul',${mod.id})">
+    return `<div class="karte ${fertig?'erledigt':''}" role="button" tabindex="0" onclick="navigate('modul',${mod.id})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}">
       <div class="nummer">${fertig?'&#10003;':(mod.id+1)}</div>
       <div class="ktxt"><div class="ktitel">Modul ${mod.id+1}: ${mod.titel}</div><div class="kkern">${mod.kurz}</div></div>
       <div class="status">${fp.erledigt}/${fp.gesamt}</div>
@@ -2445,7 +2450,7 @@ function renderModul(){
   const alleFertig = fp.erledigt===fp.gesamt;
   const karten = mod.etappen.map((e,i)=>{
     const fertig = istErledigt(m,i);
-    return `<div class="karte ${fertig?'erledigt':''}" onclick="navigate('etappe',{m:${m},e:${i}})">
+    return `<div class="karte ${fertig?'erledigt':''}" role="button" tabindex="0" onclick="navigate('etappe',{m:${m},e:${i}})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}">
       <div class="nummer">${fertig?'&#10003;':(i+1)}</div>
       <div class="ktxt"><div class="ktitel">${e.titel}</div><div class="kkern">${e.kurz}</div></div>
       <div class="status">${fertig?'erledigt':'offen'}</div>
@@ -2479,7 +2484,7 @@ function checkHTML(c){
   return `<div class="frage" data-erkl="${c.erkl.replace(/"/g,'&quot;')}">
     <div class="ftxt">${c.ftxt}</div>
     <div class="optionen">${opts}</div>
-    <div class="feedback" style="display:none"></div>
+    <div class="feedback" style="display:none" role="status" aria-live="polite"></div>
   </div>`;
 }
 function renderEtappe(){
@@ -2791,7 +2796,7 @@ function renderKartenDecks(){
   const decks=[{k:"alle",t:"Alle Module"},{k:0,t:"Modul 1: Grundlagen"},{k:1,t:"Modul 2: Wie Modelle arbeiten"},{k:2,t:"Modul 3: Mit Modellen arbeiten"},{k:3,t:"Modul 4: Anbieter & Praxis"},{k:4,t:"Modul 5: Vertiefung Mechanik"},{k:5,t:"Modul 6: Vertiefung Systeme & Praxis"},{k:6,t:"Modul 7: KI-Tools im Alltag"},{k:7,t:"Modul 8: Dateien, Formate & Werkzeuge"}];
   const karten=decks.map(d=>{
     const s=deckStats(d.k);
-    return `<div class="karte ${s.gemeistert===s.total?'erledigt':''}" onclick="startRunde('${d.k}')">
+    return `<div class="karte ${s.gemeistert===s.total?'erledigt':''}" role="button" tabindex="0" onclick="startRunde('${d.k}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}">
       <div class="nummer">🃏</div>
       <div class="ktxt"><div class="ktitel">${d.t}</div><div class="kkern">${s.gemeistert}/${s.total} gemeistert · ${s.faellig} fällig</div></div>
       <div class="status">üben →</div>
@@ -2913,7 +2918,7 @@ function renderKartenrunde(){
       <div class="txt">${done} von ${kRound.total} geschafft</div>
       <div class="fortschritt"><i style="width:${proz}%"></i></div>
     </div>
-    <div class="kk-card" onclick="kkFlip()">
+    <div class="kk-card" role="button" tabindex="0" onclick="kkFlip()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" aria-label="Karteikarte: ${card.front} — tippen zum Umdrehen">
       <div class="kk-label">Begriff</div>
       <div class="kk-front">${card.front}</div>
       <div class="kk-back" id="kkback" hidden><div class="kk-label">Definition</div>${card.back}</div>
@@ -2997,6 +3002,11 @@ function render(){
   else if(v === "glossar") renderGlossar();
   else if(v === "kartenrunde"){ if(kRound) renderKartenrunde(); else renderKartenDecks(); }
   else renderStart();
+  // Fokus nach Seitenwechsel auf Ueberschrift setzen (Barrierefreiheit)
+  requestAnimationFrame(() => {
+    const h1 = document.querySelector('#app h1');
+    if(h1){ h1.tabIndex = -1; h1.focus({ preventScroll: true }); }
+  });
 }
 function resetFortschritt(){
   if(confirm("Wirklich den gesamten Lernfortschritt zurücksetzen?")){
