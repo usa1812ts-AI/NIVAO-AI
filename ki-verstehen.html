@@ -350,7 +350,7 @@ const etappenMod2 = [
       "Fine-tuning: Nachschärfen mit kleineren, gezielten Datensätzen (z. B. Anweisungen folgen, \"Instruction Tuning\").",
       "RLHF: Menschen bewerten Antworten; das Modell lernt, hilfreichere, ehrlichere, harmlosere Antworten zu bevorzugen.",
       "Constitutional AI (Anthropic): Das Modell prüft sich gegen schriftliche Prinzipien (eine \"Verfassung\") statt nur gegen Einzelurteile.",
-      "RLHF-Vereinfachung: Direct Preference Optimization (DPO) macht dasselbe einfacher und stabiler — 2026 Standard statt klassischem RLHF mit separatem Belohnungsmodell.",
+      "Direct Preference Optimization (DPO): alternatives Verfahren zur Praeferenzoptimierung — trainiert direkt auf bevorzugten und abgelehnten Antwortpaaren, ohne separates Belohnungsmodell. Nicht identisch mit RLHF, aber verfolgt aehnliche Ziele einfacher. 2026 Praxisstandard fuer Alignment.",
       "Wissensstichtag: Das Modell kennt nur Informationen aus seinen Trainingsdaten bis zu einem fixen Datum. Für aktuelles Wissen danach braucht es RAG oder neues Fine-tuning."
     ],
     merkbild:"Erst lesen lernen (Pretraining), dann höflich und hilfreich werden (RLHF).",
@@ -412,7 +412,7 @@ const etappenMod2 = [
     kurz:"Plausibel ist nicht wahr",
     kernsatz:"Eine Halluzination ist ein plausibel klingender, aber falscher Output — systembedingt, kein Zufallsfehler.",
     punkte:[
-      "Ursache: Das Modell erzeugt die plausibelste Fortsetzung, nicht die nachweislich wahre (siehe Modul 1).",
+      "Ursachen: plausibelste Fortsetzung statt nachweislich wahrer Inhalt, lueckenhafte Trainingsdaten, fehlende Evidenz fuer seltene Fakten, unklare Prompts — Halluzinationen sind systembedingt und entstehen aus dem Zusammenspiel mehrerer Faktoren, nicht allein aus der Next-Token-Prediction.",
       "Gegenmaßnahmen: mit Quellen erden (RAG), Werkzeuge zum Nachschlagen (Tool Use), niedrige Temperature, schrittweises Denken.",
       "Weitere Grenzen: Wissensstichtag (kennt nichts nach dem Training), gelegentliche Fehler bei einfacher Logik/Arithmetik.",
       "Die Qualität der Antwort hängt stark von der Qualität der Eingabe ab.",
@@ -475,7 +475,7 @@ const etappenMod3 = [
       "2026 bieten Anbieter abgestufte Denktiefen an — von niedrig bis sehr hoch.",
       "Achtung: Mehr Denken kostet mehr Tokens, Zeit und Geld. Für Einfaches reicht ein schnelles Standardmodell.",
       "Selbstkorrektur: Das Modell kann in Zwischenschritten auf einen Fehler stoßen und ihn korrigieren — ohne CoT hätte der Fehler die ganze Antwort vergiftet.",
-      "Praktischer Tipp: Bei Aufgaben mit Rechenweg, Logik oder mehreren Bedingungen immer CoT verwenden. Bei einfachen Anfragen (Formulierung, kurze Zusammenfassung) meist nicht nötig.",
+      "Praktischer Tipp: Bei Aufgaben mit Rechenweg, Logik oder mehreren Bedingungen ist CoT sinnvoll. Nicht pauschal fuer alles — besser die passende Denktiefe waehlen und pruefen, ob Zwischenergebnisse nachvollziehbar sind. Fuer einfache Anfragen reicht ein schnelles Modell ohne CoT.",
       "→ Vertiefung Modul 5: Wie Extended Thinking und Test-Time Compute unter der Haube funktionieren — Etappe ‚Reasoning-Mechanik'."
     ],
     merkbild:"Schmierzettel im Kopf — erst rechnen, dann antworten.",
@@ -522,11 +522,11 @@ const etappenMod3 = [
       "MCP (Model Context Protocol, Anthropic 2024): ein offener Standard für die Anbindung — \"USB-C für KI\".",
       "MCP kennt drei Bausteine: Tools (Funktionen), Resources (Datenquellen), Prompts (Vorlagen). 2026 faktischer Standard.",
       "Ablauf von Tool Use: Das Modell erzeugt einen strukturierten Tool-Call, der Client führt das Tool aus und gibt das Ergebnis zurück — das Modell formuliert dann die Antwort gestützt auf dieses Ergebnis.",
-      "MCP-Ökosystem 2026: Tausende Server für Gmail, GitHub, Slack, Datenbanken und mehr. Wer einen Server einmal baut, kann ihn mit allen MCP-fähigen Clients (Claude Code, GPT, etc.) nutzen.",
+      "MCP-Oekosystem 2026: Tausende Server fuer Gmail, GitHub, Slack, Datenbanken und mehr. MCP-Server sind grundsaetzlich breiter einsetzbar — Clients koennen aber unterschiedliche Features, Transporte und Berechtigungen unterstuetzen. Kompatibilitaet stets anhand der Client-Dokumentation pruefen.",
       "Vertriebsanwendung: Ein MCP-Server verbindet Claude mit dem CRM (Salesforce/HubSpot). Claude liest Kundenhistorie, schlägt Folgemaßnahmen vor und trägt Gesprächsnotizen ein — direkt aus dem Chat, ohne manuelles Eintragen.",
       "→ Praxis Modul 7: MCP konkret in Claude Code einrichten und eigene Server anbinden — Etappe ‚MCP in der Praxis'."
     ],
-    merkbild:"MCP = USB-C für KI-Werkzeuge: einmal bauen, überall nutzen.",
+    merkbild:"MCP = USB-C fuer KI-Werkzeuge: breiter offener Standard, aber Client-Kompatibilitaet immer pruefen.",
     check:[
       { ftxt:"Was ermöglicht Tool Use / Function Calling?",
         opt:[{t:"Das Modell ruft externe Werkzeuge auf (suchen, rechnen, Aktionen)",c:true},{t:"Das Modell trainiert sich selbst",c:false},{t:"Das Modell vergrößert sein Kontextfenster",c:false}],
@@ -754,7 +754,7 @@ const etappenMod5 = [
       "Multi-Head Attention: mehrere parallele „Köpfe“ achten auf verschiedene Beziehungsarten.",
       "Der Aufwand wächst quadratisch mit der Textlänge — der Grund, warum lange Kontexte teuer sind.",
       "Self-Attention vs. Cross-Attention: Bei Self-Attention beziehen sich Tokens auf denselben Text (Normalfall); Cross-Attention verbindet zwei Sequenzen — z. B. Frage auf einen abgerufenen Kontext (RAG).",
-      "Subquadratische Alternativen (Mamba, RWKV, FlashAttention) wollen den Rechenaufwand senken — 2026 noch kein klarer Nachfolger für die dominante Transformer-Attention."
+      "Subquadratische Alternativen (z. B. Mamba, RWKV) wollen den Rechenaufwand grundlegend senken — 2026 noch kein klarer Nachfolger fuer die dominante Transformer-Attention. FlashAttention ist dagegen eine speichereffiziente Implementierung der exakten Attention: kein anderes Rechenverfahren, sondern eine Optimierung mit weniger GPU-Speicherzugriffen."
     ],
     merkbild:"Wie in einer Bibliothek: Anfrage (Query) trifft Schlagwort (Key), du bekommst den Inhalt (Value).",
     check:[
@@ -1145,23 +1145,23 @@ const etappenMod8 = [
   {
     titel:"Wie KI Text liest",
     kurz:"ASCII, Unicode, Textdateien, CLAUDE.md",
-    kernsatz:"LLMs verarbeiten ausschliesslich Text — alles andere muss vorher konvertiert werden. ASCII ist das Fundament, UTF-8 der heutige Standard, Markdown die Muttersprache von Claude.",
+    kernsatz:"Klassische Sprachmodelle verarbeiten ausschliesslich Text. Multimodale Modelle wie aktuelle Claude-Versionen akzeptieren zusaetzlich Bilder, PDFs und weitere Formate — intern werden alle Eingaben in Modell-Repraesentationen umgewandelt. ASCII ist das Fundament, UTF-8 der heutige Standard.",
     punkte:[
       "ASCII (American Standard Code for Information Interchange): kodiert 128 Zeichen als Zahlen 0-127. Das Zeichen A hat den Wert 65, { den Wert 123. Jeder Buchstabe in Code, JSON oder Shell-Befehlen ist eine ASCII-Zahl.",
       "Unicode / UTF-8: Erweiterung von ASCII auf alle Sprachen der Welt (ue, e-Akzent, CJK-Zeichen, Emojis). UTF-8 ist der Standard in Editoren, Terminals und KI-Tools. Fehler entstehen, wenn Kodierungen gemischt werden.",
       ".txt-Datei: Reiner Text ohne Formatierung — fuer LLMs das idealste Format. Claude liest .txt-Dateien direkt, ohne Konvertierungsschritt.",
       "Markdown / .md: Textdatei mit einfacher Formatierung. # fuer Ueberschriften, **fett**, - fuer Listen. CLAUDE.md ist eine Markdown-Datei.",
-      "CLAUDE.md: Spezielle Markdown-Datei im Projektordner. Wird von Claude Code vor jedem Task automatisch geladen — enthaelt Kontext, Regeln und Praeferenzen fuer das Projekt.",
+      "CLAUDE.md: Spezielle Markdown-Datei im Projektordner. Wird beim Start jeder Claude-Code-Sitzung automatisch in den Kontext geladen — als Hinweise, nicht als erzwungene Konfiguration. Fuer strikte Blockaden sind PreToolUse-Hooks der richtige Weg.",
       ".csv (Comma-Separated Values): Tabellarische Daten als Textdatei, Spalten durch Komma getrennt. LLMs und Python-Scripts lesen CSV direkt — kein Excel noetig."
     ],
-    merkbild:"Alles, was Claude denkt, ist Text. Bilder, PDFs, Tabellen — erst wenn sie zu Text werden, kann Claude damit arbeiten.",
+    merkbild:"Text bleibt das einfachste Format. Moderne multimodale Modelle verarbeiten auch Bilder und PDFs direkt — intern wird jede Eingabe in Modell-Repraesentationen umgewandelt.",
     check:[
       { ftxt:"Welches Format ist fuer LLMs am direktesten lesbar?",
         opt:[{t:"PDF",c:false},{t:"DOCX",c:false},{t:".txt (reiner Text)",c:true}],
         erkl:".txt ist reiner Text ohne Formatierungs-Overhead — LLMs verarbeiten ihn ohne Konvertierung." },
       { ftxt:"Was ist CLAUDE.md?",
-        opt:[{t:"Eine automatische Backup-Datei",c:false},{t:"Markdown-Datei mit Kontext und Regeln — wird vor jedem Task geladen",c:true},{t:"Eine Binaerdatei",c:false}],
-        erkl:"CLAUDE.md gibt Claude Code die Spielregeln des Projekts — sie wird bei jeder Session automatisch eingelesen." }
+        opt:[{t:"Eine automatische Backup-Datei",c:false},{t:"Markdown-Datei mit Kontext und Regeln — wird beim Sitzungsstart geladen",c:true},{t:"Eine Binaerdatei",c:false}],
+        erkl:"CLAUDE.md gibt Claude Code die Spielregeln des Projekts — sie wird beim Start jeder Sitzung automatisch in den Kontext eingelesen." }
     ]
   },
   {
@@ -1171,9 +1171,9 @@ const etappenMod8 = [
     punkte:[
       "JSON (JavaScript Object Notation): Leichtgewichtiges Textformat fuer strukturierte Daten. Syntax: {\"schluessel\": \"wert\"}, Arrays: [1, 2, 3], Boolean: true/false. Jede Claude-Antwort mit Tool Use kommt als JSON.",
       "JSON-Struktur: Objekte beginnen mit { und enden mit }. Strings stehen in geraden doppelten Anfuehrungszeichen. Ein fehlendes Komma oder ein falsch kodiertes Zeichen als Delimiter bricht das gesamte JSON.",
-      "YAML (Yet Another Markup Language): Konfigurationssprache mit Einrueckung statt geschweifter Klammern. Wird fuer MCP-Server-Konfigurationen, GitHub Actions und Docker genutzt.",
+      "YAML (YAML Ain't Markup Language): Konfigurationssprache mit Einrueckung statt geschweifter Klammern. Wird fuer MCP-Server-Konfigurationen, GitHub Actions und Docker genutzt.",
       "URL (Uniform Resource Locator): Adresse einer Ressource im Web. Aufbau: https://domain.com/pfad?parameter=wert. Claude kann URLs nur mit Tools oder MCP-Verbindungen aufrufen.",
-      "API-Endpunkt: Spezifische URL, ueber die Programme Daten austauschen. Jeder Claude-Response ist ein API-Call an api.anthropic.com — Claude sendet JSON, empfaengt JSON.",
+      "API-Endpunkt: Spezifische URL, ueber die Programme Daten austauschen. Bei direkter Nutzung der Anthropic-API (z. B. in eigenen Programmen) laeuft jeder Request ueber api.anthropic.com — strukturiertes Format, meist JSON. Im Browser-Chat (Claude.ai) geschieht das serverseitig.",
       "REST-API-Muster: Die meisten modernen Dienste (GitHub, Stripe, Anthropic) bieten eine REST API — standardisierte Endpunkte fuer CRUD-Operationen (Create, Read, Update, Delete). MCP-Server nutzen diese intern."
     ],
     merkbild:"JSON ist die Sprache, in der KI und Werkzeuge miteinander reden. Wer JSON versteht, versteht wie Claude unter der Haube kommuniziert.",
@@ -1236,18 +1236,18 @@ const etappenMod8 = [
     kernsatz:"Nicht alles ist fuer LLMs direkt lesbar. Binaerformate brauchen Extraktion, Bilder brauchen multimodale Modelle — und manche Dateien sollten Claude bewusst vorenthalten werden.",
     punkte:[
       "Binaerformat: Datei, die keine lesbare Textstruktur hat — stattdessen Rohdaten in Bytes. PDF, DOCX, XLSX, MP3, PNG, JPG sind Binaerformate. Ein Texteditor oeffnet sie als unlesbaren Zeichensalat.",
-      "PDF: Weit verbreitetes Dokumentformat — aber binaer. Claude kann PDFs nicht direkt lesen; ein Tool (z. B. via MCP) muss zuerst den Text extrahieren.",
+      "PDF: Weit verbreitetes Dokumentformat. Aktuelle Claude-Modelle koennen PDFs ueber die API direkt verarbeiten — Text, Bilder, Tabellen und Diagramme werden analysiert. Grenzen: max. 32 MB, max. 600 Seiten, keine verschluesselten PDFs. Fuer lokale Dokumente ohne API (z. B. ueber MCP) kann vorherige Textextraktion sinnvoll bleiben.",
       "DOCX / XLSX: Microsoft-Formate fuer Word und Excel — intern ZIP-Archive mit XML. Muessen zu .txt oder .csv konvertiert werden. Der DOCX-Skill erledigt das automatisch.",
-      "PNG / JPG: Bilddateien. Multimodale Modelle (alle aktuellen Claude-, Gemini- und GPT-Modelle) koennen Bilder direkt sehen — der Screenshot wird als Bild an die API gesendet.",
+      "PNG / JPG: Bilddateien. Viele aktuelle Modelle (z. B. Claude Sonnet/Opus, Gemini Pro, GPT-4o) koennen Bilder direkt sehen — die konkrete Modellvariante und API-Dokumentation entscheiden. Nicht jede Bereitstellungsform unterstuetzt alle Modalitaeten.",
       "SVG (Scalable Vector Graphic): Der Sonderfall unter den Bildformaten — SVG ist XML/Text und damit fuer Claude direkt lesbar und schreibbar. Die Schaubilder in dieser App sind SVGs.",
       ".env-Datei: Textdatei mit Umgebungsvariablen wie API-Keys und Passwoertern. Wird nie in Git committet. Claude Code erkennt .env-Dateien und warnt vor versehentlichem Upload.",
       "package.json: Konfigurationsdatei fuer Node.js-Projekte im JSON-Format. Listet alle Abhaengigkeiten und Skripte. Claude liest sie, um das Projekt zu verstehen."
     ],
-    merkbild:"Was Text ist, liest Claude direkt. Was binaer ist, braucht einen Mittler. Was geheim ist, bleibt geheim.",
+    merkbild:"Was Text ist, liest Claude direkt. Was binaer ist, braucht je nach Modell native Unterstuetzung oder Extraktion. Was geheim ist, bleibt geheim.",
     check:[
-      { ftxt:"Warum kann Claude eine PDF-Datei nicht direkt lesen?",
-        opt:[{t:"PDFs sind zu gross",c:false},{t:"PDF ist ein Binaerformat — Text muss erst extrahiert werden",c:true},{t:"Claude kennt PDF nicht",c:false}],
-        erkl:"PDFs sind binaer kodiert. Erst nach Textextraktion durch ein Tool steht der Inhalt fuer Claude zur Verfuegung." },
+      { ftxt:"Wie verarbeitet Claude PDFs ueber die API?",
+        opt:[{t:"PDFs koennen nie direkt gelesen werden",c:false},{t:"Aktuelle Claude-Modelle verarbeiten PDFs direkt: Text, Bilder, Tabellen",c:true},{t:"Nur verschluesselte PDFs",c:false}],
+        erkl:"Alle aktiven Claude-Modelle unterstuetzen PDF-Verarbeitung ueber die API. Grenzen: max. 32 MB, 600 Seiten, keine Verschluesselung." },
       { ftxt:"Was ist besonders an SVG unter den Bildformaten?",
         opt:[{t:"SVG ist komprimiert",c:false},{t:"SVG ist XML/Text — Claude kann es direkt lesen und schreiben",c:true},{t:"SVG ist ein Microsoft-Format",c:false}],
         erkl:"SVG beschreibt Grafiken als Text-Markup — Claude kann SVGs generieren, analysieren und veraendern." }
@@ -1257,14 +1257,14 @@ const etappenMod8 = [
 
 const quizMod8 = [
   { etappe:0, f:"Was ist ASCII?", opt:["Ein Bildformat","128 Zeichen als Zahlen 0-127 kodiert","Ein Protokoll fuer Netzwerke","Ein Python-Paket"], korrekt:1 },
-  { etappe:0, f:"Welche Datei laedt Claude Code automatisch vor jedem Task?", opt:["package.json",".env","CLAUDE.md","README.md"], korrekt:2 },
+  { etappe:0, f:"Welche Datei laedt Claude Code beim Sitzungsstart automatisch in den Kontext?", opt:["package.json",".env","CLAUDE.md","README.md"], korrekt:2 },
   { etappe:1, f:"In welchem Format kommuniziert Claude mit Tools und APIs?", opt:["XML","CSV","YAML","JSON"], korrekt:3 },
   { etappe:1, f:"Was unterscheidet YAML von JSON?", opt:["YAML ist binaer","YAML nutzt Einrueckung statt {} und ist fuer Konfiguration gedacht","YAML ist schneller","Kein Unterschied"], korrekt:1 },
   { etappe:2, f:"Welcher Befehl fuehrt ein Python-Script aus?", opt:["run skript.py","execute skript.py","python3 skript.py","bash skript.py"], korrekt:2 },
   { etappe:2, f:"Was ist der Shebang (#!/bin/bash) am Anfang einer .sh-Datei?", opt:["Ein Kommentar","Gibt den Interpreter an, der das Script ausfuehrt","Eine Import-Anweisung","Einen Fehler"], korrekt:1 },
   { etappe:3, f:"Was ist der DOM?", opt:["Eine Datenbank","Ein CSS-Framework","Die Baumstruktur des HTML im Browser-Speicher","Ein Build-Tool"], korrekt:2 },
   { etappe:3, f:"Was ist ein Mockup?", opt:["Ein fertiges Produkt","Eine Testdatei","Ein JavaScript-Framework","Visuelle UI-Skizze vor dem Code"], korrekt:3 },
-  { etappe:4, f:"Warum kann Claude eine PDF-Datei nicht direkt lesen?", opt:["PDFs sind zu gross","PDF ist ein Binaerformat — Text muss extrahiert werden","Claude kennt PDF nicht","PDFs haben kein UTF-8"], korrekt:1 },
+  { etappe:4, f:"Was gilt fuer PDF-Verarbeitung in aktuellen Claude-Modellen?", opt:["PDFs koennen nie direkt gelesen werden","Nur verschluesselte PDFs werden unterstuetzt","Aktuelle Claude-Modelle verarbeiten PDFs direkt ueber die API","PDFs haben kein UTF-8"], korrekt:2 },
   { etappe:4, f:"Was ist besonders an SVG?", opt:["Es ist komprimiert","Es ist ein Microsoft-Format","SVG ist XML/Text — direkt lesbar und schreibbar fuer Claude","SVG kann nicht animiert werden"], korrekt:2 }
 ];
 
@@ -2740,7 +2740,7 @@ const karteikarten = [
   { id:"k73", modul:6, front:"Hook (Claude Code)", back:"Shell-Befehl, der automatisch bei bestimmten Ereignissen ausgeführt wird (z. B. nach jeder Datei-Bearbeitung)." },
   { id:"k74", modul:6, front:"Harness", back:"Das Claude-Code-Framework, das Hooks ausführt; Claude selbst sieht nur das Ergebnis und kann darauf reagieren." },
   { id:"k75", modul:6, front:"Subagent", back:"Separate Claude-Instanz für eine Teilaufgabe — startet kalt ohne Gedächtnis der Hauptkonversation; Prompt muss eigenständig sein." },
-  { id:"k76", modul:6, front:"Reversible vs. irreversible Aktion", back:"Reversibel = rückgängig machbar (Datei editieren, git revert). Irreversibel = nicht rückgängig (E-Mail senden, Datei löschen)." },
+  { id:"k76", modul:6, front:"Reversible vs. irreversible Aktion", back:"Reversibel = leicht rueckgaengig machbar (Datei editieren, git revert, Papierkorb). Schwer reversibel oder irreversibel = E-Mail senden, Zahlung ausloesen. Kontext entscheidet: Git und Backups machen vieles wiederherstellbar — externe Aktionen (Versand, Zahlungen) oft nicht." },
   { id:"k77", modul:6, front:"Human-in-the-Loop (HITL)", back:"Menschen bestätigen kritische oder irreversible Aktionen vor der Ausführung — Sicherheitsnetz bei agentic KI." },
   { id:"k78", modul:6, front:"Shell", back:"Befehlszeilen-Umgebung des Betriebssystems — das Programm, das CLI-Befehle entgegennimmt und ausführt (z.B. bash, zsh). Unterschied zum Terminal: die Shell ist das Programm, das Terminal ist das Fenster darum." },
   { id:"k79", modul:6, front:"Terminal", back:"Programm/Fenster, über das man mit der Shell interagiert (z.B. iTerm2, macOS Terminal, Windows Terminal). Terminal ≠ Shell: das Terminal startet die Shell und zeigt deren Ausgabe." },
@@ -2754,13 +2754,13 @@ const karteikarten = [
   { id:"k87", modul:7, front:"Unicode / UTF-8", back:"Erweiterung von ASCII auf alle Sprachen und Symbole (ue, Emojis, CJK-Zeichen). UTF-8 ist der Standard in KI-Tools und Editoren. Fehler entstehen wenn Kodierungen gemischt werden -- z. B. zerstoert U+201D als JS-Delimiter die Syntax." },
   { id:"k88", modul:7, front:".txt-Datei", back:"Reiner Text ohne Formatierung -- fuer LLMs das idealste Format. Claude liest .txt direkt ohne Konvertierungsschritt. Grosse Textmengen fuer KI-Analysen immer als .txt uebergeben." },
   { id:"k89", modul:7, front:"Markdown / .md", back:"Textdatei mit einfacher Formatierung: # Ueberschrift, **fett**, - Liste. Als Plaintext lesbar und als formatierter Text darstellbar. CLAUDE.md ist eine Markdown-Datei -- Claudes wichtigste Konfigurationsdatei." },
-  { id:"k90", modul:7, front:"CLAUDE.md", back:"Markdown-Datei im Projektordner. Wird von Claude Code vor jedem Task automatisch geladen -- enthaelt Kontext, Regeln und Praeferenzen fuer das Projekt. Die wichtigste Steuerdatei in Claude Code." },
+  { id:"k90", modul:7, front:"CLAUDE.md", back:"Markdown-Datei im Projektordner (oder ~/.claude/CLAUDE.md global). Wird beim Start jeder Sitzung in den Kontext geladen -- als Hinweise, nicht erzwungene Konfiguration. Fuer strikte Aktions-Blockaden sind PreToolUse-Hooks der richtige Weg." },
   { id:"k91", modul:7, front:".csv-Datei", back:"Comma-Separated Values: tabellarische Daten als Text, Spalten durch Komma getrennt. LLMs und Python-Scripts lesen CSV direkt -- kein Excel noetig. Tabellen immer als CSV exportieren fuer KI-Verarbeitung." },
   { id:"k92", modul:7, front:"JSON", back:"JavaScript Object Notation: Textformat fuer strukturierte Daten. {\"key\": \"value\"}, Arrays [...], Boolean true/false. Bei Tool Use, MCP und API-Calls kommuniziert Claude immer in JSON." },
   { id:"k93", modul:7, front:"JSON-Struktur", back:"Objekte: {\"key\": \"value\"} -- Strings in geraden Anfuehrungszeichen (U+0022). Arrays: [1, 2, 3]. Ein fehlendes Komma oder falsches Anfuehrungszeichen bricht das gesamte JSON -- Syntax ist absolut strikt." },
-  { id:"k94", modul:7, front:"YAML", back:"Yet Another Markup Language: Konfigurationssprache mit Einrueckung statt {}. Wird fuer MCP-Server-Konfigurationen, GitHub Actions und Docker genutzt. Lesbarer als JSON, aber strikte Einrueckungs-Regeln." },
+  { id:"k94", modul:7, front:"YAML", back:"YAML Ain't Markup Language: Konfigurationssprache mit Einrueckung statt {}. Wird fuer MCP-Server-Konfigurationen, GitHub Actions und Docker genutzt. Lesbarer als JSON, aber strikte Einrueckungs-Regeln." },
   { id:"k95", modul:7, front:"URL", back:"Uniform Resource Locator: Adresse einer Ressource im Web. Aufbau: https://domain.com/pfad?parameter=wert. Claude kann URLs nur mit Tools oder MCP-Verbindungen aufrufen -- nicht direkt ohne Werkzeug." },
-  { id:"k96", modul:7, front:"API-Endpunkt", back:"Spezifische URL fuer Datenaustausch zwischen Programmen. Jeder Claude-Response ist ein API-Call an api.anthropic.com -- Claude sendet JSON, empfaengt JSON. MCP-Server sind selbst API-Endpunkte." },
+  { id:"k96", modul:7, front:"API-Endpunkt", back:"Spezifische URL fuer Datenaustausch zwischen Programmen. Bei direkter API-Nutzung laeuft jeder Request ueber api.anthropic.com -- strukturiertes Format, meist JSON. Im Browser-Chat geschieht das serverseitig. MCP-Server sind selbst API-Endpunkte." },
   { id:"k97", modul:7, front:"Python-Script (.py)", back:"Codedatei in Python. Ausfuehren: python3 skript.py. Claude schreibt, liest und erklaert .py-Dateien -- haeufig fuer Datenanalyse, Automatisierung und KI-Backend. Syntax-Check: python3 -m py_compile skript.py." },
   { id:"k98", modul:7, front:"JavaScript-Datei (.js)", back:"Laeuft im Browser (Frontend) oder in Node.js (Backend). Ausfuehren: node skript.js. Diese Lern-App enthaelt das gesamte JS fuer Logik, Navigation und Karteikarten-System. Syntax-Check: node --check datei.js." },
   { id:"k99", modul:7, front:"Shell-Script (.sh)", back:"Enthaelt Bash-Shell-Befehle. #!/bin/bash (Shebang) am Anfang gibt den Interpreter an. Ausfuehren: bash skript.sh. Claude Code nutzt Shell-Befehle intensiv: git, node, python3, grep, find." },
@@ -2768,9 +2768,9 @@ const karteikarten = [
   { id:"k101", modul:7, front:"CSS", back:"Cascading Style Sheets: beschreibt Aussehen (Farben, Abstaende, Schriften, Animationen). In dieser App im style-Block. Claude generiert CSS fuer Web-UIs -- z. B. beim Frontend-Design." },
   { id:"k102", modul:7, front:"DOM", back:"Document Object Model: Baumstruktur des HTML im Browser-Speicher. JavaScript manipuliert den DOM -- Elemente hinzufuegen, Text aendern, Klassen setzen. document.getElementById() ist ein typischer DOM-Zugriff." },
   { id:"k103", modul:7, front:"Mockup / Wireframe", back:"Visuelle UI-Skizze vor dem Code -- zeigt Layout und Struktur, nicht Logik. Claude generiert Mockups als HTML/CSS in Minuten. Der schnellste Weg, eine UI-Idee sichtbar und diskutierbar zu machen." },
-  { id:"k104", modul:7, front:"PDF", back:"Binaerformat fuer Dokumente -- LLMs koennen PDFs nicht direkt lesen. Text muss erst extrahiert werden (via MCP-Tool oder Konverter). Danach steht der Inhalt normal fuer Claude zur Verfuegung." },
+  { id:"k104", modul:7, front:"PDF", back:"Dokumentformat. Aktuelle Claude-Modelle verarbeiten PDFs direkt ueber die API: Text, Bilder, Tabellen und Diagramme. Grenzen: max. 32 MB, max. 600 Seiten, keine Verschluesselung. Lokal via Claude.ai ueber Datei-Upload. MCP-Tools zur Extraktion bleiben sinnvoll wo keine direkte API-Einbindung besteht." },
   { id:"k105", modul:7, front:"DOCX / XLSX", back:"Microsoft-Formate fuer Word/Excel -- intern ZIP-Archive mit XML. Muss zu .txt bzw. .csv konvertiert werden, bevor Claude verarbeitet. Anthropic-Skills (DOCX-Skill, XLSX-Skill) erledigen das automatisch." },
-  { id:"k106", modul:7, front:"PNG / JPG", back:"Bilddateien. Alle aktuellen Claude-, Gemini- und GPT-Modelle koennen Bilder direkt sehen -- Screenshots werden als Bild an die API gesendet. Reine Text-Modelle (z. B. kleine Open-Source-Modelle) koennen das noch nicht." },
+  { id:"k106", modul:7, front:"PNG / JPG", back:"Bilddateien. Viele aktuelle Modelle (z. B. Claude Sonnet/Opus, Gemini Pro, GPT-4o) sind multimodal und koennen Bilder direkt sehen. Die konkrete Modellvariante und API-Dokumentation entscheiden -- nicht jede Variante unterstuetzt alle Modalitaeten." },
   { id:"k107", modul:7, front:"SVG", back:"Scalable Vector Graphic: Vektorgrafik als XML/Text. Claude kann SVG direkt lesen, schreiben und generieren -- die Schaubilder in dieser App sind von Claude generierte SVGs. Der Sonderfall unter den Bildformaten." },
   { id:"k108", modul:7, front:"Binaerformat", back:"Datei ohne lesbare Textstruktur -- stattdessen Rohdaten in Bytes. PDF, DOCX, XLSX, MP3, PNG, JPG sind Binaerformate. LLMs brauchen Extraktion oder multimodale Faehigkeiten -- ein Texteditor zeigt nur Zeichensalat." },
   { id:"k109", modul:7, front:".env-Datei", back:"Textdatei mit Umgebungsvariablen: API-Keys, Passwoerter, Zugangsdaten. Wird nie in Git committet (.gitignore schuetzt davor). Claude Code erkennt .env-Dateien und warnt vor versehentlichem Upload sensibler Daten." },
